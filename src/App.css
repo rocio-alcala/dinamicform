@@ -1,0 +1,31 @@
+.formcontainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.step { display: flex;
+  flex-direction: column;
+padding: 10px;
+margin: 20px}
+
+.steplabel { font-weight: bolder;
+font-size: 22px;}
+
+.criterias {
+  display: flex;
+}
+
+.buttons {
+  border-width: 1px;
+  border-color: black;
+  border-style: solid;
+  padding: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.buttons:hover {
+  border-color: rgb(27, 27, 48);
+  border-width: 3px;
+}

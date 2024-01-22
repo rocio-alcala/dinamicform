@@ -1,0 +1,111 @@
+{
+  "version": 2,
+  "label": "travelers.adult.title",
+  "summaryLabel": "travelers.adult.summaryLabel",
+  "isTitle": true,
+  "rows": [
+    {
+      "fields": [
+        {
+          "type": "checkboxAsRadio",
+          "columns": 3,
+          "values": [
+            {
+              "type": "checkbox",
+              "label": "travelers.fields.isPolicyHolder.label",
+              "name": "isPolicyHolder",
+              "value": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "type": "list",
+          "label": "travelers.fields.title.label",
+          "summaryLabel": "travelers.fields.title.summaryLabel",
+          "name": "title",
+          "isRequired": true,
+          "isInline": true,
+          "columns": 3,
+          "values": [
+            {
+              "label": "travelers.fields.title.mrs.label",
+              "value": "MRS",
+              "summaryLabel": "travelers.fields.title.mrs.label"
+            },
+            {
+              "label": "travelers.fields.title.mr.label",
+              "value": "MR",
+              "summaryLabel": "travelers.fields.title.mr.label"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "type": "address",
+          "label": "travelers.fields.firstName.label",
+          "summaryLabel": "travelers.fields.firstName.summaryLabel",
+          "name": "first_name",
+          "isRequired": true,
+          "values": [
+            {
+              "name": "first_name"
+            }
+          ]
+        },
+        {
+          "type": "address",
+          "label": "travelers.fields.lastName.label",
+          "summaryLabel": "travelers.fields.lastName.summaryLabel",
+          "maxLength": 50,
+          "isRequired": true,
+          "concatWith": "second_surname",
+          "name": "last_name",
+          "values": [
+            {
+              "name": "last_name"
+            }
+          ]
+        },
+        {
+          "type": "address",
+          "label": "travelers.fields.secondsurname.label",
+          "summaryLabel": "travelers.fields.secondsurname.label",
+          "isRequired": false,
+          "name": "second_surname",
+          "maxLength": 50,
+          "values": [
+            {
+              "name": "second_surname"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "type": "freeFieldDate",
+          "label": "travelers.fields.dateOfBirth.label",
+          "summaryLabel": "travelers.fields.dateOfBirth.summaryLabel",
+          "name": "birth_date",
+          "isRequired": true,
+          "isDateOfBirth": true,
+          "isAdult": true,
+          "values": [
+            {
+              "name": "birth_date",
+              "type": "date"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
