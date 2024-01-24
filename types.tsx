@@ -3,6 +3,7 @@ export interface Criteria {
   isRequired: boolean;
   label: string;
   summaryLabel: string;
+  name: string;
   value: string;
   valueSummaryLabel: string;
   subProductGroups: SubProductGroup[];

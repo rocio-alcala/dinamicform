@@ -1,53 +1,84 @@
 import "./App.css";
-import appcriteria from "../app-criteria.json";
-import { useState } from "react";
-import SubProducts from "./SubProducts";
-import Steps from "./Steps";
+import appCriteria from "../app-criteria.json";
 import { useForm } from "react-hook-form";
+import Input from "./Input";
 
-function getPreselectedCriteria(criterias) {
-  return criterias.find((criteria) => criteria.isPreselected === true);
+function getPreselectedProduct(products) {
+  return products.find((product) => product.isPreselected === true);
+}
+
+function getSelectedProduct(products, selectedProductValue) {
+  return products.find((product) => product.value === selectedProductValue);
 }
 
 function App() {
-  const criterias = appcriteria.criterias;
-  const [selectedCriteria, setSelectedCriteria] = useState(
-    getPreselectedCriteria(criterias)
+  const products = appCriteria.criterias;
+  const preSelectedProduct = getPreselectedProduct(products);
+  const preSelectedSubProduct = getPreselectedProduct(
+    preSelectedProduct.subProductGroups
   );
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, touchedFields },
-    getValues,
-    reset
-  } = useForm();
+
+  const { register, handleSubmit, control, watch } = useForm({
+    defaultValues: {
+      [preSelectedProduct.name]: preSelectedProduct.value,
+      [preSelectedSubProduct.name]: preSelectedSubProduct.value
+    }
+  });
+
+  const selectedProductValue = watch(preSelectedProduct.name);
+  const selectedProduct = getSelectedProduct(products, selectedProductValue);
+  const selectedSubProductValue = watch(preSelectedSubProduct.name);
+  const selectedSubProduct = getSelectedProduct(
+    selectedProduct.subProductGroups,
+    selectedSubProductValue
+  );
 
   function onSubmit(dataForm) {
-    console.log("submited");
     console.log(dataForm);
   }
 
   return (
     <>
       <form className="formcontainer" onSubmit={handleSubmit(onSubmit)}>
+        <label className="steplabel">travel.insurance.product.label</label>
         <div className="criterias">
-          {criterias.map((criteria) => (
-            <div
-              className="buttons"
-              onClick={() => setSelectedCriteria(criteria)}
-            >
-              {criteria.label}
+          {products.map((product, index) => (
+            <div key={index}>
+              <label htmlFor={product.label}>{product.label}</label>
+              <input
+                id={product.label}
+                type="radio"
+                className="buttons"
+                value={product.value}
+                {...register(product.name)}
+              ></input>
             </div>
           ))}
         </div>
-        {selectedCriteria.subProductGroups ? (
-          <SubProducts
-          register={register}
-            subProducts={selectedCriteria.subProductGroups}
-          ></SubProducts>
-        ) : (
-          <Steps register={register} steps={}></Steps>
-        )}
+        <label className="steplabel">travel.insurance.subproduct.label</label>
+        <div className="criterias">
+          {selectedProduct.subProductGroups.map((subProduct, index) => (
+            <div key={index}>
+              <label htmlFor={subProduct.label}>{subProduct.label}</label>
+              <input
+                id={subProduct.label}
+                className="buttons"
+                type="radio"
+                {...register(subProduct.name)}
+                value={subProduct.value}
+              />
+            </div>
+          ))}
+        </div>
+        <label className="steplabel">travel.insurance.steps.label</label>
+        <div className="criterias">
+          {selectedSubProduct.steps.map((step, index) => (
+            <div key={index} className="step">
+              <label className="steplabel">{step.name}</label>
+              <Input step={step} register={register} control={control}></Input>
+            </div>
+          ))}
+        </div>
         <button className="buttons" type="submit">
           Submit
         </button>
