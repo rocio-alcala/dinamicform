@@ -3,7 +3,7 @@
   "additional_questions": [],
   "criterias": [
     {
-      "isPreselected": true,
+      "isPreselected": false,
       "isRequired": true,
       "label": "travel.insurance.product1.label",
       "name": "product",

@@ -6,7 +6,7 @@
 .step { display: flex;
   flex-direction: column;
 padding: 10px;
-margin: 20px}
+margin: 10px}
 
 .steplabel { font-weight: bolder;
 font-size: 22px;}
