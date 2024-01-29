@@ -130,6 +130,7 @@
               "name": "cost_travel",
               "quickLabel": "travel.product1.travel1.step6.quickLabel",
               "summaryLabel": "travel.product1.travel1.step6.summaryLabel",
+              "type": "currency",
               "values": [
                 {
                   "currency": "euro",
@@ -266,6 +267,7 @@
               "name": "cost_travel",
               "quickLabel": "travel.product1.travel1.step6.quickLabel",
               "summaryLabel": "travel.product1.travel1.step6.summaryLabel",
+              "type": "currency",
               "values": [
                 {
                   "currency": "euro",

@@ -66,3 +66,12 @@ export interface DateRangeValue {
   nameEnd: string;
   nameStart: string;
 }
+
+export interface CurrencyValue {
+  currency: string;
+  desc: string;
+  max: number;
+  min: number;
+  name: string;
+  type: string;
+}

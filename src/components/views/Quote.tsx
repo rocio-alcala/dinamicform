@@ -1,7 +1,7 @@
-import QuoteForm from "../../QuoteForm";
+import QuoteForm from "../organisms/QuoteForm";
 
 function Quote() {
-  return <QuoteForm/>;
+  return <QuoteForm />;
 }
 
-export default Quote
+export default Quote;

@@ -1,10 +1,15 @@
-import "./App.css";
-import appCriteria from "../app-criteria.json";
+import "../../App.css";
+import appCriteria from "../../../app-criteria.json";
 import { useForm } from "react-hook-form";
-import InputSwitcher from "./InputSwitcher";
-import { Product, SubProduct } from "../types";
+import { Product, SubProduct } from "../../../types";
+import StepSwitcher from "./StepSwitcher";
+import * as yup from "yup";
 
-export type InputForm = Record<string, string | Date | undefined>;
+type InputFormValue = string | number | undefined | Date;
+export type InputForm = Record<
+  string,
+  InputFormValue | Record<string, InputFormValue>
+>;
 
 function getPreselectedProduct(products: Product[]) {
   return products.find((product) => product.isPreselected === true);
@@ -19,9 +24,9 @@ function getSelectedProduct(products: Product[], selectedProductValue: string) {
 }
 function getSelectedSubProduct(
   products: SubProduct[],
-  selectedProductValue: string
+  selectedSubProductValue: string
 ) {
-  return products.find((product) => product.value === selectedProductValue);
+  return products.find((product) => product.value === selectedSubProductValue);
 }
 
 function getDefaultValues(products: Product[]) {
@@ -111,11 +116,11 @@ function QuoteForm() {
             ? selectedSubProduct.steps.map((step, index) => (
                 <div key={index} className="step">
                   <label className="steplabel">{step.name}</label>
-                  <InputSwitcher
+                  <StepSwitcher
                     step={step}
                     register={register}
                     control={control}
-                  ></InputSwitcher>
+                  />
                 </div>
               ))
             : null}
