@@ -1,14 +1,20 @@
-import { UseFormRegister } from "react-hook-form";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { ListValue, Step } from "../../../types";
 import { InputForm } from "./QuoteForm";
 import InputList from "../bits/InputList";
+import Errors from "../bits/Errors";
 
 interface StepListPropsType {
   step: Step;
   register: UseFormRegister<InputForm>;
+  errors: FieldErrors<InputForm>
 }
 
-export function StepList({ step, register }: StepListPropsType) {
+
+
+export function StepList({ step, register, errors }: StepListPropsType) {
+
+
   return (
     <div className="criteria">
       {step.values.map((value: ListValue) => {
@@ -21,9 +27,11 @@ export function StepList({ step, register }: StepListPropsType) {
             id={value.label}
             label={value.label}
             {...rest}
+            value={value.value}
           ></InputList>
         );
       })}
+      <Errors errorMessage={errors[step.name]?.message}/>
     </div>
   );
 }

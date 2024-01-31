@@ -1,16 +1,19 @@
-import { Control, Controller } from "react-hook-form";
+import { Control, Controller, FieldErrors } from "react-hook-form";
 import { DateRangeValue, Step } from "../../../types";
 import { InputForm } from "./QuoteForm";
 import InputDate from "../bits/InputDate";
+import Errors from "../bits/Errors";
 
 interface StepDateRangePropsType {
   step: Step;
   control: Control<InputForm>;
+  errors: FieldErrors<InputForm>;
 }
 
 export default function StepDateRange({
   step,
-  control
+  control,
+  errors
 }: StepDateRangePropsType) {
   return (
     <div className="criteria">
@@ -24,7 +27,11 @@ export default function StepDateRange({
               const { ref, value, ...rest } = field;
 
               // check value
-              if (typeof value !== "undefined" && typeof value !== "string") {
+              if (
+                typeof value !== "undefined" &&
+                typeof value !== "string" &&
+                !(value instanceof Date)
+              ) {
                 throw new Error(
                   `Value for step of type date is not valid: ${value}`
                 );
@@ -33,6 +40,7 @@ export default function StepDateRange({
               return (
                 <InputDate
                   label={dateRange.labelStart}
+                  value={value instanceof Date ? value.toDateString() : value}
                   inputRef={ref}
                   {...rest}
                   minDate={new Date()}
@@ -41,6 +49,7 @@ export default function StepDateRange({
               );
             }}
           />
+          <Errors errorMessage={errors[dateRange.nameStart]?.message} />
           <label htmlFor={dateRange.nameStart}>{dateRange.nameEnd}</label>
           <Controller
             name={dateRange.nameEnd}
@@ -49,7 +58,11 @@ export default function StepDateRange({
               const { ref, value, ...rest } = field;
 
               // check value
-              if (typeof value !== "undefined" && typeof value !== "string") {
+              if (
+                typeof value !== "undefined" &&
+                typeof value !== "string" &&
+                !(value instanceof Date)
+              ) {
                 throw new Error(
                   `Value for step of type date is not valid: ${value}`
                 );
@@ -57,6 +70,7 @@ export default function StepDateRange({
               return (
                 <InputDate
                   label={dateRange.labelEnd}
+                  value={value instanceof Date ? value.toDateString() : value}
                   inputRef={ref}
                   {...rest}
                   minDate={new Date()}
@@ -65,6 +79,7 @@ export default function StepDateRange({
               );
             }}
           />
+          <Errors errorMessage={errors[dateRange.nameEnd]?.message} />
         </div>
       ))}
     </div>

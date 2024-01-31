@@ -1,5 +1,5 @@
 import "react-datepicker/dist/react-datepicker.css";
-import { Control, UseFormRegister } from "react-hook-form";
+import { Control, FieldErrors, UseFormRegister } from "react-hook-form";
 import { Step } from "../../../types";
 import { InputForm } from "./QuoteForm";
 import { StepList } from "./StepList";
@@ -13,25 +13,27 @@ interface StepSwitcherProps {
   step: Step;
   register: UseFormRegister<InputForm>;
   control: Control<InputForm>;
+  errors: FieldErrors<InputForm>
 }
 
 export default function StepSwitcher({
   step,
   register,
-  control
+  control,
+  errors
 }: StepSwitcherProps) {
   switch (step.type) {
     case "list":
-      return <StepList step={step} register={register} />;
+      return <StepList step={step} register={register} errors={errors}/>;
     case "counter":
-      return <StepCounter step={step} register={register} />;
+      return <StepCounter step={step} register={register} errors={errors}/>;
     case "date-range":
-      return <StepDateRange step={step} control={control} />;
+      return <StepDateRange step={step} control={control} errors={errors}/>;
     case "date":
-      return <StepDate step={step} control={control} />;
+      return <StepDate step={step} control={control} errors={errors}/>;
     case "currency":
-      return <StepCurrency step={step} register={register} />;
+      return <StepCurrency step={step} register={register} errors={errors}/>;
     default:
-      return <StepText step={step} register={register} />;
+      return <StepText step={step} register={register} errors={errors}/>;
   }
 }

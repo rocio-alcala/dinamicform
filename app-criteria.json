@@ -17,7 +17,7 @@
           "summaryLabel": "travel.product.travel.summaryLabel",
           "steps": [
             {
-              "isRequired": true,
+              "isRequired": false,
               "label": "travel.product1.travel1.step1.label",
               "name": "destination_area",
               "quickLabel": "travel.product1.travel1.step1.quickLabel",
@@ -58,8 +58,7 @@
                   "label": "travel.product1.travel1.step2.value3.subQuoting.value1.label",
                   "summaryLabel": "travel.product1.travel1.step2.value3.subQuoting.value1.summaryLabel",
                   "desc": "travel.product1.travel1.step2.value3.subQuoting.value1.desc",
-                  "isRequired": true,
-                  "min": 0,
+                  "min": 1,
                   "max": 10
                 },
                 {
@@ -133,6 +132,7 @@
               "type": "currency",
               "values": [
                 {
+                  "isRequired": true,
                   "currency": "euro",
                   "desc": "travel.product1.travel1.step6.value.desc",
                   "max": 50000,

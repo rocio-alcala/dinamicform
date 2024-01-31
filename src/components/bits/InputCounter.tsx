@@ -8,8 +8,7 @@ export default function InputCounter({
   name,
   id,
   label,
-  min,
-  max,
+  defaultValue,
   placeholder,
   ...restProps
 }: React.DetailedHTMLProps<
@@ -25,8 +24,7 @@ export default function InputCounter({
         name={name}
         ref={inputRef}
         id={id}
-        min={min}
-        max={max}
+        defaultValue={defaultValue}
         type="number"
         aria-label={label}
         {...restProps}
