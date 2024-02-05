@@ -13,12 +13,13 @@ export interface SubProduct extends Omit<Product, "subProductGroups"> {
   steps: Step[];
 }
 
-export enum STEPTYPE {
+export enum StepType {
+  TEXT = "text",
   LIST = "list",
   COUNTER = "counter",
-  DATERANGE = "date-range",
+  DATE_RANGE = "date-range",
   DATE = "date",
-  CURRENCY = "CURRENCY"
+  CURRENCY = "currency"
 }
 
 export interface Step {
@@ -28,8 +29,9 @@ export interface Step {
   quickLabel: string;
   summaryLabel: string;
   desc?: string;
-  type?: string;
-  values: any;
+  type?: StepType;
+  // values: ListValue[] | CounterValue[] | CurrencyValue[] | DateValue[] | DateRangeValue[];
+  values: any[];
 }
 
 export interface ListValue {

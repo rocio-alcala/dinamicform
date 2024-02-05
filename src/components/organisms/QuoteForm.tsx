@@ -1,5 +1,5 @@
 import "../../App.css";
-import appCriteria from "../../../app-criteria.json";
+import { mockConfig } from "../../../mock/config";
 import { useForm } from "react-hook-form";
 import {
   CounterValue,
@@ -8,6 +8,7 @@ import {
   DateValue,
   Product,
   Step,
+  StepType,
   SubProduct
 } from "../../../types";
 import StepSwitcher from "./StepSwitcher";
@@ -62,7 +63,7 @@ function getDefaultValues(selectedSubProduct: SubProduct | undefined) {
   if (selectedSubProduct) {
     selectedSubProduct.steps.forEach((step: Step) => {
       switch (step.type) {
-        case "counter":
+        case StepType.COUNTER:
           step.values.forEach(
             (counter: CounterValue) =>
               (defaultValues = {
@@ -77,7 +78,7 @@ function getDefaultValues(selectedSubProduct: SubProduct | undefined) {
               })
           );
           break;
-        case "currency":
+        case StepType.CURRENCY:
           step.values.forEach(
             (counter: CurrencyValue) =>
               (defaultValues = {
@@ -116,7 +117,7 @@ function getInitialValidationSchema(
   if (selectedSubProduct)
     selectedSubProduct.steps.forEach((step: Step) => {
       switch (step.type) {
-        case "list": // to-do: create Enum
+        case StepType.LIST: // to-do: create Enum
           if (step.isRequired) {
             initialSchemaObject = {
               ...initialSchemaObject,
@@ -124,8 +125,8 @@ function getInitialValidationSchema(
             };
           }
           break;
-        case "counter":
-          if (step.type === "counter") {
+        case StepType.COUNTER:
+          if (step.type === StepType.COUNTER) {
             //creating a block to declare the nestedObjectSchema object
             let nestedObjectSchema: Record<string, yup.AnySchema> = {};
             step.values.forEach((value: CounterValue) => {
@@ -154,7 +155,7 @@ function getInitialValidationSchema(
             };
           }
           break;
-        case "date-range":
+        case StepType.DATE_RANGE:
           step.values.forEach((value: DateRangeValue) => {
             let validationValueSchema = yup.date();
             if (value.isRequired) {
@@ -167,7 +168,7 @@ function getInitialValidationSchema(
             };
           });
           break;
-        case "date":
+        case StepType.DATE:
           step.values.forEach((value: DateValue) => {
             let validationValueSchema = yup.date();
             if (value.isRequired) {
@@ -179,7 +180,7 @@ function getInitialValidationSchema(
             };
           });
           break;
-        case "currency":
+        case StepType.CURRENCY:
           step.values.forEach((value: CurrencyValue) => {
             let validationValueSchema = yup.number();
             if (step.isRequired) {
@@ -199,7 +200,8 @@ function getInitialValidationSchema(
 }
 
 function QuoteForm() {
-  const products = appCriteria.criterias;
+  const products: Product[] = mockConfig.criterias;
+  console.log("@products", products);
   const preSelectedProduct = getPreselectedProduct(products);
   const preSelectedSubProduct =
     preSelectedProduct &&
