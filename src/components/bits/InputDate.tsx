@@ -21,7 +21,6 @@ export default function InputDate({
     <>
       <label htmlFor={label}>{label}</label>
       <DatePicker
-      // TO-DO: encontrar format de date para renderizarlo bien 
         id={label}
         dateFormat="yyyy/MM/dd"
         showIcon={showIcon}

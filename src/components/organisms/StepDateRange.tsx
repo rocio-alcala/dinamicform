@@ -1,8 +1,10 @@
 import { Control, Controller, FieldErrors } from "react-hook-form";
 import { DateRangeValue, Step } from "../../../types";
-import { InputForm } from "./QuoteForm";
+import { InputForm, InputFormValue } from "./QuoteForm";
 import InputDate from "../bits/InputDate";
 import Errors from "../bits/Errors";
+import { addDays } from "date-fns";
+import { useState } from "react";
 
 interface StepDateRangePropsType {
   step: Step;
@@ -15,6 +17,8 @@ export default function StepDateRange({
   control,
   errors
 }: StepDateRangePropsType) {
+  const [startDate, setStartDate] = useState<InputFormValue>();
+
   return (
     <div className="criteria">
       {step.values.map((dateRange: DateRangeValue, index: number) => (
@@ -36,14 +40,15 @@ export default function StepDateRange({
                   `Value for step of type date is not valid: ${value}`
                 );
               }
-
+              setStartDate(value);
               return (
                 <InputDate
+                  maxDate={addDays(new Date(), dateRange.maxStart)}
+                  minDate={addDays(new Date(), dateRange.minStart)}
                   label={dateRange.labelStart}
                   value={value instanceof Date ? value.toDateString() : value}
                   inputRef={ref}
                   {...rest}
-                  minDate={new Date()}
                   showIcon={true}
                 />
               );
@@ -67,13 +72,16 @@ export default function StepDateRange({
                   `Value for step of type date is not valid: ${value}`
                 );
               }
+
               return (
                 <InputDate
+                  maxDate={addDays(new Date(), dateRange.maxEnd)}
+                  minDate={startDate ? addDays(new Date(startDate), 1) : null}
+                  disabled={!startDate}
                   label={dateRange.labelEnd}
                   value={value instanceof Date ? value.toDateString() : value}
                   inputRef={ref}
                   {...rest}
-                  minDate={new Date()}
                   showIcon={true}
                 />
               );

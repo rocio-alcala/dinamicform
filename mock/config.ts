@@ -111,8 +111,8 @@ export const mockConfig = {
                     "travel.product1.travel1.step3.value.summaryLabelStart",
                   maxStart: 180,
                   maxEnd: 365,
-                  minEnd: 0,
-                  minStart: 1,
+                  minEnd: 1,
+                  minStart: 0,
                   nameEnd: "end_date",
                   nameStart: "start_date"
                 }

@@ -18,7 +18,7 @@ import Errors from "../bits/Errors";
 import { useAppDispatch, useAppSelector } from "../../store/typedHooks";
 import { submitQuote } from "../../store/quoteSlice";
 
-type InputFormValue = string | number | undefined | Date;
+export type InputFormValue = string | number | undefined | Date;
 export type InputForm = Record<
   string,
   InputFormValue | Record<string, InputFormValue>
@@ -266,6 +266,7 @@ function QuoteForm() {
     await handleSubmit((formData) => {
       quote = { ...quote, ...formData };
     })(event);
+
     dispatch(submitQuote(quote));
   }
 
