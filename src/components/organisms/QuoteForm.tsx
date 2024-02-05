@@ -125,7 +125,7 @@ function getInitialValidationSchema(
         case "counter":
           if (step.type === "counter") { //creating a block to declare the nestedObjectSchema object
             let nestedObjectSchema: Record<string, yup.AnySchema> = {}; 
-            step.values.forEach((value) => {
+            step.values.forEach((value: CounterValue) => {
               let validationValueSchema = yup.number();
               if (value.min) {
                 validationValueSchema = validationValueSchema.min(
