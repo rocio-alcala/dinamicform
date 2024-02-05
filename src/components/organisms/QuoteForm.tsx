@@ -14,6 +14,8 @@ import StepSwitcher from "./StepSwitcher";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Errors from "../bits/Errors";
+import { useAppDispatch, useAppSelector } from "../../store/typedHooks";
+import { submitQuote } from "../../store/quoteSlice";
 
 type InputFormValue = string | number | undefined | Date;
 export type InputForm = Record<
@@ -123,8 +125,9 @@ function getInitialValidationSchema(
           }
           break;
         case "counter":
-          if (step.type === "counter") { //creating a block to declare the nestedObjectSchema object
-            let nestedObjectSchema: Record<string, yup.AnySchema> = {}; 
+          if (step.type === "counter") {
+            //creating a block to declare the nestedObjectSchema object
+            let nestedObjectSchema: Record<string, yup.AnySchema> = {};
             step.values.forEach((value: CounterValue) => {
               let validationValueSchema = yup.number();
               if (value.min) {
@@ -204,6 +207,9 @@ function QuoteForm() {
   const sampleProduct = preSelectedProduct || products[0];
   const sampleSubProduct =
     preSelectedSubProduct || sampleProduct.subProductGroups[0];
+  const quote = useAppSelector((state) => state.quote);
+  console.log("@quoteSlice", quote);
+  const dispatch = useAppDispatch();
 
   const {
     register: basicRegister,
@@ -247,18 +253,18 @@ function QuoteForm() {
     )
   });
 
-  function masterSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function masterSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    let quote: InputForm = {};
 
-    basicHandleSubmit((data) => {
-      // Your logic for handleSubmit1
-      console.log("Handling submit for form 1:", data);
+    await basicHandleSubmit((basicFormData) => {
+      quote = { ...quote, ...basicFormData };
     })(event);
 
-    handleSubmit((data) => {
-      // Your logic for handleSubmit2
-      console.log("Handling submit for form 2:", data);
+    await handleSubmit((formData) => {
+      quote = { ...quote, ...formData };
     })(event);
+    dispatch(submitQuote(quote));
   }
 
   function handleProductChange(e: React.ChangeEvent<HTMLInputElement>) {

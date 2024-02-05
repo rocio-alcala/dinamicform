@@ -6,6 +6,7 @@ import DatePicker, {
 interface InputDateSpecificProps {
   inputRef?: React.LegacyRef<ReactDatePicker>;
   label: string
+  value?: string | undefined | Date
 }
 
 export default function InputDate({
@@ -22,9 +23,9 @@ export default function InputDate({
       <DatePicker
       // TO-DO: encontrar format de date para renderizarlo bien 
         id={label}
+        dateFormat="yyyy/MM/dd"
         showIcon={showIcon}
         ref={inputRef}
-        value={value}
         selected={value ? new Date(value) : null}
         minDate={minDate}
         {...restProps}

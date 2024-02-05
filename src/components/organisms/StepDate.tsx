@@ -34,7 +34,7 @@ export default function StepDate({ step, control, errors }: StepDatePropsType) {
 
               return (
                 <InputDate
-                  value={value instanceof Date ? value.toString() : value}
+                  value={value instanceof Date ? value.toDateString() : value}
                   label={date.labelStart}
                   inputRef={ref}
                   {...rest}
