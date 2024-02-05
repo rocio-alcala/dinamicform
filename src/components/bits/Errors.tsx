@@ -1,11 +1,11 @@
-interface ErrorsTypeProps { errorMessage: undefined | string }
+interface ErrorsTypeProps { message: undefined | string }
 
-export default function Errors({ errorMessage }:ErrorsTypeProps) {
+export default function Errors({ message }:ErrorsTypeProps) {
   return (
     <>
-      {errorMessage ? (
+      {message ? (
         <p className="error">
-          {errorMessage}
+          {message}
         </p>
       ) : null}
     </>

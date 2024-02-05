@@ -7,14 +7,10 @@ import Errors from "../bits/Errors";
 interface StepListPropsType {
   step: Step;
   register: UseFormRegister<InputForm>;
-  errors: FieldErrors<InputForm>
+  errors: FieldErrors<InputForm>;
 }
 
-
-
 export function StepList({ step, register, errors }: StepListPropsType) {
-
-
   return (
     <div className="criteria">
       {step.values.map((value: ListValue) => {
@@ -31,7 +27,7 @@ export function StepList({ step, register, errors }: StepListPropsType) {
           ></InputList>
         );
       })}
-      <Errors errorMessage={errors[step.name]?.message}/>
+      <Errors message={errors[step.name]?.message} />
     </div>
   );
 }

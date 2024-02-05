@@ -31,7 +31,7 @@ export default function StepCurrency({
               label={value.name}
               id={value.name}
             ></InputCounter>
-            <Errors errorMessage={errors[value.name]?.message} />
+            <Errors message={errors[value.name]?.message} />
           </Fragment>
         );
       })}

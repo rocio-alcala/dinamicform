@@ -16,9 +16,11 @@ export function StepCounter({ step, register, errors }: StepCounterPropsType) {
   return (
     <div className="criteria">
       {step.values.map((counter: CounterValue, index: number) => {
-        const { ref, ...rest } = register(counter.name);
-        const errorMessage = get(errors, counter.name + ".message");
-
+        const { ref, ...rest } = register(`${step.name}.${counter.name}`);
+        const errorMessage = get(
+          errors,
+          `${step.name}.${counter.name}.message`
+        )
         return (
           <Fragment key={counter.label + index}>
             <InputCounter
@@ -29,7 +31,7 @@ export function StepCounter({ step, register, errors }: StepCounterPropsType) {
               min={counter.min}
               max={counter.max}
             />
-            <Errors errorMessage={errorMessage} />
+            <Errors message={errorMessage ? errorMessage.toString() : undefined} />
           </Fragment>
         );
       })}

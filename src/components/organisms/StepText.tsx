@@ -3,6 +3,7 @@ import { Step } from "../../../types";
 import { InputForm } from "./QuoteForm";
 import InputText from "../bits/InputText";
 import Errors from "../bits/Errors";
+import { Fragment } from "react";
 
 interface StepTextPropsType {
   step: Step;
@@ -17,18 +18,18 @@ export default function StepText({
 }: StepTextPropsType) {
   return (
     <div className="criteria">
-      {step.values.map((value: any) => {
+      {step.values.map((value: any, index: number) => {
         const { ref, ...rest } = register(value.name);
-        return (<>
-          <InputText
-            key={value.label}
-            id={value.label}
-            inputRef={ref}
-            label={value.label}
-            {...rest}
-          />
-          <Errors errorMessage={errors[value.name]?.message}/>
-          </>
+        return (
+          <Fragment key={value.label + index}>
+            <InputText
+              id={value.label}
+              inputRef={ref}
+              label={value.label}
+              {...rest}
+            />
+            <Errors message={errors[value.name]?.message} />
+          </Fragment>
         );
       })}
     </div>

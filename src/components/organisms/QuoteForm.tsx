@@ -25,8 +25,8 @@ function getPreselectedProduct(products: Product[]) {
   return products.find((product) => product.isPreselected === true);
 }
 
-function getPreselectedSubProduct(products: SubProduct[]) {
-  return products.find((product) => product.isPreselected === true);
+function getPreselectedSubProduct(subPoducts: SubProduct[]) {
+  return subPoducts.find((subPoduct) => subPoduct.isPreselected === true);
 }
 
 function getSelectedProduct(products: Product[], selectedProductValue: string) {
@@ -39,7 +39,7 @@ function getSelectedSubProduct(
   return products.find((product) => product.value === selectedSubProductValue);
 }
 
-function getDefaultValues(products: Product[]) {
+function getBasicDefaultValues(products: Product[]) {
   const preSelectedProduct = getPreselectedProduct(products);
   const preSelectedSubProduct =
     preSelectedProduct &&
@@ -55,11 +55,45 @@ function getDefaultValues(products: Product[]) {
   };
 }
 
-function getBasicValidationSchema(products: Product[]) {
-  const basicValidationSchema: Record<string, yup.AnySchema> = {};
+function getDefaultValues(selectedSubProduct: SubProduct | undefined) {
+  let defaultValues: InputForm = {};
+  if (selectedSubProduct) {
+    selectedSubProduct.steps.forEach((step: Step) => {
+      switch (step.type) {
+        case "counter":
+          step.values.forEach(
+            (counter: CounterValue) =>
+              (defaultValues = {
+                ...defaultValues,
+                [step.name]: {
+                  ...(defaultValues[step.name] as Record<
+                    string,
+                    InputFormValue
+                  >), // we know the counter type is always nested
+                  [counter.name]: 0
+                }
+              })
+          );
+          break;
+        case "currency":
+          step.values.forEach(
+            (counter: CurrencyValue) =>
+              (defaultValues = {
+                ...defaultValues,
+                [counter.name]: 0
+              })
+          );
+      }
+    });
+  }
+  return defaultValues;
+}
 
-  const sampleProduct = products[0];
-  const sampleSubProduct = sampleProduct.subProductGroups[0];
+function getBasicValidationSchema(
+  sampleProduct: Product,
+  sampleSubProduct: SubProduct
+) {
+  const basicValidationSchema: Record<string, yup.AnySchema> = {};
 
   if (sampleProduct.isRequired) {
     basicValidationSchema[sampleProduct.name] = yup.string().required();
@@ -77,7 +111,6 @@ function getInitialValidationSchema(
 ) {
   let initialSchemaObject: Record<string, yup.AnySchema> = {};
 
-  
   if (selectedSubProduct)
     selectedSubProduct.steps.forEach((step: Step) => {
       switch (step.type) {
@@ -90,30 +123,33 @@ function getInitialValidationSchema(
           }
           break;
         case "counter":
-          step.values.forEach((value: CounterValue) => {
-            let validationValueSchema = yup.number();
-            if (value.min) {
-              validationValueSchema = validationValueSchema.min(
-                value.min,
-                `minimal value for ${value.name} is ${value.min}`
-              );
-            }
-            if (value.max) {
-              validationValueSchema = validationValueSchema.max(
-                value.max,
-                `maximal value for ${value.name} is ${value.max}`
-              );
-            }
-
+          if (step.type === "counter") { //creating a block to declare the nestedObjectSchema object
+            let nestedObjectSchema: Record<string, yup.AnySchema> = {}; 
+            step.values.forEach((value) => {
+              let validationValueSchema = yup.number();
+              if (value.min) {
+                validationValueSchema = validationValueSchema.min(
+                  value.min,
+                  `minimal value for ${value.name} is ${value.min}`
+                );
+              }
+              if (value.max) {
+                validationValueSchema = validationValueSchema.max(
+                  value.max,
+                  `maximal value for ${value.name} is ${value.max}`
+                );
+              }
+              //counter type has nested counters, for validation we need a nested Object to pass to the step name
+              nestedObjectSchema = {
+                ...nestedObjectSchema,
+                [value.name]: validationValueSchema
+              };
+            });
             initialSchemaObject = {
-              ...initialSchemaObject, //TO-DO: hacerlo sin hardcodear
-              travelers: yup.object().shape({
-                adults: validationValueSchema,
-                children: validationValueSchema,
-                seniors: validationValueSchema
-              })
+              ...initialSchemaObject,
+              [step.name]: yup.object().shape(nestedObjectSchema)
             };
-          });
+          }
           break;
         case "date-range":
           step.values.forEach((value: DateRangeValue) => {
@@ -156,7 +192,6 @@ function getInitialValidationSchema(
           break;
       }
     });
-
   return initialSchemaObject;
 }
 
@@ -166,26 +201,29 @@ function QuoteForm() {
   const preSelectedSubProduct =
     preSelectedProduct &&
     getPreselectedSubProduct(preSelectedProduct.subProductGroups);
+  const sampleProduct = preSelectedProduct || products[0];
+  const sampleSubProduct =
+    preSelectedSubProduct || sampleProduct.subProductGroups[0];
 
   const {
     register: basicRegister,
     handleSubmit: basicHandleSubmit,
     watch: basicWatch,
-    formState: { errors: basicErrors }
+    formState: { errors: basicErrors },
+    setValue,
+    reset: basicFormReset
   } = useForm<InputForm>({
-    defaultValues: getDefaultValues(products),
+    defaultValues: getBasicDefaultValues(products),
     resolver: yupResolver(
-      yup.object().shape(getBasicValidationSchema(products))
+      yup
+        .object()
+        .shape(getBasicValidationSchema(sampleProduct, sampleSubProduct))
     )
   });
 
-  const selectedProductValue = basicWatch(
-    preSelectedProduct?.name || "product"
-  ) as string;
+  const selectedProductValue = basicWatch(sampleProduct.name) as string;
   const selectedProduct = getSelectedProduct(products, selectedProductValue);
-  const selectedSubProductValue = basicWatch(
-    preSelectedSubProduct?.name || "subproduct"
-  ) as string;
+  const selectedSubProductValue = basicWatch(sampleSubProduct.name) as string;
   const selectedSubProduct =
     selectedProduct &&
     getSelectedSubProduct(
@@ -197,16 +235,19 @@ function QuoteForm() {
     register,
     handleSubmit,
     control,
-    formState: { errors }
+    formState: { errors },
+    reset
   } = useForm<InputForm>({
+    values: getDefaultValues(selectedSubProduct), //adding default values once a Sub Product is selected,
+    //so numeric inputs won't initialize to ""
+    shouldFocusError: false, // otherwise throws when focusing date input
+    // TO-DO: fix on focus problem
     resolver: yupResolver(
-      //TO-DO: agregar defualt values para que el number no se rendereice como string
-      // agregar coment explicando
       yup.object().shape(getInitialValidationSchema(selectedSubProduct))
     )
   });
 
-  function masterSubmit(event: React.FormEventHandler<HTMLFormElement>) {
+  function masterSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     basicHandleSubmit((data) => {
@@ -220,7 +261,11 @@ function QuoteForm() {
     })(event);
   }
 
-  console.log("@errors", errors);
+  function handleProductChange(e: React.ChangeEvent<HTMLInputElement>) {
+    basicFormReset();
+    reset();
+    setValue(sampleProduct.name, e.target.value);
+  }
 
   return (
     <>
@@ -236,18 +281,19 @@ function QuoteForm() {
                 className="buttons"
                 value={product.value}
                 {...basicRegister(product.name)}
+                onChange={handleProductChange}
               ></input>
             </label>
           ))}
-          <Errors errorMessage={basicErrors[products[0].name]?.message} />
+          <Errors message={basicErrors[products[0].name]?.message} />
         </div>
         {selectedProduct ? (
           <div className="criterias">
             <label className="steplabel">
               travel.insurance.subproduct.label
             </label>
-            {selectedProduct.subProductGroups.map((subProduct, index) => (
-              <label key={index} htmlFor={subProduct.label}>
+            {selectedProduct.subProductGroups.map((subProduct) => (
+              <label key={subProduct.value} htmlFor={subProduct.label}>
                 {subProduct.label}
                 <input
                   id={subProduct.label}
@@ -258,8 +304,8 @@ function QuoteForm() {
                 />
               </label>
             ))}
-            <Errors // TO-DO: cambiar a Error y message solo como prop
-              errorMessage={
+            <Errors
+              message={
                 basicErrors[selectedProduct.subProductGroups[0].name]?.message
               }
             />
@@ -268,8 +314,8 @@ function QuoteForm() {
 
         <div className="step">
           {selectedSubProduct
-            ? selectedSubProduct.steps.map((step, index) => (
-                <div key={index} className="step">
+            ? selectedSubProduct.steps.map((step) => (
+                <div key={step.label} className="step">
                   <label className="steplabel">{step.name}</label>
                   <StepSwitcher
                     step={step}

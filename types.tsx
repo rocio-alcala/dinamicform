@@ -13,6 +13,14 @@ export interface SubProduct extends Omit<Product, "subProductGroups"> {
   steps: Step[];
 }
 
+export enum STEPTYPE {
+  LIST = "list",
+  COUNTER = "counter",
+  DATERANGE = "date-range",
+  DATE = "date",
+  CURRENCY = "CURRENCY"
+}
+
 export interface Step {
   isRequired?: boolean;
   label: string;

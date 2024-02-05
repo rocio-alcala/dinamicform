@@ -49,7 +49,7 @@ export default function StepDateRange({
               );
             }}
           />
-          <Errors errorMessage={errors[dateRange.nameStart]?.message} />
+          <Errors message={errors[dateRange.nameStart]?.message} />
           <label htmlFor={dateRange.nameStart}>{dateRange.nameEnd}</label>
           <Controller
             name={dateRange.nameEnd}
@@ -79,7 +79,7 @@ export default function StepDateRange({
               );
             }}
           />
-          <Errors errorMessage={errors[dateRange.nameEnd]?.message} />
+          <Errors message={errors[dateRange.nameEnd]?.message} />
         </div>
       ))}
     </div>

@@ -3,14 +3,14 @@
   "additional_questions": [],
   "criterias": [
     {
-      "isPreselected": false,
+      "isPreselected": true,
       "isRequired": true,
       "label": "travel.insurance.product1.label",
       "name": "product",
       "summaryLabel": "travel.insurance.product.summaryLabel",
       "subProductGroups": [
         {
-          "isPreselected": true,
+          "isPreselected": false,
           "isRequired": true,
           "label": "travel.product1.travel1.label",
           "name": "subproduct",
@@ -46,7 +46,7 @@
               ]
             },
             {
-              "name": "counterTravelers",
+              "name": "travelers",
               "type": "counter",
               "label": "travel.product1.travel1.step2.value3.subQuoting.label",
               "summaryLabel": "travel.product1.travel1.step2.value3.subQuoting.summaryLabel",
@@ -54,7 +54,7 @@
               "desc": "travel.product1.travel1.step2.value3.subQuoting.desc",
               "values": [
                 {
-                  "name": "travelers.adults",
+                  "name": "adults",
                   "label": "travel.product1.travel1.step2.value3.subQuoting.value1.label",
                   "summaryLabel": "travel.product1.travel1.step2.value3.subQuoting.value1.summaryLabel",
                   "desc": "travel.product1.travel1.step2.value3.subQuoting.value1.desc",
@@ -62,7 +62,7 @@
                   "max": 10
                 },
                 {
-                  "name": "travelers.children",
+                  "name": "children",
                   "label": "travel.product1.travel1.step2.value3.subQuoting.value2.label",
                   "summaryLabel": "travel.product1.travel1.step2.value3.subQuoting.value2.summaryLabel",
                   "desc": "travel.product1.travel1.step2.value3.subQuoting.value2.desc",
@@ -70,7 +70,7 @@
                   "max": 10
                 },
                 {
-                  "name": "travelers.seniors",
+                  "name": "seniors",
                   "label": "travel.product1.travel1.step2.value3.subQuoting.value3.label",
                   "summaryLabel": "travel.product1.travel1.step2.value3.subQuoting.value3.summaryLabel",
                   "desc": "travel.product1.travel1.step2.value3.subQuoting.value3.desc",
@@ -143,11 +143,11 @@
               ]
             }
           ],
-          "value": "iberia_b2c_viaje_de_ocio_viaje_temporal_single_trip",
+          "value": "sub grupo 1",
           "valueSummaryLabel": "travel.product1.travel1.value.summaryLabel"
         },
         {
-          "isPreselected": true,
+          "isPreselected": false,
           "isRequired": true,
           "label": "travel.product1.travel1.label",
           "name": "subproduct",
@@ -183,7 +183,7 @@
               ]
             },
             {
-              "name": "counterTravelers",
+              "name": "travelers",
               "type": "counter",
               "label": "travel.product1.travel1.step2.value3.subQuoting.label",
               "summaryLabel": "travel.product1.travel1.step2.value3.subQuoting.summaryLabel",
@@ -191,16 +191,15 @@
               "desc": "travel.product1.travel1.step2.value3.subQuoting.desc",
               "values": [
                 {
-                  "name": "travelers.adults",
+                  "name": "adults",
                   "label": "travel.product1.travel1.step2.value3.subQuoting.value1.label",
                   "summaryLabel": "travel.product1.travel1.step2.value3.subQuoting.value1.summaryLabel",
                   "desc": "travel.product1.travel1.step2.value3.subQuoting.value1.desc",
-                  "isRequired": true,
                   "min": 0,
                   "max": 10
                 },
                 {
-                  "name": "travelers.children",
+                  "name": "children",
                   "label": "travel.product1.travel1.step2.value3.subQuoting.value2.label",
                   "summaryLabel": "travel.product1.travel1.step2.value3.subQuoting.value2.summaryLabel",
                   "desc": "travel.product1.travel1.step2.value3.subQuoting.value2.desc",
@@ -208,7 +207,7 @@
                   "max": 10
                 },
                 {
-                  "name": "travelers.seniors",
+                  "name": "seniors",
                   "label": "travel.product1.travel1.step2.value3.subQuoting.value3.label",
                   "summaryLabel": "travel.product1.travel1.step2.value3.subQuoting.value3.summaryLabel",
                   "desc": "travel.product1.travel1.step2.value3.subQuoting.value3.desc",
@@ -280,11 +279,11 @@
               ]
             }
           ],
-          "value": "iberia_b2c_viaje_de_ocio_viaje_tempora2_single_trip",
+          "value": "sub grupo 2",
           "valueSummaryLabel": "travel.product1.travel1.value.summaryLabel"
         }
       ],
-      "value": "iberia_b2c_viaje_de_ocio",
+      "value": "iberia_1",
       "valueSummaryLabel": "travel.insurance.product1.value.summaryLabel"
     },
     {
@@ -331,7 +330,7 @@
               ]
             },
             {
-              "name": "counterTravelers",
+              "name": "travelers",
               "type": "counter",
               "label": "travel.product1.travel1.step2.value3.subQuoting.label",
               "summaryLabel": "travel.product1.travel1.step2.value3.subQuoting.summaryLabel",
@@ -339,16 +338,15 @@
               "desc": "travel.product1.travel1.step2.value3.subQuoting.desc",
               "values": [
                 {
-                  "name": "travelers.adults",
+                  "name": "adults",
                   "label": "travel.product1.travel1.step2.value3.subQuoting.value1.label",
                   "summaryLabel": "travel.product1.travel1.step2.value3.subQuoting.value1.summaryLabel",
                   "desc": "travel.product1.travel1.step2.value3.subQuoting.value1.desc",
-                  "isRequired": true,
                   "min": 0,
                   "max": 10
                 },
                 {
-                  "name": "travelers.children",
+                  "name": "children",
                   "label": "travel.product1.travel1.step2.value3.subQuoting.value2.label",
                   "summaryLabel": "travel.product1.travel1.step2.value3.subQuoting.value2.summaryLabel",
                   "desc": "travel.product1.travel1.step2.value3.subQuoting.value2.desc",
@@ -356,7 +354,7 @@
                   "max": 10
                 },
                 {
-                  "name": "travelers.seniors",
+                  "name": "seniors",
                   "label": "travel.product1.travel1.step2.value3.subQuoting.value3.label",
                   "summaryLabel": "travel.product1.travel1.step2.value3.subQuoting.value3.summaryLabel",
                   "desc": "travel.product1.travel1.step2.value3.subQuoting.value3.desc",
@@ -427,11 +425,11 @@
               ]
             }
           ],
-          "value": "iberia_b2c_viaje_de_ocio_viaje_temporal_single_trip",
+          "value": "sub grupo 3",
           "valueSummaryLabel": "travel.product1.travel1.value.summaryLabel"
         }
       ],
-      "value": "iberia_b3c_viaje_de_ocio",
+      "value": "iberia_3",
       "valueSummaryLabel": "travel.insurance.product1.value.summaryLabel"
     }
   ]
