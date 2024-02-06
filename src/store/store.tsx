@@ -1,7 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import quoteReducer from "../store/quoteSlice";
+import quoteCriteriaReducer from "./quoteCriteriaSlice";
 
-export const store = configureStore({ reducer: { quote: quoteReducer } });
+export const store = configureStore({
+  reducer: { quoteCriteria: quoteCriteriaReducer }
+});
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

@@ -1,7 +1,7 @@
 import QuoteForm from "../organisms/QuoteForm";
 
-function Quote() {
+function QuoteCriteria() {
   return <QuoteForm />;
 }
 
-export default Quote;
+export default QuoteCriteria;

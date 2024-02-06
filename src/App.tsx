@@ -1,7 +1,8 @@
-import Quote from "./components/organisms/QuoteForm";
+import QuoteCriteria from "./components/views/QuoteCriteria";
+
 
 function App() {
-  return <Quote></Quote>;
+  return <QuoteCriteria/>
 }
 
 export default App;

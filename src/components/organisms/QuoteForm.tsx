@@ -16,9 +16,9 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Errors from "../bits/Errors";
 import { useAppDispatch, useAppSelector } from "../../store/typedHooks";
-import { submitQuote } from "../../store/quoteSlice";
+import { submitQuoteCriteria } from "../../store/quoteCriteriaSlice";
 
-export type InputFormValue = string | number | undefined | Date | null
+export type InputFormValue = string | number | undefined | Date | null;
 export type InputForm = Record<
   string,
   InputFormValue | Record<string, InputFormValue>
@@ -209,7 +209,7 @@ function QuoteForm() {
   const sampleProduct = preSelectedProduct || products[0];
   const sampleSubProduct =
     preSelectedSubProduct || sampleProduct.subProductGroups[0];
-  const quote = useAppSelector((state) => state.quote);
+  const quote = useAppSelector((state) => state.quoteCriteria);
   console.log("@quoteSlice", quote);
   const dispatch = useAppDispatch();
 
@@ -267,7 +267,7 @@ function QuoteForm() {
       quote = { ...quote, ...formData };
     })(event);
 
-    dispatch(submitQuote(quote));
+    dispatch(submitQuoteCriteria(quote));
   }
 
   function handleProductChange(e: React.ChangeEvent<HTMLInputElement>) {
