@@ -17,6 +17,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Errors from "../bits/Errors";
 import { useAppDispatch, useAppSelector } from "../../store/typedHooks";
 import { submitQuoteCriteria } from "../../store/quoteCriteriaSlice";
+import { useNavigate } from "react-router-dom";
 
 export type InputFormValue = string | number | undefined | Date | null;
 export type InputForm = Record<
@@ -117,7 +118,7 @@ function getInitialValidationSchema(
   if (selectedSubProduct)
     selectedSubProduct.steps.forEach((step: Step) => {
       switch (step.type) {
-        case StepType.LIST: 
+        case StepType.LIST:
           if (step.isRequired) {
             initialSchemaObject = {
               ...initialSchemaObject,
@@ -211,6 +212,7 @@ function QuoteForm() {
   const quote = useAppSelector((state) => state.quoteCriteria);
   console.log("@quoteSlice", quote);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const {
     register: basicRegister,
@@ -271,11 +273,10 @@ function QuoteForm() {
         }
       }
       toSerializableData(formData);
-
       quote = { ...quote, ...formData };
+      dispatch(submitQuoteCriteria(quote));
+      navigate("/travelers");
     })(event);
-
-    dispatch(submitQuoteCriteria(quote));
   }
 
   function handleProductChange(e: React.ChangeEvent<HTMLInputElement>) {
