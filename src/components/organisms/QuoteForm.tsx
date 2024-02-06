@@ -10,7 +10,7 @@ import {
   Step,
   StepType,
   SubProduct
-} from "../../../types";
+} from "../../models/types";
 import StepSwitcher from "./StepSwitcher";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -117,7 +117,7 @@ function getInitialValidationSchema(
   if (selectedSubProduct)
     selectedSubProduct.steps.forEach((step: Step) => {
       switch (step.type) {
-        case StepType.LIST: // to-do: create Enum
+        case StepType.LIST: 
           if (step.isRequired) {
             initialSchemaObject = {
               ...initialSchemaObject,
@@ -201,7 +201,6 @@ function getInitialValidationSchema(
 
 function QuoteForm() {
   const products: Product[] = mockConfig.criterias;
-  console.log("@products", products);
   const preSelectedProduct = getPreselectedProduct(products);
   const preSelectedSubProduct =
     preSelectedProduct &&
@@ -264,6 +263,15 @@ function QuoteForm() {
     })(event);
 
     await handleSubmit((formData) => {
+      function toSerializableData(objectData: InputForm) {
+        for (const key in objectData) {
+          if (objectData[key] instanceof Date) {
+            objectData[key] = objectData[key]?.toString();
+          }
+        }
+      }
+      toSerializableData(formData);
+
       quote = { ...quote, ...formData };
     })(event);
 
