@@ -40,15 +40,19 @@ export default function StepDateRange({
                   `Value for step of type date is not valid: ${value}`
                 );
               }
-              setStartDate(value);
               return (
                 <InputDate
                   maxDate={addDays(new Date(), dateRange.maxStart)}
                   minDate={addDays(new Date(), dateRange.minStart)}
                   label={dateRange.labelStart}
+                  selectsStart
                   value={value instanceof Date ? value.toDateString() : value}
                   inputRef={ref}
                   {...rest}
+                  onChange={(date) => {
+                    setStartDate(date);
+                    field.onChange(date);
+                  }}
                   showIcon={true}
                 />
               );
@@ -79,6 +83,7 @@ export default function StepDateRange({
                   minDate={startDate ? addDays(new Date(startDate), 1) : null}
                   disabled={!startDate}
                   label={dateRange.labelEnd}
+                  selectsEnd
                   value={value instanceof Date ? value.toDateString() : value}
                   inputRef={ref}
                   {...rest}

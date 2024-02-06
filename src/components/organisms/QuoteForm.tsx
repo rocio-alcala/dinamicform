@@ -18,7 +18,7 @@ import Errors from "../bits/Errors";
 import { useAppDispatch, useAppSelector } from "../../store/typedHooks";
 import { submitQuote } from "../../store/quoteSlice";
 
-export type InputFormValue = string | number | undefined | Date;
+export type InputFormValue = string | number | undefined | Date | null
 export type InputForm = Record<
   string,
   InputFormValue | Record<string, InputFormValue>
@@ -80,10 +80,10 @@ function getDefaultValues(selectedSubProduct: SubProduct | undefined) {
           break;
         case StepType.CURRENCY:
           step.values.forEach(
-            (counter: CurrencyValue) =>
+            (value) =>
               (defaultValues = {
                 ...defaultValues,
-                [counter.name]: 0
+                [value.name]: 0
               })
           );
       }
