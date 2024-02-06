@@ -1,8 +1,9 @@
 import { Control, Controller, FieldErrors } from "react-hook-form";
-import { DateValue, Step } from "../../../types";
+import { DateValue, Step } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import InputDate from "../bits/InputDate";
 import Errors from "../bits/Errors";
+import { addDays } from "date-fns";
 
 interface StepDatePropsType {
   step: Step;
@@ -36,9 +37,10 @@ export default function StepDate({ step, control, errors }: StepDatePropsType) {
                 <InputDate
                   value={value instanceof Date ? value.toDateString() : value}
                   label={date.labelStart}
+                  maxDate={addDays(new Date(), date.max)}
+                  minDate={addDays(new Date(), date.min)}
                   inputRef={ref}
                   {...rest}
-                  minDate={new Date()}
                   showIcon={true}
                 />
               );

@@ -1,5 +1,5 @@
 import { Control, Controller, FieldErrors } from "react-hook-form";
-import { DateRangeValue, Step } from "../../../types";
+import { DateRangeValue, Step } from "../../models/types";
 import { InputForm, InputFormValue } from "./QuoteForm";
 import InputDate from "../bits/InputDate";
 import Errors from "../bits/Errors";
@@ -51,7 +51,7 @@ export default function StepDateRange({
                   {...rest}
                   onChange={(date) => {
                     setStartDate(date);
-                    field.onChange(date);
+                    field.onChange(date?.toISOString());
                   }}
                   showIcon={true}
                 />

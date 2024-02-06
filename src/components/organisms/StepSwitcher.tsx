@@ -1,6 +1,6 @@
 import "react-datepicker/dist/react-datepicker.css";
 import { Control, FieldErrors, UseFormRegister } from "react-hook-form";
-import { Step, StepType } from "../../../types";
+import { Step, StepType } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import { StepList } from "./StepList";
 import { StepCounter } from "./StepCounter";

@@ -1,5 +1,5 @@
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { CounterValue, Step } from "../../../types";
+import { CounterValue, Step } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import InputCounter from "../bits/InputCounter";
 import Errors from "../bits/Errors";
@@ -20,7 +20,7 @@ export function StepCounter({ step, register, errors }: StepCounterPropsType) {
         const errorMessage = get(
           errors,
           `${step.name}.${counter.name}.message`
-        )
+        );
         return (
           <Fragment key={counter.label + index}>
             <InputCounter
@@ -31,7 +31,9 @@ export function StepCounter({ step, register, errors }: StepCounterPropsType) {
               min={counter.min}
               max={counter.max}
             />
-            <Errors message={errorMessage ? errorMessage.toString() : undefined} />
+            <Errors
+              message={errorMessage ? errorMessage.toString() : undefined}
+            />
           </Fragment>
         );
       })}

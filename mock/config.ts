@@ -1,4 +1,4 @@
-import { StepType } from "../types";
+import { StepType } from "../src/models/types";
 
 export const mockConfig = {
   version: 3,

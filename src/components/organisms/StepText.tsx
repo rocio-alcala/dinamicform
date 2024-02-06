@@ -1,5 +1,5 @@
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { Step } from "../../../types";
+import { Step } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import InputText from "../bits/InputText";
 import Errors from "../bits/Errors";
