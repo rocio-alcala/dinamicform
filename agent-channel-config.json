@@ -1,560 +1,548 @@
 {
-   "subscribers":{
-      "policyHolderTree":{
-         "label":"travelers.policyHolder.title",
-         "rows":[
+  "subscribers": {
+    "policyHolderTree": {
+      "label": "travelers.policyHolder.title",
+      "rows": [
+        {
+          "label": "key1",
+          "fields": [
             {
-               "fields":[
-                  {
-                     "label":"travelers.fields.title.label",
-                     "summaryLabel":"travelers.fields.title.summaryLabel",
-                     "type":"list",
-                     "modifier":"inline",
-                     "columns":3,
-                     "name":"title",
-                     "values":[
-                        {
-                           "name":"title",
-                           "isRequired":true,
-                           "label":"travelers.fields.title.miss.label",
-                           "value":"MISS"
-                        },
-                        {
-                           "name":"title",
-                           "isRequired":true,
-                           "label":"travelers.fields.title.mrs.label",
-                           "value":"MRS"
-                        },
-                        {
-                           "name":"title",
-                           "isRequired":true,
-                           "label":"travelers.fields.title.mr.label",
-                           "value":"MR"
-                        }
-                     ]
-                  }
-               ]
-            },
-            {
-               "fields":[
-                  {
-                     "type":"default",
-                     "label":"travelers.fields.firstName.label",
-                     "summaryLabel":"travelers.fields.firstName.summaryLabel",
-                     "values":[
-                        {
-                           "isRequired":true,
-                           "maxLength":20,
-                           "name":"first_name"
-                        }
-                     ]
-                  },
-                  {
-                     "type":"default",
-                     "label":"travelers.fields.lastName.label",
-                     "summaryLabel":"travelers.fields.lastName.summaryLabel",
-                     "values":[
-                        {
-                           "isRequired":true,
-                           "maxLength":20,
-                           "name":"last_name"
-                        }
-                     ]
-                  }
-               ]
-            },
-            {
-               "fields":[
-                  {
-                     "type":"date",
-                     "subType":[
-                        "adult","child","senior"
-                     ],
-                     "label":"travelers.fields.dateOfBirth.label",
-                     "summaryLabel":"travelers.fields.dateOfBirth.summaryLabel",
-                     "values":[
-                        {
-                           "isRequired":true,
-                           "name":"birth_date",
-						   "validations":[
-                              "dateOfBirth"
-                           ],
-                           "type":"date"
-                        }
-                     ]
-                  }
-               ]
-            },
-            {
-               "fields":[
-                  {
-                     "type":"default",
-                     "label":"travelers.fields.email.label",
-                     "summaryLabel":"travelers.fields.email.summaryLabel",
-                     "values":[
-                        {
-                           "maxLength":200,
-                           "name":"email",
-                           "isRequired":true,
-                           "validations":[
-                              "email"
-                           ]
-                        }
-                     ]
-                  }
-               ]
-            },
-            {
-               "fields":[
-                  {
-                     "type":"default",
-                     "label":"travelers.fields.passport.label",
-                     "summaryLabel":"travelers.fields.passport.summaryLabel",
-                     "values":[
-                        {
-                           "maxLength":30,
-                           "isRequired":true,
-                           "name":"passport_number",
-                           "normalize":"simpleAlphaNumericText"
-                        }
-                     ]
-                  }
-               ]
+              "label": "travelers.fields.title.label",
+              "summaryLabel": "travelers.fields.title.summaryLabel",
+              "type": "list",
+              "modifier": "inline",
+              "columns": 3,
+              "name": "title",
+              "values": [
+                {
+                  "name": "title",
+                  "isRequired": true,
+                  "label": "travelers.fields.title.miss.label",
+                  "value": "MISS"
+                },
+                {
+                  "name": "title",
+                  "isRequired": true,
+                  "label": "travelers.fields.title.mrs.label",
+                  "value": "MRS"
+                },
+                {
+                  "name": "title",
+                  "isRequired": true,
+                  "label": "travelers.fields.title.mr.label",
+                  "value": "MR"
+                }
+              ]
             }
-         ]
-      },
-      "adultTree":{
-         "label":"travelers.adult.title",
-         "summaryLabel":"travelers.adult.summaryLabel",
-         "rows":[
+          ]
+        },
+        {
+          "label": "key2",
+          "fields": [
             {
-               "fields":[
-                  {
-                     "type":"default",
-                     "values":[
-                        {
-                           "type":"checkbox",
-                           "label":"travelers.fields.isPolicyHolder.label",
-                           "name":"isPolicyHolder",
-                           "value":false
-                        }
-                     ]
-                  }
-               ]
+              "type": "default",
+              "name": "first_name",
+              "label": "travelers.fields.firstName.label",
+              "summaryLabel": "travelers.fields.firstName.summaryLabel",
+              "values": [
+                {
+                  "isRequired": true,
+                  "maxLength": 20,
+                  "name": "first_name"
+                }
+              ]
             },
             {
-               "fields":[
-                  {
-                     "label":"travelers.fields.title.label",
-                     "summaryLabel":"travelers.fields.title.summaryLabel",
-                     "type":"list",
-                     "modifier":"inline",
-                     "columns":3,
-                     "name":"title",
-                     "values":[
-                        {
-                           "name":"title",
-                           "isRequired":true,
-                           "label":"travelers.fields.title.miss.label",
-                           "value":"MISS"
-                        },
-                        {
-                           "name":"title",
-                           "isRequired":true,
-                           "label":"travelers.fields.title.mrs.label",
-                           "value":"MRS"
-                        },
-                        {
-                           "name":"title",
-                           "isRequired":true,
-                           "label":"travelers.fields.title.mr.label",
-                           "value":"MR"
-                        }
-                     ]
-                  }
-               ]
-            },
-            {
-               "fields":[
-                  {
-                     "type":"default",
-                     "label":"travelers.fields.firstName.label",
-                     "summaryLabel":"travelers.fields.firstName.summaryLabel",
-                     "values":[
-                        {
-                           "isRequired":true,
-                           "maxLength":20,
-                           "name":"first_name"
-                        }
-                     ]
-                  },
-                  {
-                     "type":"default",
-                     "label":"travelers.fields.lastName.label",
-                     "summaryLabel":"travelers.fields.lastName.summaryLabel",
-                     "values":[
-                        {
-                           "isRequired":true,
-                           "maxLength":20,
-                           "name":"last_name"
-                        }
-                     ]
-                  },
-                  {
-                     "type":"date",
-                     "subType":[
-                        "adult"
-                     ],
-                     "label":"travelers.fields.dateOfBirth.label",
-                     "summaryLabel":"travelers.fields.dateOfBirth.summaryLabel",
-                     "values":[
-                        {
-                           "isRequired":true,
-                           "name":"birth_date",
-						   "validations":[
-                              "dateOfBirth"
-                           ],
-                           "type":"date"
-                        }
-                     ]
-                  },
-                  {
-                     "type":"default",
-                     "label":"travelers.fields.passport.label",
-                     "summaryLabel":"travelers.fields.passport.summaryLabel",
-                     "values":[
-                        {
-                           "maxLength":30,
-                           "isRequired":true,
-                           "name":"passport_number",
-                           "normalize":"simpleAlphaNumericText"
-                        }
-                     ]
-                  }
-               ]
+              "type": "default",
+              "name": "last_name",
+              "label": "travelers.fields.lastName.label",
+              "summaryLabel": "travelers.fields.lastName.summaryLabel",
+              "values": [
+                {
+                  "isRequired": true,
+                  "maxLength": 20,
+                  "name": "last_name"
+                }
+              ]
             }
-         ]
-      },
-      "childTree":{
-         "label":"travelers.adult.title",
-         "summaryLabel":"travelers.adult.summaryLabel",
-         "rows":[
+          ]
+        },
+        {
+          "label": "key3",
+          "fields": [
             {
-               "fields":[
-                  {
-                     "type":"default",
-                     "values":[
-                        {
-                           "type":"checkbox",
-                           "label":"travelers.fields.isPolicyHolder.label",
-                           "name":"isPolicyHolder",
-                           "value":false
-                        }
-                     ]
-                  }
-               ]
-            },
-            {
-               "fields":[
-                  {
-                     "label":"travelers.fields.title.label",
-                     "summaryLabel":"travelers.fields.title.summaryLabel",
-                     "type":"list",
-                     "modifier":"inline",
-                     "columns":3,
-                     "name":"title",
-                     "values":[
-                        {
-                           "name":"title",
-                           "isRequired":true,
-                           "label":"travelers.fields.title.miss.label",
-                           "value":"MISS"
-                        },
-                        {
-                           "name":"title",
-                           "isRequired":true,
-                           "label":"travelers.fields.title.mrs.label",
-                           "value":"MRS"
-                        },
-                        {
-                           "name":"title",
-                           "isRequired":true,
-                           "label":"travelers.fields.title.mr.label",
-                           "value":"MR"
-                        }
-                     ]
-                  }
-               ]
-            },
-            {
-               "fields":[
-                  {
-                     "type":"default",
-                     "label":"travelers.fields.firstName.label",
-                     "summaryLabel":"travelers.fields.firstName.summaryLabel",
-                     "values":[
-                        {
-                           "isRequired":true,
-                           "maxLength":20,
-                           "name":"first_name"
-                        }
-                     ]
-                  },
-                  {
-                     "type":"default",
-                     "label":"travelers.fields.lastName.label",
-                     "summaryLabel":"travelers.fields.lastName.summaryLabel",
-                     "values":[
-                        {
-                           "isRequired":true,
-                           "maxLength":20,
-                           "name":"last_name"
-                        }
-                     ]
-                  },
-                  {
-                     "type":"date",
-                     "subType":[
-                        "child"
-                     ],
-                     "label":"travelers.fields.dateOfBirth.label",
-                     "summaryLabel":"travelers.fields.dateOfBirth.summaryLabel",
-                     "values":[
-                        {
-                           "isRequired":true,
-                           "name":"birth_date",
-						   "validations":[
-                              "dateOfBirth"
-                           ],
-                           "type":"date"
-                        }
-                     ]
-                  },
-                  {
-                     "type":"default",
-                     "label":"travelers.fields.passport.label",
-                     "summaryLabel":"travelers.fields.passport.summaryLabel",
-                     "values":[
-                        {
-                           "maxLength":30,
-                           "isRequired":true,
-                           "name":"passport_number",
-                           "normalize":"simpleAlphaNumericText"
-                        }
-                     ]
-                  }
-               ]
+              "type": "date",
+              "subType": ["adult", "child", "senior"],
+              "label": "travelers.fields.dateOfBirth.label",
+              "name": "birth_date",
+              "summaryLabel": "travelers.fields.dateOfBirth.summaryLabel",
+              "values": [
+                {
+                  "isRequired": true,
+                  "name": "birth_date",
+                  "validations": ["dateOfBirth"],
+                  "type": "date"
+                }
+              ]
             }
-         ]
-      },
-      "infantTree":{
-         "label":"travelers.infant.title",
-         "subtitle":"travelers.infant.subtitle",
-         "rows":[
+          ]
+        },
+        {
+          "label": "key4",
+          "fields": [
             {
-               "fields":[
-                  {
-                     "label":"travelers.fields.title.label",
-                     "summaryLabel":"travelers.fields.title.summaryLabel",
-                     "type":"list",
-                     "modifier":"inline",
-                     "columns":3,
-                     "name":"title",
-                     "values":[
-                        {
-                           "name":"title",
-                           "isRequired":true,
-                           "label":"travelers.fields.title.miss.label",
-                           "value":"MISS"
-                        },
-                        {
-                           "name":"title",
-                           "isRequired":true,
-                           "label":"travelers.fields.title.mrs.label",
-                           "value":"MRS"
-                        },
-                        {
-                           "name":"title",
-                           "isRequired":true,
-                           "label":"travelers.fields.title.mr.label",
-                           "value":"MR"
-                        }
-                     ]
-                  }
-               ]
-            },
-            {
-               "fields":[
-                  {
-                     "type":"default",
-                     "label":"travelers.fields.firstName.label",
-                     "summaryLabel":"travelers.fields.firstName.summaryLabel",
-                     "values":[
-                        {
-                           "isRequired":true,
-                           "maxLength":20,
-                           "name":"first_name"
-                        }
-                     ]
-                  },
-                  {
-                     "type":"default",
-                     "label":"travelers.fields.lastName.label",
-                     "summaryLabel":"travelers.fields.lastName.summaryLabel",
-                     "values":[
-                        {
-                           "isRequired":true,
-                           "maxLength":20,
-                           "name":"last_name"
-                        }
-                     ]
-                  },
-                  {
-                     "type":"date",
-                     "subType":[
-                        "child"
-                     ],
-                     "label":"travelers.fields.dateOfBirth.label",
-                     "summaryLabel":"travelers.fields.dateOfBirth.summaryLabel",
-                     "values":[
-                        {
-                           "isRequired":true,
-                           "name":"birth_date",
-						   "validations":[
-                              "dateOfBirth"
-                           ],
-                           "type":"date"
-                        }
-                     ]
-                  },
-                  {
-                     "type":"default",
-                     "label":"travelers.fields.passport.label",
-                     "summaryLabel":"travelers.fields.passport.summaryLabel",
-                     "values":[
-                        {
-                           "maxLength":30,
-                           "isRequired":true,
-                           "name":"passport_number",
-                           "normalize":"simpleAlphaNumericText"
-                        }
-                     ]
-                  }
-               ]
+              "type": "default",
+              "label": "travelers.fields.email.label",
+              "name": "email",
+              "summaryLabel": "travelers.fields.email.summaryLabel",
+              "values": [
+                {
+                  "maxLength": 200,
+                  "name": "email",
+                  "isRequired": true,
+                  "validations": ["email"]
+                }
+              ]
             }
-         ]
-      },
-      "seniorTree":{
-         "label":"travelers.adult.title",
-         "summaryLabel":"travelers.adult.summaryLabel",
-         "rows":[
+          ]
+        },
+        {
+          "label": "key5",
+          "fields": [
             {
-               "fields":[
-                  {
-                     "type":"default",
-                     "values":[
-                        {
-                           "type":"checkbox",
-                           "label":"travelers.fields.isPolicyHolder.label",
-                           "name":"isPolicyHolder",
-                           "value":false
-                        }
-                     ]
-                  }
-               ]
-            },
-            {
-               "fields":[
-                  {
-                     "label":"travelers.fields.title.label",
-                     "summaryLabel":"travelers.fields.title.summaryLabel",
-                     "type":"list",
-                     "modifier":"inline",
-                     "columns":3,
-                     "name":"title",
-                     "values":[
-                        {
-                           "name":"title",
-                           "isRequired":true,
-                           "label":"travelers.fields.title.miss.label",
-                           "value":"MISS"
-                        },
-                        {
-                           "name":"title",
-                           "isRequired":true,
-                           "label":"travelers.fields.title.mrs.label",
-                           "value":"MRS"
-                        },
-                        {
-                           "name":"title",
-                           "isRequired":true,
-                           "label":"travelers.fields.title.mr.label",
-                           "value":"MR"
-                        }
-                     ]
-                  }
-               ]
-            },
-            {
-               "fields":[
-                  {
-                     "type":"default",
-                     "label":"travelers.fields.firstName.label",
-                     "summaryLabel":"travelers.fields.firstName.summaryLabel",
-                     "values":[
-                        {
-                           "isRequired":true,
-                           "maxLength":20,
-                           "name":"first_name"
-                        }
-                     ]
-                  },
-                  {
-                     "type":"default",
-                     "label":"travelers.fields.lastName.label",
-                     "summaryLabel":"travelers.fields.lastName.summaryLabel",
-                     "values":[
-                        {
-                           "isRequired":true,
-                           "maxLength":20,
-                           "name":"last_name"
-                        }
-                     ]
-                  },
-                  {
-                     "type":"date",
-                     "subType":[
-                        "senior"
-                     ],
-                     "label":"travelers.fields.dateOfBirth.label",
-                     "summaryLabel":"travelers.fields.dateOfBirth.summaryLabel",
-                     "values":[
-                        {
-                           "isRequired":true,
-                           "name":"birth_date",
-						   "validations":[
-                              "dateOfBirth"
-                           ],
-                           "type":"date"
-                        }
-                     ]
-                  },
-                  {
-                     "type":"default",
-                     "label":"travelers.fields.passport.label",
-                     "summaryLabel":"travelers.fields.passport.summaryLabel",
-                     "values":[
-                        {
-                           "maxLength":30,
-                           "isRequired":true,
-                           "name":"passport_number",
-                           "normalize":"simpleAlphaNumericText"
-                        }
-                     ]
-                  }
-               ]
+              "type": "default",
+              "label": "travelers.fields.passport.label",
+              "summaryLabel": "travelers.fields.passport.summaryLabel",
+              "name": "passport_number",
+              "values": [
+                {
+                  "maxLength": 30,
+                  "isRequired": true,
+                  "name": "passport_number",
+                  "normalize": "simpleAlphaNumericText"
+                }
+              ]
             }
-         ]
-      }
-   }
+          ]
+        }
+      ]
+    },
+    "adultTree": {
+      "label": "travelers.adult.title",
+      "summaryLabel": "travelers.adult.summaryLabel",
+      "rows": [
+        {
+          "fields": [
+            {
+              "type": "default",
+              "values": [
+                {
+                  "type": "checkbox",
+                  "label": "travelers.fields.isPolicyHolder.label",
+                  "name": "isPolicyHolder",
+                  "value": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "label": "travelers.fields.title.label",
+              "summaryLabel": "travelers.fields.title.summaryLabel",
+              "type": "list",
+              "modifier": "inline",
+              "columns": 3,
+              "name": "title",
+              "values": [
+                {
+                  "name": "title",
+                  "isRequired": true,
+                  "label": "travelers.fields.title.miss.label",
+                  "value": "MISS"
+                },
+                {
+                  "name": "title",
+                  "isRequired": true,
+                  "label": "travelers.fields.title.mrs.label",
+                  "value": "MRS"
+                },
+                {
+                  "name": "title",
+                  "isRequired": true,
+                  "label": "travelers.fields.title.mr.label",
+                  "value": "MR"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "type": "default",
+              "label": "travelers.fields.firstName.label",
+              "summaryLabel": "travelers.fields.firstName.summaryLabel",
+              "values": [
+                {
+                  "isRequired": true,
+                  "maxLength": 20,
+                  "name": "first_name"
+                }
+              ]
+            },
+            {
+              "type": "default",
+              "label": "travelers.fields.lastName.label",
+              "summaryLabel": "travelers.fields.lastName.summaryLabel",
+              "values": [
+                {
+                  "isRequired": true,
+                  "maxLength": 20,
+                  "name": "last_name"
+                }
+              ]
+            },
+            {
+              "type": "date",
+              "subType": ["adult"],
+              "label": "travelers.fields.dateOfBirth.label",
+              "summaryLabel": "travelers.fields.dateOfBirth.summaryLabel",
+              "values": [
+                {
+                  "isRequired": true,
+                  "name": "birth_date",
+                  "validations": ["dateOfBirth"],
+                  "type": "date"
+                }
+              ]
+            },
+            {
+              "type": "default",
+              "label": "travelers.fields.passport.label",
+              "summaryLabel": "travelers.fields.passport.summaryLabel",
+              "values": [
+                {
+                  "maxLength": 30,
+                  "isRequired": true,
+                  "name": "passport_number",
+                  "normalize": "simpleAlphaNumericText"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "childTree": {
+      "label": "travelers.adult.title",
+      "summaryLabel": "travelers.adult.summaryLabel",
+      "rows": [
+        {
+          "fields": [
+            {
+              "type": "default",
+              "values": [
+                {
+                  "type": "checkbox",
+                  "label": "travelers.fields.isPolicyHolder.label",
+                  "name": "isPolicyHolder",
+                  "value": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "label": "travelers.fields.title.label",
+              "summaryLabel": "travelers.fields.title.summaryLabel",
+              "type": "list",
+              "modifier": "inline",
+              "columns": 3,
+              "name": "title",
+              "values": [
+                {
+                  "name": "title",
+                  "isRequired": true,
+                  "label": "travelers.fields.title.miss.label",
+                  "value": "MISS"
+                },
+                {
+                  "name": "title",
+                  "isRequired": true,
+                  "label": "travelers.fields.title.mrs.label",
+                  "value": "MRS"
+                },
+                {
+                  "name": "title",
+                  "isRequired": true,
+                  "label": "travelers.fields.title.mr.label",
+                  "value": "MR"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "type": "default",
+              "label": "travelers.fields.firstName.label",
+              "summaryLabel": "travelers.fields.firstName.summaryLabel",
+              "values": [
+                {
+                  "isRequired": true,
+                  "maxLength": 20,
+                  "name": "first_name"
+                }
+              ]
+            },
+            {
+              "type": "default",
+              "label": "travelers.fields.lastName.label",
+              "summaryLabel": "travelers.fields.lastName.summaryLabel",
+              "values": [
+                {
+                  "isRequired": true,
+                  "maxLength": 20,
+                  "name": "last_name"
+                }
+              ]
+            },
+            {
+              "type": "date",
+              "subType": ["child"],
+              "label": "travelers.fields.dateOfBirth.label",
+              "summaryLabel": "travelers.fields.dateOfBirth.summaryLabel",
+              "values": [
+                {
+                  "isRequired": true,
+                  "name": "birth_date",
+                  "validations": ["dateOfBirth"],
+                  "type": "date"
+                }
+              ]
+            },
+            {
+              "type": "default",
+              "label": "travelers.fields.passport.label",
+              "summaryLabel": "travelers.fields.passport.summaryLabel",
+              "values": [
+                {
+                  "maxLength": 30,
+                  "isRequired": true,
+                  "name": "passport_number",
+                  "normalize": "simpleAlphaNumericText"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "infantTree": {
+      "label": "travelers.infant.title",
+      "subtitle": "travelers.infant.subtitle",
+      "rows": [
+        {
+          "fields": [
+            {
+              "label": "travelers.fields.title.label",
+              "summaryLabel": "travelers.fields.title.summaryLabel",
+              "type": "list",
+              "modifier": "inline",
+              "columns": 3,
+              "name": "title",
+              "values": [
+                {
+                  "name": "title",
+                  "isRequired": true,
+                  "label": "travelers.fields.title.miss.label",
+                  "value": "MISS"
+                },
+                {
+                  "name": "title",
+                  "isRequired": true,
+                  "label": "travelers.fields.title.mrs.label",
+                  "value": "MRS"
+                },
+                {
+                  "name": "title",
+                  "isRequired": true,
+                  "label": "travelers.fields.title.mr.label",
+                  "value": "MR"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "type": "default",
+              "label": "travelers.fields.firstName.label",
+              "summaryLabel": "travelers.fields.firstName.summaryLabel",
+              "values": [
+                {
+                  "isRequired": true,
+                  "maxLength": 20,
+                  "name": "first_name"
+                }
+              ]
+            },
+            {
+              "type": "default",
+              "label": "travelers.fields.lastName.label",
+              "summaryLabel": "travelers.fields.lastName.summaryLabel",
+              "values": [
+                {
+                  "isRequired": true,
+                  "maxLength": 20,
+                  "name": "last_name"
+                }
+              ]
+            },
+            {
+              "type": "date",
+              "subType": ["child"],
+              "label": "travelers.fields.dateOfBirth.label",
+              "summaryLabel": "travelers.fields.dateOfBirth.summaryLabel",
+              "values": [
+                {
+                  "isRequired": true,
+                  "name": "birth_date",
+                  "validations": ["dateOfBirth"],
+                  "type": "date"
+                }
+              ]
+            },
+            {
+              "type": "default",
+              "label": "travelers.fields.passport.label",
+              "summaryLabel": "travelers.fields.passport.summaryLabel",
+              "values": [
+                {
+                  "maxLength": 30,
+                  "isRequired": true,
+                  "name": "passport_number",
+                  "normalize": "simpleAlphaNumericText"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "seniorTree": {
+      "label": "travelers.adult.title",
+      "summaryLabel": "travelers.adult.summaryLabel",
+      "rows": [
+        {
+          "fields": [
+            {
+              "type": "default",
+              "values": [
+                {
+                  "type": "checkbox",
+                  "label": "travelers.fields.isPolicyHolder.label",
+                  "name": "isPolicyHolder",
+                  "value": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "label": "travelers.fields.title.label",
+              "summaryLabel": "travelers.fields.title.summaryLabel",
+              "type": "list",
+              "modifier": "inline",
+              "columns": 3,
+              "name": "title",
+              "values": [
+                {
+                  "name": "title",
+                  "isRequired": true,
+                  "label": "travelers.fields.title.miss.label",
+                  "value": "MISS"
+                },
+                {
+                  "name": "title",
+                  "isRequired": true,
+                  "label": "travelers.fields.title.mrs.label",
+                  "value": "MRS"
+                },
+                {
+                  "name": "title",
+                  "isRequired": true,
+                  "label": "travelers.fields.title.mr.label",
+                  "value": "MR"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "fields": [
+            {
+              "type": "default",
+              "label": "travelers.fields.firstName.label",
+              "summaryLabel": "travelers.fields.firstName.summaryLabel",
+              "values": [
+                {
+                  "isRequired": true,
+                  "maxLength": 20,
+                  "name": "first_name"
+                }
+              ]
+            },
+            {
+              "type": "default",
+              "label": "travelers.fields.lastName.label",
+              "summaryLabel": "travelers.fields.lastName.summaryLabel",
+              "values": [
+                {
+                  "isRequired": true,
+                  "maxLength": 20,
+                  "name": "last_name"
+                }
+              ]
+            },
+            {
+              "type": "date",
+              "subType": ["senior"],
+              "label": "travelers.fields.dateOfBirth.label",
+              "summaryLabel": "travelers.fields.dateOfBirth.summaryLabel",
+              "values": [
+                {
+                  "isRequired": true,
+                  "name": "birth_date",
+                  "validations": ["dateOfBirth"],
+                  "type": "date"
+                }
+              ]
+            },
+            {
+              "type": "default",
+              "label": "travelers.fields.passport.label",
+              "summaryLabel": "travelers.fields.passport.summaryLabel",
+              "values": [
+                {
+                  "maxLength": 30,
+                  "isRequired": true,
+                  "name": "passport_number",
+                  "normalize": "simpleAlphaNumericText"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
 }
