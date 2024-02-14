@@ -113,7 +113,7 @@
               "values": [
                 {
                   "isRequired": true,
-                  "labelStart": "travel.product1.travel1.step4.value.labelStart",
+                  "label": "travel.product1.travel1.step4.value.labelStart",
                   "summaryLabelStart": "travel.product1.travel1.step4.value.summaryLabelStart",
                   "max": 0,
                   "min": -182,
@@ -250,8 +250,8 @@
               "values": [
                 {
                   "isRequired": true,
-                  "labelStart": "travel.product1.travel1.step4.value.labelStart",
-                  "summaryLabelStart": "travel.product1.travel1.step4.value.summaryLabelStart",
+                  "label": "travel.product1.travel1.step4.value.labelStart",
+                  "summaryLabel": "travel.product1.travel1.step4.value.summaryLabelStart",
                   "max": 0,
                   "min": -182,
                   "nameStart": "bookingDate",
@@ -397,8 +397,8 @@
               "values": [
                 {
                   "isRequired": true,
-                  "labelStart": "travel.product1.travel1.step4.value.labelStart",
-                  "summaryLabelStart": "travel.product1.travel1.step4.value.summaryLabelStart",
+                  "label": "travel.product1.travel1.step4.value.labelStart",
+                  "summaryLabel": "travel.product1.travel1.step4.value.summaryLabelStart",
                   "max": 0,
                   "min": -182,
                   "nameStart": "bookingDate",

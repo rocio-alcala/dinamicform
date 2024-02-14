@@ -1,11 +1,11 @@
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { Step } from "../../models/types";
 import { InputForm } from "./QuoteForm";
-import InputText from "../bits/InputText";
 import Errors from "../bits/Errors";
+import InputCheckBox from "../bits/InputCheckBox";
 import { Fragment } from "react";
 
-interface StepTextPropsType {
+interface StepCheckBoxPropsType {
   step: Step;
   register: UseFormRegister<InputForm>;
   errors: FieldErrors<InputForm>;
@@ -15,20 +15,22 @@ export default function StepText({
   step,
   register,
   errors
-}: StepTextPropsType) {
+}: StepCheckBoxPropsType) {
   return (
     <div>
-      {step.values.map((value: any, index: number) => {
-        const { ref, ...rest } = register(value.name);
+      {step.values.map((check: any, index: number) => {
+        const { ref, name, ...rest } = register(check.name);
         return (
-          <Fragment key={value.label + index}>
-            <InputText
-              id={value.label}
+          <Fragment key={check.label + index}>
+            <InputCheckBox
+              id={check.label}
               inputRef={ref}
-              label={value.label}
+              label={check.label}
+              groupName={name}
               {...rest}
+              value={check.value}
             />
-            <Errors message={errors[value.name]?.message} />
+            <Errors message={errors[check.name]?.message} />
           </Fragment>
         );
       })}

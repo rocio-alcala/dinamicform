@@ -14,7 +14,7 @@ interface StepCounterPropsType {
 
 export function StepCounter({ step, register, errors }: StepCounterPropsType) {
   return (
-    <div className="criteria">
+    <div>
       {step.values.map((counter: CounterValue, index: number) => {
         const { ref, ...rest } = register(`${step.name}.${counter.name}`);
         const errorMessage = get(

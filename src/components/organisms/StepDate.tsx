@@ -13,7 +13,7 @@ interface StepDatePropsType {
 
 export default function StepDate({ step, control, errors }: StepDatePropsType) {
   return (
-    <div className="criteria">
+    <div>
       {step.values.map((date: DateValue, index: number) => (
         <div key={index}>
           <Controller
@@ -36,7 +36,7 @@ export default function StepDate({ step, control, errors }: StepDatePropsType) {
               return (
                 <InputDate
                   value={value instanceof Date ? value.toDateString() : value}
-                  label={date.labelStart}
+                  label={date.label}
                   maxDate={addDays(new Date(), date.max)}
                   minDate={addDays(new Date(), date.min)}
                   inputRef={ref}

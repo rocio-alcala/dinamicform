@@ -17,7 +17,7 @@ export default function StepCurrency({
   errors
 }: StepCurrencyPropsType) {
   return (
-    <div className="criteria">
+    <div>
       {step.values.map((value: CurrencyValue, index: number) => {
         const { ref, ...rest } = register(value.name);
         return (

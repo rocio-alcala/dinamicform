@@ -20,7 +20,7 @@ export default function StepDateRange({
   const [startDate, setStartDate] = useState<InputFormValue>();
 
   return (
-    <div className="criteria">
+    <div>
       {step.values.map((dateRange: DateRangeValue, index: number) => (
         <div key={index}>
           <label htmlFor={dateRange.nameStart}>{dateRange.nameStart}</label>

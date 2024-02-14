@@ -42,10 +42,10 @@
             {
               "type": "default",
               "name": "first_name",
-              "label": "travelers.fields.firstName.label",
-              "summaryLabel": "travelers.fields.firstName.summaryLabel",
               "values": [
                 {
+                  "label": "travelers.fields.firstName.label",
+                  "summaryLabel": "travelers.fields.firstName.summaryLabel",
                   "isRequired": true,
                   "maxLength": 20,
                   "name": "first_name"
@@ -55,10 +55,10 @@
             {
               "type": "default",
               "name": "last_name",
-              "label": "travelers.fields.lastName.label",
-              "summaryLabel": "travelers.fields.lastName.summaryLabel",
               "values": [
                 {
+                  "label": "travelers.fields.lastName.label",
+                  "summaryLabel": "travelers.fields.lastName.summaryLabel",
                   "isRequired": true,
                   "maxLength": 20,
                   "name": "last_name"
@@ -73,11 +73,13 @@
             {
               "type": "date",
               "subType": ["adult", "child", "senior"],
-              "label": "travelers.fields.dateOfBirth.label",
+
               "name": "birth_date",
-              "summaryLabel": "travelers.fields.dateOfBirth.summaryLabel",
+
               "values": [
                 {
+                  "label": "travelers.fields.dateOfBirth.label",
+                  "summaryLabel": "travelers.fields.dateOfBirth.summaryLabel",
                   "isRequired": true,
                   "name": "birth_date",
                   "validations": ["dateOfBirth"],
@@ -92,11 +94,13 @@
           "fields": [
             {
               "type": "default",
-              "label": "travelers.fields.email.label",
+
               "name": "email",
-              "summaryLabel": "travelers.fields.email.summaryLabel",
+
               "values": [
                 {
+                  "label": "travelers.fields.email.label",
+                  "summaryLabel": "travelers.fields.email.summaryLabel",
                   "maxLength": 200,
                   "name": "email",
                   "isRequired": true,
@@ -111,11 +115,12 @@
           "fields": [
             {
               "type": "default",
-              "label": "travelers.fields.passport.label",
-              "summaryLabel": "travelers.fields.passport.summaryLabel",
+
               "name": "passport_number",
               "values": [
                 {
+                  "label": "travelers.fields.passport.label",
+                  "summaryLabel": "travelers.fields.passport.summaryLabel",
                   "maxLength": 30,
                   "isRequired": true,
                   "name": "passport_number",
@@ -134,13 +139,13 @@
         {
           "fields": [
             {
-              "type": "default",
+              "type": "checkbox",
               "values": [
                 {
                   "type": "checkbox",
                   "label": "travelers.fields.isPolicyHolder.label",
                   "name": "isPolicyHolder",
-                  "value": false
+                  "value": true
                 }
               ]
             }
@@ -182,10 +187,11 @@
           "fields": [
             {
               "type": "default",
-              "label": "travelers.fields.firstName.label",
-              "summaryLabel": "travelers.fields.firstName.summaryLabel",
+
               "values": [
                 {
+                  "summaryLabel": "travelers.fields.firstName.summaryLabel",
+                  "label": "travelers.fields.firstName.label",
                   "isRequired": true,
                   "maxLength": 20,
                   "name": "first_name"
@@ -194,10 +200,11 @@
             },
             {
               "type": "default",
-              "label": "travelers.fields.lastName.label",
-              "summaryLabel": "travelers.fields.lastName.summaryLabel",
+
               "values": [
                 {
+                  "summaryLabel": "travelers.fields.lastName.summaryLabel",
+                  "label": "travelers.fields.lastName.label",
                   "isRequired": true,
                   "maxLength": 20,
                   "name": "last_name"
@@ -207,10 +214,11 @@
             {
               "type": "date",
               "subType": ["adult"],
-              "label": "travelers.fields.dateOfBirth.label",
-              "summaryLabel": "travelers.fields.dateOfBirth.summaryLabel",
+
               "values": [
                 {
+                  "summaryLabel": "travelers.fields.dateOfBirth.summaryLabel",
+                  "label": "travelers.fields.dateOfBirth.label",
                   "isRequired": true,
                   "name": "birth_date",
                   "validations": ["dateOfBirth"],
@@ -220,10 +228,11 @@
             },
             {
               "type": "default",
-              "label": "travelers.fields.passport.label",
-              "summaryLabel": "travelers.fields.passport.summaryLabel",
+
               "values": [
                 {
+                  "summaryLabel": "travelers.fields.passport.summaryLabel",
+                  "label": "travelers.fields.passport.label",
                   "maxLength": 30,
                   "isRequired": true,
                   "name": "passport_number",
@@ -236,7 +245,7 @@
       ]
     },
     "childTree": {
-      "label": "travelers.adult.title",
+      "label": "travelers.child.title",
       "summaryLabel": "travelers.adult.summaryLabel",
       "rows": [
         {
@@ -290,10 +299,11 @@
           "fields": [
             {
               "type": "default",
-              "label": "travelers.fields.firstName.label",
-              "summaryLabel": "travelers.fields.firstName.summaryLabel",
+
               "values": [
                 {
+                  "summaryLabel": "travelers.fields.firstName.summaryLabel",
+                  "label": "travelers.fields.firstName.label",
                   "isRequired": true,
                   "maxLength": 20,
                   "name": "first_name"
@@ -302,10 +312,11 @@
             },
             {
               "type": "default",
-              "label": "travelers.fields.lastName.label",
-              "summaryLabel": "travelers.fields.lastName.summaryLabel",
+
               "values": [
                 {
+                  "summaryLabel": "travelers.fields.lastName.summaryLabel",
+                  "label": "travelers.fields.lastName.label",
                   "isRequired": true,
                   "maxLength": 20,
                   "name": "last_name"
@@ -315,10 +326,11 @@
             {
               "type": "date",
               "subType": ["child"],
-              "label": "travelers.fields.dateOfBirth.label",
-              "summaryLabel": "travelers.fields.dateOfBirth.summaryLabel",
+
               "values": [
                 {
+                  "summaryLabel": "travelers.fields.dateOfBirth.summaryLabel",
+                  "label": "travelers.fields.dateOfBirth.label",
                   "isRequired": true,
                   "name": "birth_date",
                   "validations": ["dateOfBirth"],
@@ -328,10 +340,11 @@
             },
             {
               "type": "default",
-              "label": "travelers.fields.passport.label",
-              "summaryLabel": "travelers.fields.passport.summaryLabel",
+
               "values": [
                 {
+                  "summaryLabel": "travelers.fields.passport.summaryLabel",
+                  "label": "travelers.fields.passport.label",
                   "maxLength": 30,
                   "isRequired": true,
                   "name": "passport_number",
@@ -437,19 +450,19 @@
       ]
     },
     "seniorTree": {
-      "label": "travelers.adult.title",
+      "label": "travelers.senior.title",
       "summaryLabel": "travelers.adult.summaryLabel",
       "rows": [
         {
           "fields": [
             {
-              "type": "default",
+              "type": "checkbox",
               "values": [
                 {
                   "type": "checkbox",
                   "label": "travelers.fields.isPolicyHolder.label",
                   "name": "isPolicyHolder",
-                  "value": false
+                  "value": true 
                 }
               ]
             }
@@ -491,10 +504,10 @@
           "fields": [
             {
               "type": "default",
-              "label": "travelers.fields.firstName.label",
-              "summaryLabel": "travelers.fields.firstName.summaryLabel",
               "values": [
                 {
+                  "label": "travelers.fields.firstName.label",
+                  "summaryLabel": "travelers.fields.firstName.summaryLabel",
                   "isRequired": true,
                   "maxLength": 20,
                   "name": "first_name"
@@ -503,10 +516,10 @@
             },
             {
               "type": "default",
-              "label": "travelers.fields.lastName.label",
-              "summaryLabel": "travelers.fields.lastName.summaryLabel",
               "values": [
                 {
+                  "label": "travelers.fields.lastName.label",
+                  "summaryLabel": "travelers.fields.lastName.summaryLabel",
                   "isRequired": true,
                   "maxLength": 20,
                   "name": "last_name"
@@ -516,10 +529,10 @@
             {
               "type": "date",
               "subType": ["senior"],
-              "label": "travelers.fields.dateOfBirth.label",
-              "summaryLabel": "travelers.fields.dateOfBirth.summaryLabel",
               "values": [
                 {
+                  "label": "travelers.fields.dateOfBirth.label",
+                  "summaryLabel": "travelers.fields.dateOfBirth.summaryLabel",
                   "isRequired": true,
                   "name": "birth_date",
                   "validations": ["dateOfBirth"],
@@ -529,10 +542,10 @@
             },
             {
               "type": "default",
-              "label": "travelers.fields.passport.label",
-              "summaryLabel": "travelers.fields.passport.summaryLabel",
               "values": [
                 {
+                  "label": "travelers.fields.passport.label",
+                  "summaryLabel": "travelers.fields.passport.summaryLabel",
                   "maxLength": 30,
                   "isRequired": true,
                   "name": "passport_number",

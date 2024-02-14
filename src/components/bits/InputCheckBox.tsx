@@ -1,11 +1,12 @@
-interface InputTextSpecificProps {
+interface InputCheckBokSpecificProps {
   inputRef?: React.LegacyRef<HTMLInputElement>;
   label?: string;
+  groupName?: string
 }
 
-export default function InputText({
+export default function InputCheckBox({
   inputRef,
-  name,
+  groupName,
   id,
   label,
   ...restProps
@@ -13,16 +14,15 @@ export default function InputText({
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
 > &
-  InputTextSpecificProps) {
+  InputCheckBokSpecificProps) {
   return (
     <div>
       {label && <label htmlFor={id}>{label}</label>}
       <input
-        className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500"
-        name={name}
+        name={groupName}
         ref={inputRef}
         id={id}
-        type="text"
+        type="checkbox"
         aria-label={label}
         {...restProps}
       ></input>

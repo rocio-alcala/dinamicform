@@ -12,7 +12,7 @@ interface StepListPropsType {
 
 export function StepList({ step, register, errors }: StepListPropsType) {
   return (
-    <div className="criteria">
+    <div>
       {step.values.map((value: ListValue) => {
         const { ref, name, ...rest } = register(step.name);
         return (

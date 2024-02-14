@@ -5,6 +5,7 @@ import { setupStore } from "./store/store.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import QuoteCriteria from "./components/views/QuoteCriteria.tsx";
 import Travelers from "./components/views/Travelers.tsx";
+import 'tailwindcss/tailwind.css';
 
 const router = createBrowserRouter([
   { path: "/", element: <QuoteCriteria /> },

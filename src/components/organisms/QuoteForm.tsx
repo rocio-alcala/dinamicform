@@ -1,4 +1,3 @@
-import "../../App.css";
 import { mockConfig } from "../../../mock/config";
 import { useForm } from "react-hook-form";
 import {
@@ -19,7 +18,7 @@ import { useAppDispatch, useAppSelector } from "../../store/typedHooks";
 import { submitQuoteCriteria } from "../../store/quoteCriteriaSlice";
 import { useNavigate } from "react-router-dom";
 
-export type InputFormValue = string | number | undefined | Date | null;
+export type InputFormValue = string | number | undefined | Date | null | boolean
 export type InputForm = Record<
   string,
   InputFormValue | Record<string, InputFormValue>
@@ -244,7 +243,7 @@ function QuoteForm() {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful },
     reset
   } = useForm<InputForm>({
     values: getDefaultValues(selectedSubProduct), //adding default values once a Sub Product is selected,
@@ -272,11 +271,12 @@ function QuoteForm() {
           }
         }
       }
+      console.log("ingreso a submit");
       toSerializableData(formData);
       quote = { ...quote, ...formData };
-      dispatch(submitQuoteCriteria(quote));
-      navigate("/travelers");
     })(event);
+    dispatch(submitQuoteCriteria(quote));
+    if (isSubmitSuccessful) navigate("/travelers");
   }
 
   function handleProductChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -286,70 +286,62 @@ function QuoteForm() {
   }
 
   return (
-    <>
-      <form noValidate className="formcontainer" onSubmit={masterSubmit}>
-        <label className="steplabel">travel.insurance.product.label</label>
-        <div className="criterias">
-          {products.map((product, index) => (
-            <label key={index} htmlFor={product.label}>
-              {product.label}
+    <form noValidate onSubmit={masterSubmit} className="flex flex-col">
+      <div className="flex flex-col">
+        <label className="text-lg font-medium">travel.insurance.product.label</label>
+        {products.map((product, index) => (
+          <label key={index} htmlFor={product.label}>
+            {product.label}
+            <input
+              id={product.label}
+              type="radio"
+              value={product.value}
+              {...basicRegister(product.name)}
+              onChange={handleProductChange}
+            ></input>
+          </label>
+        ))}
+        <Errors message={basicErrors[sampleProduct.name]?.message} />
+      </div>
+      {selectedProduct ? (
+        <div className="flex flex-col">
+          <label className="text-lg font-medium">travel.insurance.subproduct.label</label>
+          {selectedProduct.subProductGroups.map((subProduct) => (
+            <label key={subProduct.value} htmlFor={subProduct.label}>
+              {subProduct.label}
               <input
-                id={product.label}
+                id={subProduct.label}
                 type="radio"
-                className="buttons"
-                value={product.value}
-                {...basicRegister(product.name)}
-                onChange={handleProductChange}
-              ></input>
+                {...basicRegister(subProduct.name)}
+                value={subProduct.value}
+              />
             </label>
           ))}
-          <Errors message={basicErrors[products[0].name]?.message} />
+          <Errors
+            message={
+              basicErrors[sampleSubProduct.name]?.message
+            }
+          />
         </div>
-        {selectedProduct ? (
-          <div className="criterias">
-            <label className="steplabel">
-              travel.insurance.subproduct.label
-            </label>
-            {selectedProduct.subProductGroups.map((subProduct) => (
-              <label key={subProduct.value} htmlFor={subProduct.label}>
-                {subProduct.label}
-                <input
-                  id={subProduct.label}
-                  className="buttons"
-                  type="radio"
-                  {...basicRegister(subProduct.name)}
-                  value={subProduct.value}
-                />
-              </label>
-            ))}
-            <Errors
-              message={
-                basicErrors[selectedProduct.subProductGroups[0].name]?.message
-              }
-            />
-          </div>
-        ) : null}
+      ) : null}
 
-        <div className="step">
-          {selectedSubProduct
-            ? selectedSubProduct.steps.map((step) => (
-                <div key={step.label} className="step">
-                  <label className="steplabel">{step.name}</label>
-                  <StepSwitcher
-                    step={step}
-                    register={register}
-                    control={control}
-                    errors={errors}
-                  />
-                </div>
-              ))
-            : null}
-        </div>
-        <button className="buttons" type="submit">
-          Submit
-        </button>
-      </form>
-    </>
+      <div>
+        {selectedSubProduct
+          ? selectedSubProduct.steps.map((step) => (
+              <div key={step.label}>
+                <legend className="text-lg font-medium">{step.name}</legend>
+                <StepSwitcher
+                  step={step}
+                  register={register}
+                  control={control}
+                  errors={errors}
+                />
+              </div>
+            ))
+          : null}
+      </div>
+      <button type="submit">Submit</button>
+    </form>
   );
 }
 

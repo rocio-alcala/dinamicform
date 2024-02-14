@@ -19,7 +19,8 @@ export enum StepType {
   COUNTER = "counter",
   DATE_RANGE = "date-range",
   DATE = "date",
-  CURRENCY = "currency"
+  CURRENCY = "currency",
+  CHECKBOX = "checkbox"
 }
 
 export interface Step {
@@ -54,8 +55,8 @@ export interface CounterValue {
 
 export interface DateValue {
   isRequired: boolean;
-  labelStart: string;
-  summaryLabelStart: string;
+  label: string;
+  summaryLabel: string;
   max: number;
   min: number;
   nameStart: string;

@@ -8,6 +8,7 @@ import StepText from "./StepText";
 import StepCurrency from "./StepCurrency";
 import StepDate from "./StepDate";
 import StepDateRange from "./StepDateRange";
+import StepCheckBox from "./StepCheckBox";
 
 interface StepSwitcherProps {
   step: Step;
@@ -33,6 +34,8 @@ export default function StepSwitcher({
       return <StepDate step={step} control={control} errors={errors} />;
     case StepType.CURRENCY:
       return <StepCurrency step={step} register={register} errors={errors} />;
+    case StepType.CHECKBOX:
+      return <StepCheckBox step={step} register={register} errors={errors} />;
     case StepType.TEXT:
     default:
       return <StepText step={step} register={register} errors={errors} />;
