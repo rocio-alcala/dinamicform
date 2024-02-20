@@ -1,19 +1,22 @@
-import subscribers from "../../../agent-channel-config.json";
-import { Subscribers } from "../../models/subscribers";
 import StepSwitcher from "./StepSwitcher";
 import { useForm } from "react-hook-form";
+import { travelersConfig } from "../../../mock/travelersConfig";
+import { Subscribers } from "../../models/subscribers";
+import { InputForm } from "./QuoteForm";
 
-export default function TravelersForm({ travelers }) {
-  const subscribersCriteria: Subscribers = subscribers.subscribers;
+type TravelersFormPropsType = { travelers: Record<string, number> };
+
+export default function TravelersForm({ travelers }: TravelersFormPropsType) {
+  const travelersTree: Subscribers = travelersConfig;
 
   const {
     register,
     handleSubmit,
     control,
     formState: { errors }
-  } = useForm();
+  } = useForm<InputForm>();
 
-  function onSubmit(dataForm) {
+  function onSubmit(dataForm: InputForm) {
     console.log(dataForm);
   }
 
@@ -21,9 +24,9 @@ export default function TravelersForm({ travelers }) {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="p-4 m-5">
         <legend className="text-xl font-bold">
-          {subscribersCriteria.policyHolderTree.label}
+          {travelersTree.policyHolderTree.label}
         </legend>
-        {subscribersCriteria.policyHolderTree.rows.map((row, rowIndex) => {
+        {travelersTree.policyHolderTree.rows.map((row, rowIndex) => {
           return (
             <div key={row.label + rowIndex} className="flex flex-row">
               {row.fields.map((field, fieldIndex) => (
@@ -32,7 +35,7 @@ export default function TravelersForm({ travelers }) {
                     <legend className="font-medium">{field.label}</legend>
                   ) : null}
                   <StepSwitcher
-                    nestedParent={subscribersCriteria.policyHolderTree.name}
+                    nestedParent={travelersTree.policyHolderTree.name}
                     step={field}
                     control={control}
                     register={register}
@@ -51,13 +54,13 @@ export default function TravelersForm({ travelers }) {
             .map((_, travelerIndex) => {
               return (
                 <div
-                  key={subscribersCriteria.adultTree.label + travelerIndex}
+                  key={travelersTree.adultTree.label + travelerIndex}
                   className="p-4 m-5"
                 >
                   <legend className="text-xl font-bold">
-                    {subscribersCriteria.adultTree.label} {travelerIndex + 1}
+                    {travelersTree.adultTree.label} {travelerIndex + 1}
                   </legend>
-                  {subscribersCriteria.adultTree.rows.map((row, rowIndex) => {
+                  {travelersTree.adultTree.rows.map((row, rowIndex) => {
                     return (
                       <div
                         key={row.label + rowIndex + travelerIndex}
@@ -75,7 +78,7 @@ export default function TravelersForm({ travelers }) {
                             ) : null}
                             <StepSwitcher
                               travelerIndex={travelerIndex}
-                              nestedParent={subscribersCriteria.adultTree.name}
+                              nestedParent={travelersTree.adultTree.name}
                               step={field}
                               control={control}
                               register={register}
@@ -98,13 +101,13 @@ export default function TravelersForm({ travelers }) {
             .map((_, travelerIndex) => {
               return (
                 <div
-                  key={subscribersCriteria.childTree.label + travelerIndex}
+                  key={travelersTree.childTree.label + travelerIndex}
                   className="p-4 m-5"
                 >
                   <legend className="text-xl font-bold">
-                    {subscribersCriteria.childTree.label} {travelerIndex + 1}
+                    {travelersTree.childTree.label} {travelerIndex + 1}
                   </legend>
-                  {subscribersCriteria.childTree.rows.map((row, rowIndex) => {
+                  {travelersTree.childTree.rows.map((row, rowIndex) => {
                     return (
                       <div
                         key={row.label + rowIndex + travelerIndex}
@@ -121,6 +124,8 @@ export default function TravelersForm({ travelers }) {
                               </legend>
                             ) : null}
                             <StepSwitcher
+                              travelerIndex={travelerIndex}
+                              nestedParent={travelersTree.childTree.name}
                               step={field}
                               control={control}
                               register={register}
@@ -143,13 +148,13 @@ export default function TravelersForm({ travelers }) {
             .map((_, travelerIndex) => {
               return (
                 <div
-                  key={subscribersCriteria.seniorTree.label + travelerIndex}
+                  key={travelersTree.seniorTree.label + travelerIndex}
                   className="p-4 m-5"
                 >
                   <legend className="text-xl font-medium">
-                    {subscribersCriteria.seniorTree.label} {travelerIndex + 1}
+                    {travelersTree.seniorTree.label} {travelerIndex + 1}
                   </legend>
-                  {subscribersCriteria.seniorTree.rows.map((row, rowIndex) => {
+                  {travelersTree.seniorTree.rows.map((row, rowIndex) => {
                     return (
                       <div
                         key={row.label + rowIndex + travelerIndex}
@@ -166,6 +171,8 @@ export default function TravelersForm({ travelers }) {
                               </legend>
                             ) : null}
                             <StepSwitcher
+                              travelerIndex={travelerIndex}
+                              nestedParent={travelersTree.seniorTree.name}
                               step={field}
                               control={control}
                               register={register}

@@ -5,9 +5,10 @@ import InputText from "../bits/InputText";
 import Errors from "../bits/Errors";
 import { Fragment } from "react";
 import { getErrors, getRegisterName } from "../../utils/formsHelpers";
+import { Field } from "../../models/subscribers";
 
 interface StepTextPropsType {
-  step: Step;
+  step: Step | Field;
   register: UseFormRegister<InputForm>;
   errors: FieldErrors<InputForm>;
   nestedParent?: string;

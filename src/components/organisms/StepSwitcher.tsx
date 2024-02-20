@@ -9,9 +9,10 @@ import StepCurrency from "./StepCurrency";
 import StepDate from "./StepDate";
 import StepDateRange from "./StepDateRange";
 import StepCheckBox from "./StepCheckBox";
+import { Field } from "../../models/subscribers";
 
 interface StepSwitcherProps {
-  step: Step;
+  step: Step | Field;
   register: UseFormRegister<InputForm>;
   control: Control<InputForm>;
   errors: FieldErrors<InputForm>;

@@ -6,9 +6,10 @@ import Errors from "../bits/Errors";
 import { addDays } from "date-fns";
 import { useState } from "react";
 import { getErrors, getRegisterName } from "../../utils/formsHelpers";
+import { Field } from "../../models/subscribers";
 
 interface StepDateRangePropsType {
-  step: Step;
+  step: Step | Field;
   control: Control<InputForm>;
   errors: FieldErrors<InputForm>;
   nestedParent?: string;

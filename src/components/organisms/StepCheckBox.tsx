@@ -5,9 +5,10 @@ import Errors from "../bits/Errors";
 import InputCheckBox from "../bits/InputCheckBox";
 import { Fragment } from "react";
 import { getErrors, getRegisterName } from "../../utils/formsHelpers";
+import { Field } from "../../models/subscribers";
 
 interface StepCheckBoxPropsType {
-  step: Step;
+  step: Step | Field;
   register: UseFormRegister<InputForm>;
   errors: FieldErrors<InputForm>;
   nestedParent?: string;

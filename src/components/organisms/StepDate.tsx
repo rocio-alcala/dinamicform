@@ -5,9 +5,10 @@ import InputDate from "../bits/InputDate";
 import Errors from "../bits/Errors";
 import { addDays } from "date-fns";
 import { getErrors, getRegisterName } from "../../utils/formsHelpers";
+import { Field } from "../../models/subscribers";
 
 interface StepDatePropsType {
-  step: Step;
+  step: Step | Field;
   control: Control<InputForm>;
   errors: FieldErrors<InputForm>;
   nestedParent?: string;
