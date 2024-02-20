@@ -250,7 +250,7 @@ function QuoteForm() {
     register,
     handleSubmit,
     control,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
     reset
   } = useForm<InputForm>({
     values: getDefaultValues(selectedSubProduct), //adding default values once a Sub Product is selected,
@@ -268,22 +268,24 @@ function QuoteForm() {
 
     await basicHandleSubmit((basicFormData) => {
       quote = { ...quote, ...basicFormData };
-    })(event);
 
-    await handleSubmit((formData) => {
-      function toSerializableData(objectData: InputForm) {
-        for (const key in objectData) {
-          if (objectData[key] instanceof Date) {
-            objectData[key] = objectData[key]?.toString();
+      handleSubmit((formData) => {
+        function toSerializableData(objectData: InputForm) {
+          // to-do: make into a helper function
+          for (const key in objectData) {
+            // to-do: instead of manipulating the data in place, create a new object and return it
+            if (objectData[key] instanceof Date) {
+              objectData[key] = objectData[key]?.toString();
+            }
           }
         }
-      }
-      console.log("ingreso a submit");
-      toSerializableData(formData);
-      quote = { ...quote, ...formData };
+
+        toSerializableData(formData);
+        quote = { ...quote, ...formData };
+        dispatch(submitQuoteCriteria(quote));
+        navigate("/travelers")
+      })(event);
     })(event);
-    dispatch(submitQuoteCriteria(quote));
-    if (isSubmitSuccessful) navigate("/travelers");
   }
 
   function handleProductChange(e: React.ChangeEvent<HTMLInputElement>) {
