@@ -5,7 +5,7 @@ import InputDate from "../bits/InputDate";
 import Errors from "../bits/Errors";
 import { addDays } from "date-fns";
 import { useState } from "react";
-import { getErrors, getRegisterName } from "../../utils/helpers";
+import { getErrors, getRegisterName } from "../../utils/formsHelpers";
 
 interface StepDateRangePropsType {
   step: Step;

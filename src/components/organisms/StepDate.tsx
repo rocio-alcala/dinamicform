@@ -4,7 +4,7 @@ import { InputForm } from "./QuoteForm";
 import InputDate from "../bits/InputDate";
 import Errors from "../bits/Errors";
 import { addDays } from "date-fns";
-import { getErrors, getRegisterName } from "../../utils/helpers";
+import { getErrors, getRegisterName } from "../../utils/formsHelpers";
 
 interface StepDatePropsType {
   step: Step;

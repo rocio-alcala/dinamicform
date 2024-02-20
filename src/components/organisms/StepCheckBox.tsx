@@ -4,7 +4,7 @@ import { InputForm } from "./QuoteForm";
 import Errors from "../bits/Errors";
 import InputCheckBox from "../bits/InputCheckBox";
 import { Fragment } from "react";
-import { getErrors, getRegisterName } from "../../utils/helpers";
+import { getErrors, getRegisterName } from "../../utils/formsHelpers";
 
 interface StepCheckBoxPropsType {
   step: Step;

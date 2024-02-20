@@ -37,3 +37,14 @@ export function getErrors( // to-do: implement named parameters (make parameters
     }
   }
 }
+
+export function toSerializableData(objectData: InputForm) {
+const serializableObjectData = {...objectData}
+
+  for (const key in serializableObjectData) {
+    if (serializableObjectData[key] instanceof Date) {
+      serializableObjectData[key] = serializableObjectData[key]?.toString();
+    }
+  }
+  return serializableObjectData
+}

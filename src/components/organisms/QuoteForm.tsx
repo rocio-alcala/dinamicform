@@ -18,6 +18,7 @@ import { useAppDispatch, useAppSelector } from "../../store/typedHooks";
 import { submitQuoteCriteria } from "../../store/quoteCriteriaSlice";
 import { useNavigate } from "react-router-dom";
 import InputList from "../bits/InputList";
+import { toSerializableData } from "../../utils/formsHelpers";
 
 export type InputFormValue =
   | string
@@ -270,20 +271,10 @@ function QuoteForm() {
       quote = { ...quote, ...basicFormData };
 
       handleSubmit((formData) => {
-        function toSerializableData(objectData: InputForm) {
-          // to-do: make into a helper function
-          for (const key in objectData) {
-            // to-do: instead of manipulating the data in place, create a new object and return it
-            if (objectData[key] instanceof Date) {
-              objectData[key] = objectData[key]?.toString();
-            }
-          }
-        }
-
-        toSerializableData(formData);
-        quote = { ...quote, ...formData };
+        const serializableFormData = toSerializableData(formData);
+        quote = { ...quote, ...serializableFormData };
         dispatch(submitQuoteCriteria(quote));
-        navigate("/travelers")
+        navigate("/travelers");
       })(event);
     })(event);
   }

@@ -4,7 +4,7 @@ import { InputForm } from "./QuoteForm";
 import InputCounter from "../bits/InputCounter";
 import Errors from "../bits/Errors";
 import { Fragment } from "react";
-import { getErrors, getRegisterName } from "../../utils/helpers";
+import { getErrors, getRegisterName } from "../../utils/formsHelpers";
 
 interface StepCurrencyPropsType {
   step: Step;

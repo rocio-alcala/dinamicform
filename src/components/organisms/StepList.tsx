@@ -3,7 +3,7 @@ import { ListValue, Step } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import InputList from "../bits/InputList";
 import Errors from "../bits/Errors";
-import { getErrors, getRegisterName } from "../../utils/helpers";
+import { getErrors, getRegisterName } from "../../utils/formsHelpers";
 
 interface StepListPropsType {
   step: Step;
