@@ -15,29 +15,89 @@ interface StepSwitcherProps {
   register: UseFormRegister<InputForm>;
   control: Control<InputForm>;
   errors: FieldErrors<InputForm>;
+  nestedParent?: string;
+  travelerIndex?: number;
 }
 
 export default function StepSwitcher({
   step,
   register,
   control,
-  errors
+  errors,
+  nestedParent,
+  travelerIndex
 }: StepSwitcherProps) {
   switch (step.type) {
     case StepType.LIST:
-      return <StepList step={step} register={register} errors={errors} />;
+      return (
+        <StepList
+          travelerIndex={travelerIndex}
+          nestedParent={nestedParent}
+          step={step}
+          register={register}
+          errors={errors}
+        />
+      );
     case StepType.COUNTER:
-      return <StepCounter step={step} register={register} errors={errors} />;
+      return (
+        <StepCounter
+          travelerIndex={travelerIndex}
+          nestedParent={nestedParent}
+          step={step}
+          register={register}
+          errors={errors}
+        />
+      );
     case StepType.DATE_RANGE:
-      return <StepDateRange step={step} control={control} errors={errors} />;
+      return (
+        <StepDateRange
+          travelerIndex={travelerIndex}
+          nestedParent={nestedParent}
+          step={step}
+          control={control}
+          errors={errors}
+        />
+      );
     case StepType.DATE:
-      return <StepDate step={step} control={control} errors={errors} />;
+      return (
+        <StepDate
+          travelerIndex={travelerIndex}
+          nestedParent={nestedParent}
+          step={step}
+          control={control}
+          errors={errors}
+        />
+      );
     case StepType.CURRENCY:
-      return <StepCurrency step={step} register={register} errors={errors} />;
+      return (
+        <StepCurrency
+          travelerIndex={travelerIndex}
+          nestedParent={nestedParent}
+          step={step}
+          register={register}
+          errors={errors}
+        />
+      );
     case StepType.CHECKBOX:
-      return <StepCheckBox step={step} register={register} errors={errors} />;
+      return (
+        <StepCheckBox
+          travelerIndex={travelerIndex}
+          nestedParent={nestedParent}
+          step={step}
+          register={register}
+          errors={errors}
+        />
+      );
     case StepType.TEXT:
     default:
-      return <StepText step={step} register={register} errors={errors} />;
+      return (
+        <StepText
+          travelerIndex={travelerIndex}
+          nestedParent={nestedParent}
+          step={step}
+          register={register}
+          errors={errors}
+        />
+      );
   }
 }

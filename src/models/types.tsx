@@ -26,8 +26,8 @@ export enum StepType {
 export interface Step {
   isRequired?: boolean;
   label: string;
-  name: string;
-  quickLabel: string;
+  name?: string;
+  quickLabel?: string;
   summaryLabel: string;
   desc?: string;
   type?: StepType;
@@ -37,6 +37,7 @@ export interface Step {
 
 export interface ListValue {
   asButton: boolean;
+  name: string;
   desc: string;
   label: string;
   summaryLabel: string;

@@ -3,18 +3,29 @@ import { ListValue, Step } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import InputList from "../bits/InputList";
 import Errors from "../bits/Errors";
+import { getErrors, getRegisterName } from "../../utils/helpers";
 
 interface StepListPropsType {
   step: Step;
   register: UseFormRegister<InputForm>;
   errors: FieldErrors<InputForm>;
+  nestedParent?: string;
+  travelerIndex?: number;
 }
 
-export function StepList({ step, register, errors }: StepListPropsType) {
+export function StepList({
+  step,
+  register,
+  errors,
+  nestedParent,
+  travelerIndex
+}: StepListPropsType) {
   return (
     <div>
       {step.values.map((value: ListValue) => {
-        const { ref, name, ...rest } = register(step.name);
+        const { ref, name, ...rest } = register(
+          getRegisterName(value.name, nestedParent, travelerIndex)
+        );
         return (
           <InputList
             key={value.label}
@@ -27,7 +38,14 @@ export function StepList({ step, register, errors }: StepListPropsType) {
           ></InputList>
         );
       })}
-      <Errors message={errors[step.name]?.message} />
+      <Errors
+        message={getErrors(
+          errors,
+          step.values[0].name,
+          nestedParent,
+          travelerIndex
+        )}
+      />
     </div>
   );
 }

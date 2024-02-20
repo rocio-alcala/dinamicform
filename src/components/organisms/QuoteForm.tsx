@@ -17,8 +17,15 @@ import Errors from "../bits/Errors";
 import { useAppDispatch, useAppSelector } from "../../store/typedHooks";
 import { submitQuoteCriteria } from "../../store/quoteCriteriaSlice";
 import { useNavigate } from "react-router-dom";
+import InputList from "../bits/InputList";
 
-export type InputFormValue = string | number | undefined | Date | null | boolean
+export type InputFormValue =
+  | string
+  | number
+  | undefined
+  | Date
+  | null
+  | boolean;
 export type InputForm = Record<
   string,
   InputFormValue | Record<string, InputFormValue>
@@ -288,40 +295,42 @@ function QuoteForm() {
   return (
     <form noValidate onSubmit={masterSubmit} className="flex flex-col">
       <div className="flex flex-col">
-        <label className="text-lg font-medium">travel.insurance.product.label</label>
-        {products.map((product, index) => (
-          <label key={index} htmlFor={product.label}>
-            {product.label}
-            <input
-              id={product.label}
-              type="radio"
+        <legend className="text-lg font-medium">
+          travel.insurance.product.label
+        </legend>
+        {products.map((product) => {
+          const { ref, ...restProps } = basicRegister(product.name);
+          return (
+            <InputList
+              key={product.value}
               value={product.value}
-              {...basicRegister(product.name)}
+              inputRef={ref}
+              {...restProps}
               onChange={handleProductChange}
-            ></input>
-          </label>
-        ))}
+              label={product.label}
+            ></InputList>
+          );
+        })}
         <Errors message={basicErrors[sampleProduct.name]?.message} />
       </div>
       {selectedProduct ? (
         <div className="flex flex-col">
-          <label className="text-lg font-medium">travel.insurance.subproduct.label</label>
-          {selectedProduct.subProductGroups.map((subProduct) => (
-            <label key={subProduct.value} htmlFor={subProduct.label}>
-              {subProduct.label}
-              <input
-                id={subProduct.label}
-                type="radio"
-                {...basicRegister(subProduct.name)}
+          <legend className="text-lg font-medium">
+            travel.insurance.subproduct.label
+          </legend>
+          {selectedProduct.subProductGroups.map((subProduct) => {
+            const { ref, ...restProps } = basicRegister(subProduct.name);
+            return (
+              <InputList
+                key={subProduct.value}
                 value={subProduct.value}
-              />
-            </label>
-          ))}
-          <Errors
-            message={
-              basicErrors[sampleSubProduct.name]?.message
-            }
-          />
+                inputRef={ref}
+                {...restProps}
+                label={subProduct.label}
+              ></InputList>
+            );
+          })}
+          <Errors message={basicErrors[sampleSubProduct.name]?.message} />
         </div>
       ) : null}
 
@@ -329,8 +338,9 @@ function QuoteForm() {
         {selectedSubProduct
           ? selectedSubProduct.steps.map((step) => (
               <div key={step.label}>
-                <legend className="text-lg font-medium">{step.name}</legend>
+                <legend className="text-lg font-medium">{step.label}</legend>
                 <StepSwitcher
+                  nestedParent={step.name}
                   step={step}
                   register={register}
                   control={control}

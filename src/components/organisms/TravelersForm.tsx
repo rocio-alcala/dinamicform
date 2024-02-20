@@ -23,15 +23,16 @@ export default function TravelersForm({ travelers }) {
         <legend className="text-xl font-bold">
           {subscribersCriteria.policyHolderTree.label}
         </legend>
-        {subscribersCriteria.policyHolderTree.rows.map((row) => {
+        {subscribersCriteria.policyHolderTree.rows.map((row, rowIndex) => {
           return (
-            <div key={row.label} className="flex flex-row">
-              {row.fields.map((field, index) => (
-                <div className="m-3" key={field.label + index}>
+            <div key={row.label + rowIndex} className="flex flex-row">
+              {row.fields.map((field, fieldIndex) => (
+                <div className="m-3" key={field.name + fieldIndex}>
                   {field.label ? (
                     <legend className="font-medium">{field.label}</legend>
                   ) : null}
                   <StepSwitcher
+                    nestedParent={subscribersCriteria.policyHolderTree.name}
                     step={field}
                     control={control}
                     register={register}
@@ -47,23 +48,34 @@ export default function TravelersForm({ travelers }) {
         <>
           {Array(travelers.adults)
             .fill(0)
-            .map((_, index) => {
+            .map((_, travelerIndex) => {
               return (
-                <div className="p-4 m-5">
+                <div
+                  key={subscribersCriteria.adultTree.label + travelerIndex}
+                  className="p-4 m-5"
+                >
                   <legend className="text-xl font-bold">
-                    {subscribersCriteria.adultTree.label} {index + 1}
+                    {subscribersCriteria.adultTree.label} {travelerIndex + 1}
                   </legend>
-                  {subscribersCriteria.adultTree.rows.map((row) => {
+                  {subscribersCriteria.adultTree.rows.map((row, rowIndex) => {
                     return (
-                      <div key={row.label} className="flex flex-row">
-                        {row.fields.map((field, index) => (
-                          <div className="m-3" key={field.label + index}>
+                      <div
+                        key={row.label + rowIndex + travelerIndex}
+                        className="flex flex-row"
+                      >
+                        {row.fields.map((field, fieldIndex) => (
+                          <div
+                            className="m-3"
+                            key={field.name + fieldIndex + travelerIndex}
+                          >
                             {field.label ? (
                               <legend className="font-medium">
                                 {field.label}
                               </legend>
                             ) : null}
                             <StepSwitcher
+                              travelerIndex={travelerIndex}
+                              nestedParent={subscribersCriteria.adultTree.name}
                               step={field}
                               control={control}
                               register={register}
@@ -83,17 +95,26 @@ export default function TravelersForm({ travelers }) {
         <>
           {Array(travelers.children)
             .fill(0)
-            .map((_, index) => {
+            .map((_, travelerIndex) => {
               return (
-                <div className="p-4 m-5">
+                <div
+                  key={subscribersCriteria.childTree.label + travelerIndex}
+                  className="p-4 m-5"
+                >
                   <legend className="text-xl font-bold">
-                    {subscribersCriteria.childTree.label} {index + 1}
+                    {subscribersCriteria.childTree.label} {travelerIndex + 1}
                   </legend>
-                  {subscribersCriteria.childTree.rows.map((row) => {
+                  {subscribersCriteria.childTree.rows.map((row, rowIndex) => {
                     return (
-                      <div key={row.label} className="flex flex-row">
-                        {row.fields.map((field, index) => (
-                          <div className="m-3" key={field.label + index}>
+                      <div
+                        key={row.label + rowIndex + travelerIndex}
+                        className="flex flex-row"
+                      >
+                        {row.fields.map((field, fieldIndex) => (
+                          <div
+                            className="m-3"
+                            key={field.name + fieldIndex + travelerIndex}
+                          >
                             {field.label ? (
                               <legend className="font-medium">
                                 {field.label}
@@ -119,17 +140,26 @@ export default function TravelersForm({ travelers }) {
         <>
           {Array(travelers.seniors)
             .fill(0)
-            .map((_, index) => {
+            .map((_, travelerIndex) => {
               return (
-                <div className="p-4 m-5">
+                <div
+                  key={subscribersCriteria.seniorTree.label + travelerIndex}
+                  className="p-4 m-5"
+                >
                   <legend className="text-xl font-medium">
-                    {subscribersCriteria.seniorTree.label} {index + 1}
+                    {subscribersCriteria.seniorTree.label} {travelerIndex + 1}
                   </legend>
-                  {subscribersCriteria.seniorTree.rows.map((row) => {
+                  {subscribersCriteria.seniorTree.rows.map((row, rowIndex) => {
                     return (
-                      <div key={row.label} className="flex flex-row">
-                        {row.fields.map((field, index) => (
-                          <div className="m-3" key={field.label + index}>
+                      <div
+                        key={row.label + rowIndex + travelerIndex}
+                        className="flex flex-row"
+                      >
+                        {row.fields.map((field, fieldIndex) => (
+                          <div
+                            className="m-3"
+                            key={field.name + fieldIndex + travelerIndex}
+                          >
                             {field.label ? (
                               <legend className="font-medium">
                                 {field.label}

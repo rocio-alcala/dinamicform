@@ -21,13 +21,13 @@ export const mockConfig = {
             {
               isRequired: false,
               label: "travel.product1.travel1.step1.label",
-              name: "destination_area",
               quickLabel: "travel.product1.travel1.step1.quickLabel",
               summaryLabel: "travel.product1.travel1.step1.summaryLabel",
               type: StepType.LIST,
               values: [
                 {
                   asButton: true,
+                  name: "destination_area",
                   desc: "travel.product1.travel1.step1.value1.desc",
                   label: "travel.product1.travel1.step1.value1.label",
                   summaryLabel:
@@ -36,6 +36,7 @@ export const mockConfig = {
                 },
                 {
                   asButton: true,
+                  name: "destination_area",
                   label: "travel.product1.travel1.step1.value2.label",
                   summaryLabel:
                     "travel.product1.travel1.step1.value2.summaryLabel",
@@ -43,6 +44,7 @@ export const mockConfig = {
                 },
                 {
                   asButton: true,
+                  name: "destination_area",
                   label: "travel.product1.travel1.step1.value3.label",
                   summaryLabel:
                     "travel.product1.travel1.step1.value3.summaryLabel",
@@ -95,7 +97,6 @@ export const mockConfig = {
             {
               isRequired: true,
               label: "travel.product1.travel1.step3.label",
-              name: "date_travel",
               quickLabel: "travel.product1.travel1.step3.quickLabel",
               summaryLabel: "travel.product1.travel1.step3.summaryLabel",
               desc: "travel.product1.travel1.step3.desc",
@@ -121,7 +122,6 @@ export const mockConfig = {
             {
               isRequired: true,
               label: "travel.product1.travel1.step4.label",
-              name: "bookingDate",
               quickLabel: "travel.product1.travel1.step4.quickLabel",
               summaryLabel: "travel.product1.travel1.step4.summaryLabel",
               type: StepType.DATE,
@@ -142,7 +142,6 @@ export const mockConfig = {
             {
               isRequired: true,
               label: "travel.product1.travel1.step6.label",
-              name: "cost_travel",
               quickLabel: "travel.product1.travel1.step6.quickLabel",
               summaryLabel: "travel.product1.travel1.step6.summaryLabel",
               type: StepType.CURRENCY,
@@ -170,14 +169,14 @@ export const mockConfig = {
           summaryLabel: "travel.product.travel.summaryLabel",
           steps: [
             {
-              isRequired: true,
+              isRequired: false,
               label: "travel.product1.travel1.step1.label",
-              name: "destination_area",
               quickLabel: "travel.product1.travel1.step1.quickLabel",
               summaryLabel: "travel.product1.travel1.step1.summaryLabel",
               type: StepType.LIST,
               values: [
                 {
+                  name: "destination_area",
                   asButton: true,
                   desc: "travel.product1.travel1.step1.value1.desc",
                   label: "travel.product1.travel1.step1.value1.label",
@@ -186,6 +185,7 @@ export const mockConfig = {
                   value: "2"
                 },
                 {
+                  name: "destination_area",
                   asButton: true,
                   label: "travel.product1.travel1.step1.value2.label",
                   summaryLabel:
@@ -193,6 +193,7 @@ export const mockConfig = {
                   value: "5"
                 },
                 {
+                  name: "destination_area",
                   asButton: true,
                   label: "travel.product1.travel1.step1.value3.label",
                   summaryLabel:
@@ -246,7 +247,6 @@ export const mockConfig = {
             {
               isRequired: true,
               label: "travel.product1.travel1.step3.label",
-              name: "date_travel",
               quickLabel: "travel.product1.travel1.step3.quickLabel",
               summaryLabel: "travel.product1.travel1.step3.summaryLabel",
               desc: "travel.product1.travel1.step3.desc",
@@ -272,7 +272,6 @@ export const mockConfig = {
             {
               isRequired: true,
               label: "travel.product1.travel1.step4.label",
-              name: "bookingDate",
               quickLabel: "travel.product1.travel1.step4.quickLabel",
               summaryLabel: "travel.product1.travel1.step4.summaryLabel",
               type: StepType.DATE,
@@ -293,7 +292,6 @@ export const mockConfig = {
             {
               isRequired: true,
               label: "travel.product1.travel1.step6.label",
-              name: "cost_travel",
               quickLabel: "travel.product1.travel1.step6.quickLabel",
               summaryLabel: "travel.product1.travel1.step6.summaryLabel",
               type: StepType.CURRENCY,
@@ -333,13 +331,13 @@ export const mockConfig = {
             {
               isRequired: true,
               label: "travel.product1.travel1.step1.label",
-              name: "destination_area",
               quickLabel: "travel.product1.travel1.step1.quickLabel",
               summaryLabel: "travel.product1.travel1.step1.summaryLabel",
               type: StepType.LIST,
               values: [
                 {
                   asButton: true,
+                  name: "destination_area",
                   desc: "travel.product1.travel1.step1.value1.desc",
                   label: "travel.product1.travel1.step1.value1.label",
                   summaryLabel:
@@ -348,6 +346,7 @@ export const mockConfig = {
                 },
                 {
                   asButton: true,
+                  name: "destination_area",
                   label: "travel.product1.travel1.step1.value2.label",
                   summaryLabel:
                     "travel.product1.travel1.step1.value2.summaryLabel",
@@ -355,6 +354,7 @@ export const mockConfig = {
                 },
                 {
                   asButton: true,
+                  name: "destination_area",
                   label: "travel.product1.travel1.step1.value3.label",
                   summaryLabel:
                     "travel.product1.travel1.step1.value3.summaryLabel",
@@ -407,7 +407,6 @@ export const mockConfig = {
             {
               isRequired: true,
               label: "travel.product1.travel1.step3.label",
-              name: "date_travel",
               quickLabel: "travel.product1.travel1.step3.quickLabel",
               summaryLabel: "travel.product1.travel1.step3.summaryLabel",
               desc: "travel.product1.travel1.step3.desc",
@@ -433,7 +432,6 @@ export const mockConfig = {
             {
               isRequired: true,
               label: "travel.product1.travel1.step4.label",
-              name: "bookingDate",
               quickLabel: "travel.product1.travel1.step4.quickLabel",
               summaryLabel: "travel.product1.travel1.step4.summaryLabel",
               type: StepType.DATE,
@@ -454,7 +452,6 @@ export const mockConfig = {
             {
               isRequired: true,
               label: "travel.product1.travel1.step6.label",
-              name: "cost_travel",
               quickLabel: "travel.product1.travel1.step6.quickLabel",
               summaryLabel: "travel.product1.travel1.step6.summaryLabel",
               values: [

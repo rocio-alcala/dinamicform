@@ -6,7 +6,6 @@ interface InputTextSpecificProps {
 export default function InputText({
   inputRef,
   name,
-  id,
   label,
   ...restProps
 }: React.DetailedHTMLProps<
@@ -16,16 +15,17 @@ export default function InputText({
   InputTextSpecificProps) {
   return (
     <div>
-      {label && <label htmlFor={id}>{label}</label>}
-      <input
-        className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500"
-        name={name}
-        ref={inputRef}
-        id={id}
-        type="text"
-        aria-label={label}
-        {...restProps}
-      ></input>
+      <label>
+        {label ? label : null}
+        <input
+          className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500"
+          name={name}
+          ref={inputRef}
+          type="text"
+          aria-label={label}
+          {...restProps}
+        ></input>
+      </label>
     </div>
   );
 }

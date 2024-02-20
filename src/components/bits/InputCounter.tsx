@@ -18,17 +18,19 @@ export default function InputCounter({
   InputCounterSpecificProps) {
   return (
     <div>
-      {label && <label htmlFor={id}>{label}</label>}
-      <input
-        placeholder={placeholder}
-        name={name}
-        ref={inputRef}
-        id={id}
-        defaultValue={defaultValue}
-        type="number"
-        aria-label={label}
-        {...restProps}
-      ></input>
+      <label>
+        {label ? label : null}
+        <input
+          placeholder={placeholder}
+          name={name}
+          ref={inputRef}
+          id={id}
+          defaultValue={defaultValue}
+          type="number"
+          aria-label={label}
+          {...restProps}
+        ></input>
+      </label>
     </div>
   );
 }

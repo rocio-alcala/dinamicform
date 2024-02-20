@@ -4,24 +4,32 @@ import { InputForm } from "./QuoteForm";
 import InputDate from "../bits/InputDate";
 import Errors from "../bits/Errors";
 import { addDays } from "date-fns";
+import { getErrors, getRegisterName } from "../../utils/helpers";
 
 interface StepDatePropsType {
   step: Step;
   control: Control<InputForm>;
   errors: FieldErrors<InputForm>;
+  nestedParent?: string;
+  travelerIndex?: number;
 }
 
-export default function StepDate({ step, control, errors }: StepDatePropsType) {
+export default function StepDate({
+  step,
+  control,
+  errors,
+  nestedParent,
+  travelerIndex
+}: StepDatePropsType) {
   return (
     <div>
       {step.values.map((date: DateValue, index: number) => (
-        <div key={index}>
+        <div key={date.label + index}>
           <Controller
-            name={date.name}
+            name={getRegisterName(date.name, nestedParent, travelerIndex)}
             control={control}
             render={({ field }) => {
               const { ref, value, ...rest } = field;
-
               // check value
               if (
                 typeof value !== "undefined" &&
@@ -34,19 +42,23 @@ export default function StepDate({ step, control, errors }: StepDatePropsType) {
               }
 
               return (
-                <InputDate
-                  value={value instanceof Date ? value.toDateString() : value}
-                  label={date.label}
-                  maxDate={addDays(new Date(), date.max)}
-                  minDate={addDays(new Date(), date.min)}
-                  inputRef={ref}
-                  {...rest}
-                  showIcon={true}
-                />
+                <>
+                  <InputDate
+                    value={value instanceof Date ? value.toDateString() : value}
+                    label={date.label}
+                    maxDate={addDays(new Date(), date.max)}
+                    minDate={addDays(new Date(), date.min)}
+                    inputRef={ref}
+                    {...rest}
+                    showIcon={true}
+                  />
+                  <Errors
+                    message={getErrors(errors, date.name, nestedParent)}
+                  />
+                </>
               );
             }}
           />
-          <Errors message={errors[date.name]?.message} />
         </div>
       ))}
     </div>

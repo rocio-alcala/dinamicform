@@ -4,22 +4,29 @@ import { InputForm } from "./QuoteForm";
 import InputCounter from "../bits/InputCounter";
 import Errors from "../bits/Errors";
 import { Fragment } from "react";
+import { getErrors, getRegisterName } from "../../utils/helpers";
 
 interface StepCurrencyPropsType {
   step: Step;
   register: UseFormRegister<InputForm>;
   errors: FieldErrors<InputForm>;
+  nestedParent?: string;
+  travelerIndex?: number;
 }
 
 export default function StepCurrency({
   step,
   register,
-  errors
+  errors,
+  nestedParent,
+  travelerIndex
 }: StepCurrencyPropsType) {
   return (
     <div>
       {step.values.map((value: CurrencyValue, index: number) => {
-        const { ref, ...rest } = register(value.name);
+        const { ref, ...rest } = register(
+          getRegisterName(value.name, nestedParent, travelerIndex)
+        );
         return (
           <Fragment key={value.name + index}>
             <InputCounter
@@ -31,7 +38,7 @@ export default function StepCurrency({
               label={value.name}
               id={value.name}
             ></InputCounter>
-            <Errors message={errors[value.name]?.message} />
+            <Errors message={getErrors(errors, value.name, nestedParent)} />
           </Fragment>
         );
       })}

@@ -3,23 +3,29 @@ import { CounterValue, Step } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import InputCounter from "../bits/InputCounter";
 import Errors from "../bits/Errors";
-import get from "lodash/get";
 import { Fragment } from "react";
+import { getErrors, getRegisterName } from "../../utils/helpers";
 
 interface StepCounterPropsType {
   step: Step;
   register: UseFormRegister<InputForm>;
   errors: FieldErrors<InputForm>;
+  nestedParent?: string;
+  travelerIndex?: number;
 }
 
-export function StepCounter({ step, register, errors }: StepCounterPropsType) {
+export function StepCounter({
+  step,
+  register,
+  errors,
+  nestedParent,
+  travelerIndex
+}: StepCounterPropsType) {
   return (
     <div>
       {step.values.map((counter: CounterValue, index: number) => {
-        const { ref, ...rest } = register(`${step.name}.${counter.name}`);
-        const errorMessage = get(
-          errors,
-          `${step.name}.${counter.name}.message`
+        const { ref, ...rest } = register(
+          getRegisterName(counter.name, nestedParent, travelerIndex)
         );
         return (
           <Fragment key={counter.label + index}>
@@ -31,9 +37,7 @@ export function StepCounter({ step, register, errors }: StepCounterPropsType) {
               min={counter.min}
               max={counter.max}
             />
-            <Errors
-              message={errorMessage ? errorMessage.toString() : undefined}
-            />
+            <Errors message={getErrors(errors, counter.name, nestedParent)} />
           </Fragment>
         );
       })}
