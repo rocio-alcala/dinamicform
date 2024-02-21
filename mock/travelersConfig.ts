@@ -131,9 +131,10 @@ export const travelersConfig = {
     name: "adults",
     rows: [
       {
-        label: "key1",
+        label: "policyHolder",
         fields: [
-          {name: "isPolicyHolder",
+          {
+            name: "isPolicyHolder",
             type: StepType.CHECKBOX,
             values: [
               {
@@ -233,7 +234,7 @@ export const travelersConfig = {
                 normalize: "simpleAlphaNumericText"
               }
             ]
-          }        
+          }
         ]
       }
     ]
@@ -243,23 +244,6 @@ export const travelersConfig = {
     summaryLabel: "travelers.adult.summaryLabel",
     name: "children",
     rows: [
-      {
-        label: "key1",
-        fields: [
-          {
-            name: "isPolicyHolder",
-            type: StepType.CHECKBOX,
-            values: [
-              {
-                type: StepType.CHECKBOX,
-                label: "travelers.fields.isPolicyHolder.label",
-                name: "isPolicyHolder",
-                value: false
-              }
-            ]
-          }
-        ]
-      },
       {
         label: "key2",
         fields: [
@@ -358,7 +342,7 @@ export const travelersConfig = {
     name: "seniors",
     rows: [
       {
-        label: "key1",
+        label: "policyHolder",
         fields: [
           {
             name: "isPolicyHolder",

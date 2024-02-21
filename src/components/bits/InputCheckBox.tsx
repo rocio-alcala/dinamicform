@@ -14,6 +14,8 @@ export default function InputCheckBox({
   HTMLInputElement
 > &
   InputCheckBokSpecificProps) {
+
+
   return (
     <label>
       {label ? label : null}

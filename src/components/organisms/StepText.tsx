@@ -25,12 +25,12 @@ export default function StepText({
   return (
     <div>
       {step.values.map((value: any, index: number) => {
-        const { ref, name, ...rest } = register(
+        const { ref, ...rest } = register(
           getRegisterName(value.name, nestedParent, travelerIndex)
         );
         return (
           <Fragment key={value.label + index}>
-            <InputText id={name} inputRef={ref} label={value.label} {...rest} />
+            <InputText inputRef={ref} label={value.label} {...rest} />
             <Errors
               message={getErrors(
                 errors,

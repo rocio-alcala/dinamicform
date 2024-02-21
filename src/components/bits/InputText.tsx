@@ -5,7 +5,6 @@ interface InputTextSpecificProps {
 
 export default function InputText({
   inputRef,
-  name,
   label,
   ...restProps
 }: React.DetailedHTMLProps<
@@ -19,7 +18,6 @@ export default function InputText({
         {label ? label : null}
         <input
           className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500"
-          name={name}
           ref={inputRef}
           type="text"
           aria-label={label}

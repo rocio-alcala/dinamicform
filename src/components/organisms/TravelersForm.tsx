@@ -52,6 +52,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
           );
         })}
       </div>
+
       {travelers.adults ? (
         <>
           {Array(travelers.adults)
@@ -66,33 +67,36 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                     {travelersTree.adultTree.label} {travelerIndex + 1}
                   </legend>
                   {travelersTree.adultTree.rows.map((row, rowIndex) => {
-                    return (
-                      <div
-                        key={row.label + rowIndex + travelerIndex}
-                        className="flex flex-row"
-                      >
-                        {row.fields.map((field, fieldIndex) => (
-                          <div
-                            className="m-3"
-                            key={field.name + fieldIndex + travelerIndex}
-                          >
-                            {field.label ? (
-                              <legend className="font-medium">
-                                {field.label}
-                              </legend>
-                            ) : null}
-                            <StepSwitcher
-                              travelerIndex={travelerIndex}
-                              nestedParent={travelersTree.adultTree.name}
-                              step={field}
-                              control={control}
-                              register={register}
-                              errors={errors}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    );
+                    if (travelerIndex !== 0 && row.label === "policyHolder") {
+                      return null;
+                    } else
+                      return (
+                        <div
+                          key={row.label + rowIndex + travelerIndex}
+                          className="flex flex-row"
+                        >
+                          {row.fields.map((field, fieldIndex) => (
+                            <div
+                              className="m-3"
+                              key={field.name + fieldIndex + travelerIndex}
+                            >
+                              {field.label ? (
+                                <legend className="font-medium">
+                                  {field.label}
+                                </legend>
+                              ) : null}
+                              <StepSwitcher
+                                travelerIndex={travelerIndex}
+                                nestedParent={travelersTree.adultTree.name}
+                                step={field}
+                                control={control}
+                                register={register}
+                                errors={errors}
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      );
                   })}
                 </div>
               );
@@ -113,33 +117,36 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                     {travelersTree.childTree.label} {travelerIndex + 1}
                   </legend>
                   {travelersTree.childTree.rows.map((row, rowIndex) => {
-                    return (
-                      <div
-                        key={row.label + rowIndex + travelerIndex}
-                        className="flex flex-row"
-                      >
-                        {row.fields.map((field, fieldIndex) => (
-                          <div
-                            className="m-3"
-                            key={field.name + fieldIndex + travelerIndex}
-                          >
-                            {field.label ? (
-                              <legend className="font-medium">
-                                {field.label}
-                              </legend>
-                            ) : null}
-                            <StepSwitcher
-                              travelerIndex={travelerIndex}
-                              nestedParent={travelersTree.childTree.name}
-                              step={field}
-                              control={control}
-                              register={register}
-                              errors={errors}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    );
+                    if (travelerIndex !== 0 && row.label === "policyHolder") {
+                      return null;
+                    } else
+                      return (
+                        <div
+                          key={row.label + rowIndex + travelerIndex}
+                          className="flex flex-row"
+                        >
+                          {row.fields.map((field, fieldIndex) => (
+                            <div
+                              className="m-3"
+                              key={field.name + fieldIndex + travelerIndex}
+                            >
+                              {field.label ? (
+                                <legend className="font-medium">
+                                  {field.label}
+                                </legend>
+                              ) : null}
+                              <StepSwitcher
+                                travelerIndex={travelerIndex}
+                                nestedParent={travelersTree.childTree.name}
+                                step={field}
+                                control={control}
+                                register={register}
+                                errors={errors}
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      );
                   })}
                 </div>
               );
@@ -160,33 +167,36 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                     {travelersTree.seniorTree.label} {travelerIndex + 1}
                   </legend>
                   {travelersTree.seniorTree.rows.map((row, rowIndex) => {
-                    return (
-                      <div
-                        key={row.label + rowIndex + travelerIndex}
-                        className="flex flex-row"
-                      >
-                        {row.fields.map((field, fieldIndex) => (
-                          <div
-                            className="m-3"
-                            key={field.name + fieldIndex + travelerIndex}
-                          >
-                            {field.label ? (
-                              <legend className="font-medium">
-                                {field.label}
-                              </legend>
-                            ) : null}
-                            <StepSwitcher
-                              travelerIndex={travelerIndex}
-                              nestedParent={travelersTree.seniorTree.name}
-                              step={field}
-                              control={control}
-                              register={register}
-                              errors={errors}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    );
+                    if (travelerIndex !== 0 && row.label === "policyHolder") {
+                      return null;
+                    } else
+                      return (
+                        <div
+                          key={row.label + rowIndex + travelerIndex}
+                          className="flex flex-row"
+                        >
+                          {row.fields.map((field, fieldIndex) => (
+                            <div
+                              className="m-3"
+                              key={field.name + fieldIndex + travelerIndex}
+                            >
+                              {field.label ? (
+                                <legend className="font-medium">
+                                  {field.label}
+                                </legend>
+                              ) : null}
+                              <StepSwitcher
+                                travelerIndex={travelerIndex}
+                                nestedParent={travelersTree.seniorTree.name}
+                                step={field}
+                                control={control}
+                                register={register}
+                                errors={errors}
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      );
                   })}
                 </div>
               );

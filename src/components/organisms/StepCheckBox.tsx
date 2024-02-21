@@ -15,13 +15,14 @@ interface StepCheckBoxPropsType {
   travelerIndex?: number;
 }
 
-export default function StepText({
+export default function StepCheckBox({
   step,
   register,
   errors,
   nestedParent,
   travelerIndex
 }: StepCheckBoxPropsType) {
+
   return (
     <div>
       {step.values.map((check: any, index: number) => {
@@ -36,7 +37,6 @@ export default function StepText({
               label={check.label}
               groupName={name}
               {...rest}
-              value={check.value}
             />
           </Fragment>
         );
