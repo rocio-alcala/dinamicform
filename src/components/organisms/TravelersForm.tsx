@@ -3,11 +3,14 @@ import { useForm } from "react-hook-form";
 import { travelersConfig } from "../../../mock/travelersConfig";
 import { Subscribers } from "../../models/subscribers";
 import { InputForm } from "./QuoteForm";
+import { useAppDispatch } from "../../store/typedHooks";
+import { submitTravelers } from "../../store/travelersSlice";
 
 type TravelersFormPropsType = { travelers: Record<string, number> };
 
 export default function TravelersForm({ travelers }: TravelersFormPropsType) {
   const travelersTree: Subscribers = travelersConfig;
+  const dispatch = useAppDispatch()
 
   const {
     register,
@@ -18,6 +21,8 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
 
   function onSubmit(dataForm: InputForm) {
     console.log(dataForm);
+    dispatch(submitTravelers(dataForm))
+
   }
 
   return (

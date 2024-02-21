@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import quoteCriteriaReducer from "./quoteCriteriaSlice";
+import travelersReducer from "./travelersSlice";
 
 // Create the root reducer separately so we can extract the RootState type
 const rootReducer = combineReducers({
   quoteCriteria: quoteCriteriaReducer,
+  travelers: travelersReducer,
 });
 
 
