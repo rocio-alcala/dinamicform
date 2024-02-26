@@ -29,7 +29,7 @@ export function StepCounter({
           getRegisterName(counter.name, nestedParent, travelerIndex)
         );
         return (
-          <Fragment key={counter.label + index}>
+          <div className="my-5" key={counter.label + index}>
             <InputCounter
               inputRef={ref}
               {...rest}
@@ -39,7 +39,7 @@ export function StepCounter({
               max={counter.max}
             />
             <Errors message={getErrors(errors, counter.name, nestedParent)} />
-          </Fragment>
+          </div>
         );
       })}
     </div>

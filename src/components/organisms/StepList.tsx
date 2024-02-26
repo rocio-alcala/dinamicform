@@ -22,7 +22,7 @@ export function StepList({
   travelerIndex
 }: StepListPropsType) {
   return (
-    <div>
+    <div className="mb-5 mt-2">
       {step.values.map((value: ListValue) => {
         const { ref, name, ...rest } = register(
           getRegisterName(value.name, nestedParent, travelerIndex)

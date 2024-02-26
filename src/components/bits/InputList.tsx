@@ -16,12 +16,13 @@ export default function InputList({
 > &
   InputListSpecificProps) {
   return (
-    <div>
-      <label>
+    <div className=" h-max">
+      <label className="my-2 p-3 block w-fit border-2 rounded-md hover:border-blue-500 hover:ring cursor-pointer">
         {label ? label : null}
         <input
           name={groupName}
           ref={inputRef}
+          className="peer"
           type="radio"
           value={value}
           aria-label={label}

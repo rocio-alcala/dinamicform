@@ -18,7 +18,7 @@ export default function InputCheckBox({
 
   return (
     <label>
-      {label ? label : null}
+      {label ? <span className="mb-1 block">{label}</span> : null}
       <input
         name={groupName}
         ref={inputRef}

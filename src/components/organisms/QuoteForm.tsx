@@ -19,6 +19,7 @@ import { submitQuoteCriteria } from "../../store/quoteCriteriaSlice";
 import { useNavigate } from "react-router-dom";
 import InputList from "../bits/InputList";
 import { toSerializableData } from "../../utils/formsHelpers";
+import Button from "../bits/Button";
 
 export type InputFormValue =
   | string
@@ -286,65 +287,80 @@ function QuoteForm() {
   }
 
   return (
-    <form noValidate onSubmit={masterSubmit} className="flex flex-col">
-      <div className="flex flex-col">
-        <legend className="text-lg font-medium">
-          travel.insurance.product.label
-        </legend>
-        {products.map((product) => {
-          const { ref, ...restProps } = basicRegister(product.name);
-          return (
-            <InputList
-              key={product.value}
-              value={product.value}
-              inputRef={ref}
-              {...restProps}
-              onChange={handleProductChange}
-              label={product.label}
-            ></InputList>
-          );
-        })}
-        <Errors message={basicErrors[sampleProduct.name]?.message} />
-      </div>
-      {selectedProduct ? (
-        <div className="flex flex-col">
-          <legend className="text-lg font-medium">
-            travel.insurance.subproduct.label
+    <div className="p-20 font-AXA">
+      <h1 className="text-4xl font-extrabold p-20 text-center text-slate-50 bg-gray-700 ">
+        Detalles de tu viaje
+      </h1>
+      <form
+        noValidate
+        onSubmit={masterSubmit}
+        className="flex flex-col p-10 shadow-2xl "
+      >
+        <div className="flex flex-col mb-7">
+          <legend className="text-xl font-bold mt-5">
+            travel.insurance.product.label
           </legend>
-          {selectedProduct.subProductGroups.map((subProduct) => {
-            const { ref, ...restProps } = basicRegister(subProduct.name);
-            return (
-              <InputList
-                key={subProduct.value}
-                value={subProduct.value}
-                inputRef={ref}
-                {...restProps}
-                label={subProduct.label}
-              ></InputList>
-            );
-          })}
-          <Errors message={basicErrors[sampleSubProduct.name]?.message} />
+          <div className="mt-2">
+            {products.map((product) => {
+              const { ref, ...restProps } = basicRegister(product.name);
+              return (
+                <InputList
+                  key={product.value}
+                  value={product.value}
+                  inputRef={ref}
+                  {...restProps}
+                  onChange={handleProductChange}
+                  label={product.label}
+                ></InputList>
+              );
+            })}
+          </div>
+          <Errors message={basicErrors[sampleProduct.name]?.message} />
         </div>
-      ) : null}
+        {selectedProduct ? (
+          <div className="flex flex-col mb-7">
+            <legend className="text-xl font-bold mt-5">
+              travel.insurance.subproduct.label
+            </legend>
+            <div className="mt-2">
+              {selectedProduct.subProductGroups.map((subProduct) => {
+                const { ref, ...restProps } = basicRegister(subProduct.name);
+                return (
+                  <InputList
+                    key={subProduct.value}
+                    value={subProduct.value}
+                    inputRef={ref}
+                    {...restProps}
+                    label={subProduct.label}
+                  ></InputList>
+                );
+              })}
+            </div>
+            <Errors message={basicErrors[sampleSubProduct.name]?.message} />
+          </div>
+        ) : null}
 
-      <div>
-        {selectedSubProduct
-          ? selectedSubProduct.steps.map((step) => (
-              <div key={step.label}>
-                <legend className="text-lg font-medium">{step.label}</legend>
-                <StepSwitcher
-                  nestedParent={step.name}
-                  step={step}
-                  register={register}
-                  control={control}
-                  errors={errors}
-                />
-              </div>
-            ))
-          : null}
-      </div>
-      <button type="submit">Submit</button>
-    </form>
+        <div>
+          {selectedSubProduct
+            ? selectedSubProduct.steps.map((step) => (
+                <div className="flex flex-col mb-7" key={step.label}>
+                  <legend className="text-xl font-bold mt-5">
+                    {step.label}
+                  </legend>
+                  <StepSwitcher
+                    nestedParent={step.name}
+                    step={step}
+                    register={register}
+                    control={control}
+                    errors={errors}
+                  />
+                </div>
+              ))
+            : null}
+        </div>
+        <Button type={"submit"} text={"Submit"} />
+      </form>
+    </div>
   );
 }
 

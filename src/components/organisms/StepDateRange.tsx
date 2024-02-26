@@ -50,7 +50,7 @@ export default function StepDateRange({
                 );
               }
               return (
-                <>
+                <div className="my-5">
                   <InputDate
                     maxDate={addDays(new Date(), dateRange.maxStart)}
                     minDate={addDays(new Date(), dateRange.minStart)}
@@ -72,7 +72,7 @@ export default function StepDateRange({
                       nestedParent
                     )}
                   />
-                </>
+                </div>
               );
             }}
           />
@@ -104,7 +104,7 @@ export default function StepDateRange({
               }
 
               return (
-                <>
+                <div className="my-5">
                   <InputDate
                     maxDate={addDays(new Date(), dateRange.maxEnd)}
                     minDate={startDate ? addDays(new Date(startDate), 1) : null}
@@ -119,7 +119,7 @@ export default function StepDateRange({
                   <Errors
                     message={getErrors(errors, dateRange.nameEnd, nestedParent)}
                   />
-                </>
+                </div>
               );
             }}
           />

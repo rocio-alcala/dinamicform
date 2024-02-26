@@ -15,9 +15,9 @@ export default function InputText({
   return (
     <div>
       <label>
-        {label ? label : null}
+        {label ? <span className="mb-1 block">{label}</span> : null}
         <input
-          className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500"
+          className="mt-1 p-2 mb-5 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500"
           ref={inputRef}
           type="text"
           aria-label={label}

@@ -19,15 +19,22 @@ export default function InputDate({
 }: ReactDatePickerProps & InputDateSpecificProps) {
   return (
     <label>
-      {label ? label : null}
-      <DatePicker
-        dateFormat="yyyy/MM/dd"
-        showIcon={showIcon}
-        ref={inputRef}
-        selected={value ? new Date(value) : null}
-        minDate={minDate}
-        {...restProps}
-      />
+      {label ? (
+        <span className="text-base font-semibold text-gray-600 mb-2 block">
+          {label}
+        </span>
+      ) : null}
+      <div className="mt-1">
+        <DatePicker
+          className="cursor-pointer border rounded-md focus:outline-none focus:border-blue-500 focus:ring disabled:bg-slate-100"
+          dateFormat="yyyy/MM/dd"
+          showIcon={showIcon}
+          ref={inputRef}
+          selected={value ? new Date(value) : null}
+          minDate={minDate}
+          {...restProps}
+        />
+      </div>
     </label>
   );
 }

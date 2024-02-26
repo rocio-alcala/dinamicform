@@ -29,7 +29,7 @@ export default function StepCurrency({
           getRegisterName(value.name, nestedParent, travelerIndex)
         );
         return (
-          <Fragment key={value.name + index}>
+          <div className="my-5" key={value.name + index}>
             <InputCounter
               inputRef={ref}
               {...rest}
@@ -40,7 +40,7 @@ export default function StepCurrency({
               id={value.name}
             ></InputCounter>
             <Errors message={getErrors(errors, value.name, nestedParent)} />
-          </Fragment>
+          </div>
         );
       })}
     </div>

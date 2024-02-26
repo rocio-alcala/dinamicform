@@ -4,7 +4,7 @@ export default function Errors({ message }:ErrorsTypeProps) {
   return (
     <>
       {message ? (
-        <p className="error">
+        <p className="text-red-300 text-sm mt-1">
           {message}
         </p>
       ) : null}

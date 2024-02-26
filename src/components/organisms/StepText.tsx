@@ -29,7 +29,7 @@ export default function StepText({
           getRegisterName(value.name, nestedParent, travelerIndex)
         );
         return (
-          <Fragment key={value.label + index}>
+          <div className="my-5" key={value.label + index}>
             <InputText inputRef={ref} label={value.label} {...rest} />
             <Errors
               message={getErrors(
@@ -39,7 +39,7 @@ export default function StepText({
                 travelerIndex
               )}
             />
-          </Fragment>
+          </div>
         );
       })}
     </div>
