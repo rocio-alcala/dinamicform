@@ -245,6 +245,23 @@ export const travelersConfig = {
     name: "children",
     rows: [
       {
+        label: "policyHolder",
+        fields: [
+          {
+            name: "isPolicyHolder",
+            type: StepType.CHECKBOX,
+            values: [
+              {
+                type: StepType.CHECKBOX,
+                label: "travelers.fields.isPolicyHolder.label",
+                name: "isPolicyHolder",
+                value: true
+              }
+            ]
+          }
+        ]
+      },
+      {
         label: "key2",
         fields: [
           {

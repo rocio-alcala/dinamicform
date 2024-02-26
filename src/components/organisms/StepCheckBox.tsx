@@ -13,6 +13,7 @@ interface StepCheckBoxPropsType {
   errors: FieldErrors<InputForm>;
   nestedParent?: string;
   travelerIndex?: number;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 export default function StepCheckBox({
@@ -20,13 +21,13 @@ export default function StepCheckBox({
   register,
   errors,
   nestedParent,
-  travelerIndex
+  travelerIndex,
+  onChange: customOnChange
 }: StepCheckBoxPropsType) {
-
   return (
     <div>
       {step.values.map((check: any, index: number) => {
-        const { ref, name, ...rest } = register(
+        const { ref, name, onChange, ...rest } = register(
           getRegisterName(check.name, nestedParent, travelerIndex)
         );
         return (
@@ -36,6 +37,7 @@ export default function StepCheckBox({
               inputRef={ref}
               label={check.label}
               groupName={name}
+              onChange={customOnChange || onChange}
               {...rest}
             />
           </Fragment>
