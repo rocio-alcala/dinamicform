@@ -7,12 +7,14 @@ import { InputForm } from "./QuoteForm";
 import { useAppDispatch } from "../../store/typedHooks";
 import { submitTravelers } from "../../store/travelersSlice";
 import Button from "../bits/Button";
+import { useNavigate } from "react-router-dom";
 
 type TravelersFormPropsType = { travelers: Record<string, number> };
 
 export default function TravelersForm({ travelers }: TravelersFormPropsType) {
   const travelersTree: Subscribers = travelersConfig;
   const dispatch = useAppDispatch();
+  const navigate = useNavigate()
 
   const {
     register,
@@ -27,7 +29,9 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
   function onSubmit(dataForm: InputForm) {
     console.log(dataForm);
     dispatch(submitTravelers(dataForm));
+    navigate("/summary")
   }
+  
   const policyHolder = watch(travelersTree.policyHolderTree.name);
 
   function handleCheckBoxChange(
@@ -77,7 +81,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
         Detalles de los viajeros
       </h1>
       <form
-        className="flex flex-col p-10 shadow-2xl"
+        className="flex flex-col m-16 p-10 shadow-2xl bg-[#f5f5f5]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="p-4 m-5">

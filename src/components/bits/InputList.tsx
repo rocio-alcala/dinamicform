@@ -16,18 +16,22 @@ export default function InputList({
 > &
   InputListSpecificProps) {
   return (
-    <div className=" h-max">
-      <label className="my-2 p-3 block w-fit border-2 rounded-md hover:border-blue-500 hover:ring cursor-pointer">
+    <div className="h-max mr-4">
+      <input
+        id={label}
+        name={groupName}
+        ref={inputRef}
+        className="peer hidden"
+        type="radio"
+        value={value}
+        aria-label={label}
+        {...restProps}
+      ></input>
+      <label
+        htmlFor={label}
+        className="my-2 p-5 block w-fit border-2 rounded-md hover:border-blue-500 hover:ring cursor-pointer peer-checked:border-blue-500"
+      >
         {label ? label : null}
-        <input
-          name={groupName}
-          ref={inputRef}
-          className="peer"
-          type="radio"
-          value={value}
-          aria-label={label}
-          {...restProps}
-        ></input>
       </label>
     </div>
   );
