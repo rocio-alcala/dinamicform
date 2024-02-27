@@ -6,11 +6,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import QuoteCriteria from "./components/views/QuoteCriteria.tsx";
 import Travelers from "./components/views/Travelers.tsx";
 import 'tailwindcss/tailwind.css';
+import Summary from "./components/views/Summary.tsx";
+import Quotes from "./components/views/Quotes.tsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <QuoteCriteria /> },
-  { path: "/quote", element: <h1>Quotes from backend</h1> },
-  { path: "/travelers", element: <Travelers /> }
+  { path: "/quotes", element: <Quotes/> },
+  { path: "/travelers", element: <Travelers /> },
+  { path: "/summary", element: <Summary /> }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

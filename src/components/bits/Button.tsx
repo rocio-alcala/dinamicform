@@ -9,7 +9,7 @@ export default function Button({
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & ButtonPropsType) {
   return (
     <button
-      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300"
+      className="bg-blue-500 disabled:bg-slate-400 hover:bg-blue-700 text-white font-bold py-4 px-5 transition duration-300"
       type={type}
       {...rest}
     >

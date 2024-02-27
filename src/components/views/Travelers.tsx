@@ -5,5 +5,13 @@ export default function Travelers() {
   const quoteCriteria = useAppSelector((state) => state.quoteCriteria);
   const travelers = quoteCriteria.travelers;
 
-  return <>{travelers ? <TravelersForm travelers={travelers as Record<string,number>} /> : null}</>;
+  return (
+    <>
+      {travelers ? (
+        <TravelersForm travelers={travelers as Record<string, number>} />
+      ) : (
+        <p>No existen travelers</p>
+      )}
+    </>
+  );
 }

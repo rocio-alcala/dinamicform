@@ -1,4 +1,5 @@
 import { mockConfig } from "../../../mock/config";
+import { mockQuotes } from "../../../mock/quotes";
 import { useForm } from "react-hook-form";
 import {
   CounterValue,
@@ -14,12 +15,13 @@ import StepSwitcher from "./StepSwitcher";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Errors from "../bits/Errors";
-import { useAppDispatch, useAppSelector } from "../../store/typedHooks";
+import { useAppDispatch } from "../../store/typedHooks";
 import { submitQuoteCriteria } from "../../store/quoteCriteriaSlice";
 import { useNavigate } from "react-router-dom";
 import InputList from "../bits/InputList";
 import { toSerializableData } from "../../utils/formsHelpers";
 import Button from "../bits/Button";
+import { submitQuote } from "../../store/quoteSlice";
 
 export type InputFormValue =
   | string
@@ -217,8 +219,6 @@ function QuoteForm() {
   const sampleProduct = preSelectedProduct || products[0];
   const sampleSubProduct =
     preSelectedSubProduct || sampleProduct.subProductGroups[0];
-  const quote = useAppSelector((state) => state.quoteCriteria);
-  console.log("@quoteSlice", quote);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -275,7 +275,9 @@ function QuoteForm() {
         const serializableFormData = toSerializableData(formData);
         quote = { ...quote, ...serializableFormData };
         dispatch(submitQuoteCriteria(quote));
-        navigate("/travelers");
+        // POST A API Y MANEJAR LA RESPUESTA GUARDANDO EN STORE CON UN DISPATCH
+        dispatch(submitQuote(mockQuotes));
+        navigate("/quotes");
       })(event);
     })(event);
   }
@@ -287,20 +289,20 @@ function QuoteForm() {
   }
 
   return (
-    <div className="p-20 font-AXA">
-      <h1 className="text-4xl font-extrabold p-20 text-center text-slate-50 bg-gray-700 ">
+    <div className="font-AXA">
+      <h1 className="text-4xl  w-full font-extrabold p-20 pb-36 text-center text-slate-50 bg-gray-700">
         Detalles de tu viaje
       </h1>
       <form
         noValidate
         onSubmit={masterSubmit}
-        className="flex flex-col p-10 shadow-2xl "
+        className="flex flex-col m-16 p-10 shadow-2xl bg-[#f5f5f5]"
       >
         <div className="flex flex-col mb-7">
           <legend className="text-xl font-bold mt-5">
             travel.insurance.product.label
           </legend>
-          <div className="mt-2">
+          <div className="mt-2 flex flex-auto flex-wrap">
             {products.map((product) => {
               const { ref, ...restProps } = basicRegister(product.name);
               return (
@@ -322,7 +324,7 @@ function QuoteForm() {
             <legend className="text-xl font-bold mt-5">
               travel.insurance.subproduct.label
             </legend>
-            <div className="mt-2">
+            <div className="mt-2 flex flex-auto flex-wrap">
               {selectedProduct.subProductGroups.map((subProduct) => {
                 const { ref, ...restProps } = basicRegister(subProduct.name);
                 return (
@@ -358,7 +360,9 @@ function QuoteForm() {
               ))
             : null}
         </div>
-        <Button type={"submit"} text={"Submit"} />
+        <div className="mx-10 mb-10 text-end p-3 justify-self-end">
+          <Button type={"submit"} text={"VER PRESUPUESTO"} />
+        </div>
       </form>
     </div>
   );
