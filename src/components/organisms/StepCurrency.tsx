@@ -3,7 +3,6 @@ import { CurrencyValue, Step } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import InputCounter from "../bits/InputCounter";
 import Errors from "../bits/Errors";
-import { Fragment } from "react";
 import { getErrors, getRegisterName } from "../../utils/formsHelpers";
 import { Field } from "../../models/subscribers";
 
@@ -13,6 +12,7 @@ interface StepCurrencyPropsType {
   errors: FieldErrors<InputForm>;
   nestedParent?: string;
   travelerIndex?: number;
+  disabled?: boolean
 }
 
 export default function StepCurrency({
@@ -20,7 +20,8 @@ export default function StepCurrency({
   register,
   errors,
   nestedParent,
-  travelerIndex
+  travelerIndex,
+  disabled
 }: StepCurrencyPropsType) {
   return (
     <div>
@@ -36,8 +37,9 @@ export default function StepCurrency({
               min={value.min}
               max={value.max}
               placeholder={value.currency}
-              label={value.name}
+              label={value.label}
               id={value.name}
+              disabled={disabled}
             ></InputCounter>
             <Errors message={getErrors(errors, value.name, nestedParent)} />
           </div>

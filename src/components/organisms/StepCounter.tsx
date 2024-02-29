@@ -3,7 +3,6 @@ import { CounterValue, Step } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import InputCounter from "../bits/InputCounter";
 import Errors from "../bits/Errors";
-import { Fragment } from "react";
 import { getErrors, getRegisterName } from "../../utils/formsHelpers";
 import { Field } from "../../models/subscribers";
 
@@ -13,6 +12,7 @@ interface StepCounterPropsType {
   errors: FieldErrors<InputForm>;
   nestedParent?: string;
   travelerIndex?: number;
+  disabled?: boolean;
 }
 
 export function StepCounter({
@@ -20,7 +20,8 @@ export function StepCounter({
   register,
   errors,
   nestedParent,
-  travelerIndex
+  travelerIndex,
+  disabled
 }: StepCounterPropsType) {
   return (
     <div>
@@ -37,6 +38,7 @@ export function StepCounter({
               id={counter.label}
               min={counter.min}
               max={counter.max}
+              disabled={disabled}
             />
             <Errors message={getErrors(errors, counter.name, nestedParent)} />
           </div>

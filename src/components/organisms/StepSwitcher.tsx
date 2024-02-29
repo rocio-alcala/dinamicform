@@ -18,6 +18,7 @@ interface StepSwitcherProps {
   errors: FieldErrors<InputForm>;
   nestedParent?: string;
   travelerIndex?: number;
+  disabled?: boolean
 }
 
 export default function StepSwitcher({
@@ -25,6 +26,7 @@ export default function StepSwitcher({
   register,
   control,
   errors,
+  disabled,
   nestedParent,
   travelerIndex
 }: StepSwitcherProps) {
@@ -32,6 +34,7 @@ export default function StepSwitcher({
     case StepType.LIST:
       return (
         <StepList
+        disabled={disabled}
           travelerIndex={travelerIndex}
           nestedParent={nestedParent}
           step={step}
@@ -42,6 +45,7 @@ export default function StepSwitcher({
     case StepType.COUNTER:
       return (
         <StepCounter
+        disabled={disabled}
           travelerIndex={travelerIndex}
           nestedParent={nestedParent}
           step={step}
@@ -52,6 +56,7 @@ export default function StepSwitcher({
     case StepType.DATE_RANGE:
       return (
         <StepDateRange
+        disabled={disabled}
           travelerIndex={travelerIndex}
           nestedParent={nestedParent}
           step={step}
@@ -62,6 +67,7 @@ export default function StepSwitcher({
     case StepType.DATE:
       return (
         <StepDate
+        disabled={disabled}
           travelerIndex={travelerIndex}
           nestedParent={nestedParent}
           step={step}
@@ -72,6 +78,7 @@ export default function StepSwitcher({
     case StepType.CURRENCY:
       return (
         <StepCurrency
+        disabled={disabled}
           travelerIndex={travelerIndex}
           nestedParent={nestedParent}
           step={step}
@@ -82,6 +89,7 @@ export default function StepSwitcher({
     case StepType.CHECKBOX:
       return (
         <StepCheckBox
+        disabled={disabled}
           travelerIndex={travelerIndex}
           nestedParent={nestedParent}
           step={step}
@@ -93,6 +101,7 @@ export default function StepSwitcher({
     default:
       return (
         <StepText
+        disabled={disabled}
           travelerIndex={travelerIndex}
           nestedParent={nestedParent}
           step={step}

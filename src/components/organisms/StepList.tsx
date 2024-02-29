@@ -12,6 +12,7 @@ interface StepListPropsType {
   errors: FieldErrors<InputForm>;
   nestedParent?: string;
   travelerIndex?: number;
+  disabled?: boolean
 }
 
 export function StepList({
@@ -19,7 +20,8 @@ export function StepList({
   register,
   errors,
   nestedParent,
-  travelerIndex
+  travelerIndex,
+  disabled
 }: StepListPropsType) {
   return (
     <div className="mb-5 mt-2 flex flex-auto flex-wrap">
@@ -32,9 +34,9 @@ export function StepList({
             key={value.label}
             groupName={name}
             inputRef={ref}
-            id={value.label}
             label={value.label}
             {...rest}
+            disabled={disabled}
             value={value.value}
           ></InputList>
         );

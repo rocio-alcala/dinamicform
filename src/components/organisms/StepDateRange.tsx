@@ -14,6 +14,7 @@ interface StepDateRangePropsType {
   errors: FieldErrors<InputForm>;
   nestedParent?: string;
   travelerIndex?: number;
+  disabled?: boolean
 }
 
 export default function StepDateRange({
@@ -21,7 +22,8 @@ export default function StepDateRange({
   control,
   errors,
   nestedParent,
-  travelerIndex
+  travelerIndex,
+  disabled
 }: StepDateRangePropsType) {
   const [startDate, setStartDate] = useState<InputFormValue>();
 
@@ -64,6 +66,7 @@ export default function StepDateRange({
                       field.onChange(date?.toISOString());
                     }}
                     showIcon={true}
+                    disabled={disabled}
                   />
                   <Errors
                     message={getErrors(

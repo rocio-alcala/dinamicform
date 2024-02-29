@@ -3,7 +3,6 @@ import { Step } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import InputText from "../bits/InputText";
 import Errors from "../bits/Errors";
-import { Fragment } from "react";
 import { getErrors, getRegisterName } from "../../utils/formsHelpers";
 import { Field } from "../../models/subscribers";
 
@@ -13,6 +12,7 @@ interface StepTextPropsType {
   errors: FieldErrors<InputForm>;
   nestedParent?: string;
   travelerIndex?: number;
+  disabled?: boolean
 }
 
 export default function StepText({
@@ -20,7 +20,8 @@ export default function StepText({
   register,
   errors,
   nestedParent,
-  travelerIndex
+  travelerIndex,
+  disabled
 }: StepTextPropsType) {
   return (
     <div>
@@ -29,8 +30,8 @@ export default function StepText({
           getRegisterName(value.name, nestedParent, travelerIndex)
         );
         return (
-          <div className="my-5" key={value.label + index}>
-            <InputText inputRef={ref} label={value.label} {...rest} />
+          <div className="" key={value.label + index}>
+            <InputText inputRef={ref} label={value.label} disabled={disabled} {...rest} />
             <Errors
               message={getErrors(
                 errors,

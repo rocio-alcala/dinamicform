@@ -13,6 +13,7 @@ interface StepDatePropsType {
   errors: FieldErrors<InputForm>;
   nestedParent?: string;
   travelerIndex?: number;
+  disabled?: boolean
 }
 
 export default function StepDate({
@@ -20,7 +21,8 @@ export default function StepDate({
   control,
   errors,
   nestedParent,
-  travelerIndex
+  travelerIndex,
+  disabled
 }: StepDatePropsType) {
   return (
     <div>
@@ -43,7 +45,7 @@ export default function StepDate({
               }
 
               return (
-                <div className="my-3">
+                <div>
                   <InputDate
                     value={value instanceof Date ? value.toDateString() : value}
                     label={date.label}
@@ -52,6 +54,7 @@ export default function StepDate({
                     inputRef={ref}
                     {...rest}
                     showIcon={true}
+                    disabled={disabled}
                   />
                   <Errors
                     message={getErrors(errors, date.name, nestedParent)}

@@ -3,7 +3,6 @@ import { Step } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import Errors from "../bits/Errors";
 import InputCheckBox from "../bits/InputCheckBox";
-import { Fragment } from "react";
 import { getErrors, getRegisterName } from "../../utils/formsHelpers";
 import { Field } from "../../models/subscribers";
 
@@ -14,6 +13,7 @@ interface StepCheckBoxPropsType {
   nestedParent?: string;
   travelerIndex?: number;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  disabled?: boolean
 }
 
 export default function StepCheckBox({
@@ -22,7 +22,8 @@ export default function StepCheckBox({
   errors,
   nestedParent,
   travelerIndex,
-  onChange: customOnChange
+  onChange: customOnChange,
+  disabled
 }: StepCheckBoxPropsType) {
   return (
     <div>
@@ -31,16 +32,17 @@ export default function StepCheckBox({
           getRegisterName(check.name, nestedParent, travelerIndex)
         );
         return (
-          <Fragment key={check.label + index}>
+          <div className="flex" key={check.label + index}>
             <InputCheckBox
               id={check.label}
               inputRef={ref}
               label={check.label}
               groupName={name}
               onChange={customOnChange || onChange}
+              disabled={disabled}
               {...rest}
             />
-          </Fragment>
+          </div>
         );
       })}
       <Errors message={getErrors(errors, step.values[0].name, nestedParent)} />
