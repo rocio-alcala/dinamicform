@@ -40,10 +40,10 @@ export default function QuoteCard({
         ))}
       </ul>
       <div
-        className="mx-10 mb-10 text-center p-3"
+        className="mx-10 mb-10 p-3 self-center"
         onClick={() => setSelectedQuote(quote)}
       >
-        <Button text="SELECCIONAR"></Button>
+        <Button>SELECCIONAR</Button>
       </div>
     </div>
   );

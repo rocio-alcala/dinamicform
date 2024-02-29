@@ -22,6 +22,7 @@ import InputList from "../bits/InputList";
 import { toSerializableData } from "../../utils/formsHelpers";
 import Button from "../bits/Button";
 import { submitQuote } from "../../store/quoteSlice";
+import { GrFormNextLink } from "react-icons/gr";
 
 export type InputFormValue =
   | string
@@ -296,21 +297,22 @@ function QuoteForm() {
       <form
         noValidate
         onSubmit={masterSubmit}
-        className="flex flex-col m-16 p-10 shadow-2xl bg-[#f5f5f5]"
+        className="flex flex-col m-16 p-32 border-2 shadow-2xl bg-[#f5f5f5]"
       >
         <div className="flex flex-col mb-7">
-          <legend className="text-xl font-bold mt-5">
-            travel.insurance.product.label
+          <legend className="text-3xl font-extrabold mb-3 text-[#00005b] leading-10 tracking-wide">
+            Producto
           </legend>
-          <div className="mt-2 flex flex-auto flex-wrap">
+          <div className="mt-2 flex grow flex-wrap">
             {products.map((product) => {
-              const { ref, ...restProps } = basicRegister(product.name);
+              const { ref, name, ...restProps } = basicRegister(product.name);
               return (
                 <InputList
                   key={product.value}
                   value={product.value}
                   inputRef={ref}
                   {...restProps}
+                  groupName={name}
                   onChange={handleProductChange}
                   label={product.label}
                 ></InputList>
@@ -321,12 +323,14 @@ function QuoteForm() {
         </div>
         {selectedProduct ? (
           <div className="flex flex-col mb-7">
-            <legend className="text-xl font-bold mt-5">
-              travel.insurance.subproduct.label
+            <legend className="text-3xl font-extrabold mb-3 text-[#00005b] leading-10 tracking-wide">
+              Subproducto
             </legend>
             <div className="mt-2 flex flex-auto flex-wrap">
               {selectedProduct.subProductGroups.map((subProduct) => {
-                const { ref, ...restProps } = basicRegister(subProduct.name);
+                const { ref, name, ...restProps } = basicRegister(
+                  subProduct.name
+                );
                 return (
                   <InputList
                     key={subProduct.value}
@@ -334,6 +338,7 @@ function QuoteForm() {
                     inputRef={ref}
                     {...restProps}
                     label={subProduct.label}
+                    groupName={name}
                   ></InputList>
                 );
               })}
@@ -346,7 +351,7 @@ function QuoteForm() {
           {selectedSubProduct
             ? selectedSubProduct.steps.map((step) => (
                 <div className="flex flex-col mb-7" key={step.label}>
-                  <legend className="text-xl font-bold mt-5">
+                  <legend className="text-3xl font-extrabold mb-3 text-[#00005b] leading-10 tracking-wide">
                     {step.label}
                   </legend>
                   <StepSwitcher
@@ -360,8 +365,10 @@ function QuoteForm() {
               ))
             : null}
         </div>
-        <div className="mx-10 mb-10 text-end p-3 justify-self-end">
-          <Button type={"submit"} text={"VER PRESUPUESTO"} />
+        <div className="mx-10 mb-10 p-3 place-self-end">
+          <Button type="submit">
+            VER PRESUPUESTO <GrFormNextLink className="text-2xl" />
+          </Button>
         </div>
       </form>
     </div>

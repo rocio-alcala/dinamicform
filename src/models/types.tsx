@@ -86,4 +86,5 @@ export interface CurrencyValue {
   min: number;
   name: string;
   type: string;
+  label: string
 }
