@@ -308,6 +308,7 @@ function QuoteForm() {
               const { ref, name, ...restProps } = basicRegister(product.name);
               return (
                 <InputList
+                  asButton={true}
                   key={product.value}
                   value={product.value}
                   inputRef={ref}
@@ -333,6 +334,7 @@ function QuoteForm() {
                 );
                 return (
                   <InputList
+                    asButton={true}
                     key={subProduct.value}
                     value={subProduct.value}
                     inputRef={ref}

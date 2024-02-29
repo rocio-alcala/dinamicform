@@ -12,7 +12,7 @@ interface StepListPropsType {
   errors: FieldErrors<InputForm>;
   nestedParent?: string;
   travelerIndex?: number;
-  disabled?: boolean
+  disabled?: boolean;
 }
 
 export function StepList({
@@ -31,6 +31,7 @@ export function StepList({
         );
         return (
           <InputList
+            asButton={value.asButton}
             key={value.label}
             groupName={name}
             inputRef={ref}
