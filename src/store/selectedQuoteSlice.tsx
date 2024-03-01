@@ -1,14 +1,14 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Quote } from "../components/views/Quotes";
+import { QuoteProduct } from "../models/quote";
 
 
-const initialState: Quote = {};
+const initialState: QuoteProduct = [];
 
 export const selectedQuoteSlice = createSlice({
   name: "selectedQuote",
   initialState,
   reducers: {
-    submitSelectedQuote: (_, action: PayloadAction<Quote>) => {
+    submitSelectedQuote: (_, action: PayloadAction<QuoteProduct>) => {
       return action.payload;
     },
     clearSelectedQuote: () => {

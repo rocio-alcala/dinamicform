@@ -1,5 +1,5 @@
 import { mockConfig } from "../../../mock/config";
-import { mockQuotes } from "../../../mock/quotes";
+import { mockQuote } from "../../../mock/quotes";
 import { useForm } from "react-hook-form";
 import {
   CounterValue,
@@ -279,7 +279,7 @@ function QuoteForm() {
         quote = { ...quote, ...serializableFormData };
         dispatch(submitQuoteCriteria(quote));
         // POST A API Y MANEJAR LA RESPUESTA GUARDANDO EN STORE CON UN DISPATCH
-        dispatch(submitQuote(mockQuotes));
+        dispatch(submitQuote(mockQuote));
         navigate("/quotes");
       })(event);
     })(event);

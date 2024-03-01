@@ -6,17 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { submitSelectedQuote } from "../../store/selectedQuoteSlice";
 import { GrFormNextLink } from "react-icons/gr";
+import { Quote, QuoteProduct } from "../../models/quote";
 
-export interface Quote {
-  productName: string;
-  productPrice: number;
-  productLabel: string;
-  productDescription: Record<string, string>[];
-}
 
 export default function Quotes() {
-  const quotes = useAppSelector((state) => state.quote);
-  const [selectedQuote, setSelectedQuote] = useState<Quote>();
+  const quote: Quote  = useAppSelector((state) => state.quote);
+  const quoteProducts = quote.products
+  const [selectedQuote, setSelectedQuote] = useState<QuoteProduct>();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -35,12 +31,12 @@ export default function Quotes() {
       <div className="flex flex-col m-16 p-10 border-2 shadow-[1px_1px_3px_0px_rgba(0,0,0,0.3)] bg-[#f5f5f5]">
         <div className="p-10">
           <div className="flex flex-wrap">
-            {quotes.length > 0 ? (
-              quotes.map((quote: Quote) => (
+            {quoteProducts.length > 0 ? (
+              quoteProducts.map((quoteProduct: QuoteProduct) => (
                 <QuoteCard
                   selectedQuote={selectedQuote}
-                  key={quote.productLabel}
-                  quote={quote}
+                  key={quoteProduct.product_code}
+                  quoteProduct={quoteProduct}
                   setSelectedQuote={setSelectedQuote}
                 ></QuoteCard>
               ))

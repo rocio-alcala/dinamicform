@@ -1,14 +1,14 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Quote } from "../components/views/Quotes";
+import { Quote } from "../models/quote";
 
 
-const initialState: Quote[] = [];
+const initialState: Quote  = {};
 
 export const quoteSlice = createSlice({
   name: "quote",
   initialState,
   reducers: {
-    submitQuote: (_, action: PayloadAction<Quote[]>) => {
+    submitQuote: (_, action: PayloadAction<Quote>) => {
       return action.payload;
     },
     clearQuote: () => {
