@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 interface InputTextSpecificProps {
   inputRef?: React.LegacyRef<HTMLInputElement>;
   label?: string;
@@ -12,11 +14,12 @@ export default function InputText({
   HTMLInputElement
 > &
   InputTextSpecificProps) {
+  const { t } = useTranslation("global");
   return (
     <label>
       {label ? (
         <span className="mb-1 block text-xl font-bold text-gray-900 tracking-wide leading-6">
-          {label}
+          {t(label)}
         </span>
       ) : null}
       <input

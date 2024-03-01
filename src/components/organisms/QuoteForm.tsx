@@ -23,6 +23,7 @@ import { toSerializableData } from "../../utils/formsHelpers";
 import Button from "../bits/Button";
 import { submitQuote } from "../../store/quoteSlice";
 import { GrFormNextLink } from "react-icons/gr";
+import { useTranslation } from "react-i18next";
 
 export type InputFormValue =
   | string
@@ -212,6 +213,7 @@ function getInitialValidationSchema(
 }
 
 function QuoteForm() {
+  const { t } = useTranslation("global");
   const products: Product[] = mockConfig.criterias;
   const preSelectedProduct = getPreselectedProduct(products);
   const preSelectedSubProduct =
@@ -301,7 +303,7 @@ function QuoteForm() {
       >
         <div className="flex flex-col mb-7">
           <legend className="text-3xl font-extrabold mb-3 text-[#00005b] leading-10 tracking-wide">
-            Producto
+            {t("travel.insurance.title")}
           </legend>
           <div className="mt-2 flex grow flex-wrap">
             {products.map((product) => {
@@ -354,7 +356,7 @@ function QuoteForm() {
             ? selectedSubProduct.steps.map((step) => (
                 <div className="flex flex-col mb-7" key={step.label}>
                   <legend className="text-3xl font-extrabold mb-3 text-[#00005b] leading-10 tracking-wide">
-                    {step.label}
+                    {t(step.label)}
                   </legend>
                   <StepSwitcher
                     nestedParent={step.name}

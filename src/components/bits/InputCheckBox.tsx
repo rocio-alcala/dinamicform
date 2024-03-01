@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 interface InputCheckBokSpecificProps {
   inputRef?: React.LegacyRef<HTMLInputElement>;
   label?: string;
@@ -14,6 +16,7 @@ export default function InputCheckBox({
   HTMLInputElement
 > &
   InputCheckBokSpecificProps) {
+    const { t } = useTranslation("global");
   return (
     <label className="flex items-center">
       <input
@@ -26,7 +29,7 @@ export default function InputCheckBox({
       ></input>
       {label ? (
         <span className="inline pl-3 text-xl font-bold text-gray-900">
-          {label}
+          {t(label)}
         </span>
       ) : null}
     </label>

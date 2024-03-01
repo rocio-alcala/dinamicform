@@ -128,9 +128,9 @@ export const mockConfig = {
               values: [
                 {
                   isRequired: true,
-                  label: "travel.product1.travel1.step4.value.labelStart",
+                  label: "travel.product1.travel1.step4.value1.label",
                   summaryLabel:
-                    "travel.product1.travel1.step4.value.summaryLabelStart",
+                    "travel.product1.travel1.step4.value1.summaryLabel",
                   max: 0,
                   min: -182,
                   nameStart: "bookingDate",
@@ -164,7 +164,7 @@ export const mockConfig = {
         {
           isPreselected: false,
           isRequired: true,
-          label: "travel.product1.travel1.label",
+          label: "travel.product1.travel2.label",
           name: "subproduct",
           summaryLabel: "travel.product.travel.summaryLabel",
           steps: [
@@ -278,9 +278,9 @@ export const mockConfig = {
               values: [
                 {
                   isRequired: true,
-                  label: "travel.product1.travel1.step4.value.labelStart",
+                  label: "travel.product1.travel1.step4.value1.label",
                   summaryLabel:
-                    "travel.product1.travel1.step4.value.summaryLabelStart",
+                    "travel.product1.travel1.step4.value1.summaryLabel",
                   max: 0,
                   min: -182,
                   nameStart: "bookingDate",
@@ -438,9 +438,9 @@ export const mockConfig = {
               values: [
                 {
                   isRequired: true,
-                  label: "travel.product1.travel1.step4.value.labelStart",
+                  label: "travel.product1.travel1.step4.value1.label",
                   summaryLabel:
-                    "travel.product1.travel1.step4.value.summaryLabelStart",
+                    "travel.product1.travel1.step4.value1.summaryLabel",
                   max: 0,
                   min: -182,
                   nameStart: "bookingDate",

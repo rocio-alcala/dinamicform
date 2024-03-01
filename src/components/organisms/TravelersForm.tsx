@@ -9,6 +9,7 @@ import { submitTravelers } from "../../store/travelersSlice";
 import Button from "../bits/Button";
 import { useNavigate } from "react-router-dom";
 import { GrFormNextLink } from "react-icons/gr";
+import { useTranslation } from "react-i18next";
 
 type TravelersFormPropsType = { travelers: Record<string, number> };
 
@@ -16,6 +17,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
   const travelersTree: Subscribers = travelersConfig;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation("global");
 
   const {
     register,
@@ -89,7 +91,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
   return (
     <div className="font-AXA">
       <h1 className="text-4xl font-extrabold p-20 text-center text-slate-50 bg-gray-700 ">
-        Detalles de los viajeros
+        {t("travelers.title")}
       </h1>
       <form
         className="flex flex-col m-16 p-10 border-2 shadow-[1px_1px_3px_0px_rgba(0,0,0,0.3)] bg-[#f5f5f5]"
@@ -97,7 +99,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
       >
         <div className="p-4 m-5">
           <legend className="text-3xl font-extrabold mb-10 text-[#00005b] leading-10 tracking-wide">
-            Datos de {travelersTree.policyHolderTree.label}
+            {t("travelers.policyHolder.title")}
           </legend>
           {travelersTree.policyHolderTree.rows.map((row, rowIndex) => {
             return (
@@ -106,7 +108,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                   <div className="m-3" key={field.name + fieldIndex}>
                     {field.label ? (
                       <legend className="text-xl font-bold text-gray-900 leading-6 tracking-wide">
-                        {field.label}
+                        {t(field.label)}
                       </legend>
                     ) : null}
                     <StepSwitcher
@@ -134,7 +136,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                     className="p-4 m-5"
                   >
                     <legend className="text-3xl font-extrabold mb-10 text-[#00005b] leading-10 tracking-wide">
-                      Datos de {travelersTree.adultTree.label}{" "}
+                      {t(travelersTree.adultTree.label)}{" "}
                       {travelerIndex + 1}
                     </legend>
                     {travelersTree.adultTree.rows.map((row, rowIndex) => {
@@ -152,7 +154,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                                 >
                                   {field.label ? (
                                     <legend className="text-xl font-bold text-gray-900 leading-6 tracking-wide">
-                                      {field.label}
+                                      {t(field.label)}
                                     </legend>
                                   ) : null}
                                   <StepCheckBox
@@ -190,7 +192,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                             >
                               {field.label ? (
                                 <legend className="text-xl font-bold text-gray-900 leading-6 tracking-wide">
-                                  {field.label}
+                                  {t(field.label)}
                                 </legend>
                               ) : null}
                               <StepSwitcher
@@ -231,7 +233,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                     className="p-4 m-5"
                   >
                     <legend className="text-3xl font-extrabold mb-10 text-[#00005b] leading-10 tracking-wide">
-                      Datos de {travelersTree.childTree.label}{" "}
+                      {t(travelersTree.childTree.label)}{" "}
                       {travelerIndex + 1}
                     </legend>
                     {travelersTree.childTree.rows.map((row, rowIndex) => {
@@ -249,7 +251,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                                 >
                                   {field.label ? (
                                     <legend className="text-xl font-bold text-gray-900 leading-6 tracking-wide">
-                                      {field.label}
+                                      {t(field.label)}
                                     </legend>
                                   ) : null}
                                   <StepCheckBox
@@ -287,7 +289,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                             >
                               {field.label ? (
                                 <legend className="text-xl font-bold text-gray-900 leading-6 tracking-wide">
-                                  {field.label}
+                                  {t(field.label)}
                                 </legend>
                               ) : null}
                               <StepSwitcher
@@ -328,7 +330,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                     className="p-4 m-5"
                   >
                     <legend className="text-3xl font-extrabold mb-10 text-[#00005b] leading-10 tracking-wide">
-                      Datos de {travelersTree.seniorTree.label}{" "}
+                      {t(travelersTree.seniorTree.label)}{" "}
                       {travelerIndex + 1}
                     </legend>
                     {travelersTree.seniorTree.rows.map((row, rowIndex) => {
@@ -346,7 +348,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                                 >
                                   {field.label ? (
                                     <legend className="text-xl font-bold text-gray-900 leading-6 tracking-wide">
-                                      {field.label}
+                                      {t(field.label)}
                                     </legend>
                                   ) : null}
                                   <StepCheckBox
@@ -384,7 +386,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                             >
                               {field.label ? (
                                 <legend className="text-xl font-bold text-gray-900 leading-6 tracking-wide">
-                                  {field.label}
+                                  {t(field.label)}
                                 </legend>
                               ) : null}
                               <StepSwitcher

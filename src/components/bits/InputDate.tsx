@@ -2,6 +2,7 @@ import DatePicker, {
   ReactDatePicker,
   ReactDatePickerProps
 } from "react-datepicker";
+import { useTranslation } from "react-i18next";
 
 interface InputDateSpecificProps {
   inputRef?: React.LegacyRef<ReactDatePicker>;
@@ -18,12 +19,13 @@ export default function InputDate({
   name,
   ...restProps
 }: ReactDatePickerProps & InputDateSpecificProps) {
+  const { t } = useTranslation("global");
   return (
     <>
       <label htmlFor={label + name}>
         {label ? (
           <span className="mb-1 block text-xl font-bold text-gray-900 tracking-wide leading-6">
-            {label}
+            {t(label)}
           </span>
         ) : null}
       </label>

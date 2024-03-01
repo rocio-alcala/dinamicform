@@ -112,8 +112,8 @@ export const travelersConfig = {
             name: "passport_number",
             values: [
               {
-                label: "travelers.fields.passport.label",
-                summaryLabel: "travelers.fields.passport.summaryLabel",
+                label: "travelers.fields.DNI/NIE.label",
+                summaryLabel: "travelers.fields.DNI/NIE.summaryLabel",
                 maxLength: 30,
                 isRequired: true,
                 name: "passport_number",
@@ -126,7 +126,7 @@ export const travelersConfig = {
     ]
   },
   adultTree: {
-    label: "travelers.adult",
+    label: "travelers.adult.title",
     summaryLabel: "travelers.adult.summaryLabel",
     name: "adults",
     rows: [
@@ -226,8 +226,8 @@ export const travelersConfig = {
             name: "passport_number",
             values: [
               {
-                summaryLabel: "travelers.fields.passport.summaryLabel",
-                label: "travelers.fields.passport.label",
+                summaryLabel: "travelers.fields.DNI/NIE.summaryLabel",
+                label: "travelers.fields.DNI/NIE.label",
                 maxLength: 30,
                 isRequired: true,
                 name: "passport_number",
@@ -240,7 +240,7 @@ export const travelersConfig = {
     ]
   },
   childTree: {
-    label: "travelers.child",
+    label: "travelers.child.title",
     summaryLabel: "travelers.adult.summaryLabel",
     name: "children",
     rows: [
@@ -340,8 +340,8 @@ export const travelersConfig = {
             name: "passport_number",
             values: [
               {
-                summaryLabel: "travelers.fields.passport.summaryLabel",
-                label: "travelers.fields.passport.label",
+                summaryLabel: "travelers.fields.DNI/NIE.summaryLabel",
+                label: "travelers.fields.DNI/NIE.label",
                 maxLength: 30,
                 isRequired: true,
                 name: "passport_number",
@@ -354,7 +354,7 @@ export const travelersConfig = {
     ]
   },
   seniorTree: {
-    label: "travelers.senior",
+    label: "travelers.senior.title",
     summaryLabel: "travelers.adult.summaryLabel",
     name: "seniors",
     rows: [
@@ -454,8 +454,8 @@ export const travelersConfig = {
             name: "passport_number",
             values: [
               {
-                label: "travelers.fields.passport.label",
-                summaryLabel: "travelers.fields.passport.summaryLabel",
+                label: "travelers.fields.DNI/NIE.label",
+                summaryLabel: "travelers.fields.DNI/NIE.summaryLabel",
                 maxLength: 30,
                 isRequired: true,
                 name: "passport_number",
