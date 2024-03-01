@@ -31,7 +31,7 @@ export default function InputCounter({
           id={id}
           defaultValue={defaultValue}
           type="number"
-          className="cursor-pointer mt-1 px-6 py-3 text-xl border rounded-md focus:outline-none focus:border-blue-500 focus:ring"
+          className="cursor-pointer w-full mt-1 px-6 py-3 text-xl border rounded-md focus:outline-none focus:border-blue-500 focus:ring"
           aria-label={label}
           {...restProps}
         ></input>

@@ -15,7 +15,7 @@ export default function InputCheckBox({
 > &
   InputCheckBokSpecificProps) {
   return (
-    <label className="flex items-center mb-8">
+    <label className="flex items-center">
       <input
         className="h-5 w-5 text-indigo-600"
         name={groupName}

@@ -14,6 +14,7 @@ interface StepDatePropsType {
   nestedParent?: string;
   travelerIndex?: number;
   disabled?: boolean
+  valuesAsColumn?: boolean
 }
 
 export default function StepDate({
@@ -22,12 +23,13 @@ export default function StepDate({
   errors,
   nestedParent,
   travelerIndex,
-  disabled
+  disabled,
+  valuesAsColumn
 }: StepDatePropsType) {
   return (
-    <div>
+    <div className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}>
       {step.values.map((date: DateValue, index: number) => (
-        <div key={date.label + index}>
+        <div className="mr-8 w-fit" key={date.label + index}>
           <Controller
             name={getRegisterName(date.name, nestedParent, travelerIndex)}
             control={control}

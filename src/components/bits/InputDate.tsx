@@ -27,7 +27,7 @@ export default function InputDate({
           </span>
         ) : null}
       </label>
-      <div className="mt-2">
+      <div className="mt-2 mb-5">
         <DatePicker
           className="cursor-pointer p-10 border rounded-md focus:outline-none focus:border-blue-500 focus:ring disabled:bg-slate-100"
           dateFormat="yyyy/MM/dd"

@@ -13,6 +13,7 @@ interface StepTextPropsType {
   nestedParent?: string;
   travelerIndex?: number;
   disabled?: boolean
+  valuesAsColumn?: boolean
 }
 
 export default function StepText({
@@ -21,16 +22,17 @@ export default function StepText({
   errors,
   nestedParent,
   travelerIndex,
-  disabled
+  disabled,
+  valuesAsColumn
 }: StepTextPropsType) {
   return (
-    <div>
+    <div className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}>
       {step.values.map((value: any, index: number) => {
         const { ref, ...rest } = register(
           getRegisterName(value.name, nestedParent, travelerIndex)
         );
         return (
-          <div className="" key={value.label + index}>
+          <div className="mr-8 w-[33%] min-w-fit" key={value.label + index}>
             <InputText inputRef={ref} label={value.label} disabled={disabled} {...rest} />
             <Errors
               message={getErrors(

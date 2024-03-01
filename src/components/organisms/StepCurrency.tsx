@@ -13,6 +13,7 @@ interface StepCurrencyPropsType {
   nestedParent?: string;
   travelerIndex?: number;
   disabled?: boolean
+  valuesAsColumn?: boolean
 }
 
 export default function StepCurrency({
@@ -21,16 +22,17 @@ export default function StepCurrency({
   errors,
   nestedParent,
   travelerIndex,
-  disabled
+  disabled,
+  valuesAsColumn
 }: StepCurrencyPropsType) {
   return (
-    <div>
+    <div className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}>
       {step.values.map((value: CurrencyValue, index: number) => {
         const { ref, ...rest } = register(
           getRegisterName(value.name, nestedParent, travelerIndex)
         );
         return (
-          <div className="my-5" key={value.name + index}>
+          <div className="mr-8 w-[20%] min-w-fit" key={value.name + index}>
             <InputCounter
               inputRef={ref}
               {...rest}

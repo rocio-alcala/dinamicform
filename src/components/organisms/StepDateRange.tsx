@@ -14,7 +14,8 @@ interface StepDateRangePropsType {
   errors: FieldErrors<InputForm>;
   nestedParent?: string;
   travelerIndex?: number;
-  disabled?: boolean
+  disabled?: boolean;
+  valuesAsColumn?: boolean;
 }
 
 export default function StepDateRange({
@@ -23,14 +24,15 @@ export default function StepDateRange({
   errors,
   nestedParent,
   travelerIndex,
-  disabled
+  disabled, 
+  valuesAsColumn
 }: StepDateRangePropsType) {
   const [startDate, setStartDate] = useState<InputFormValue>();
 
   return (
-    <div>
+    <div className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}>
       {step.values.map((dateRange: DateRangeValue, index: number) => (
-        <div key={dateRange.labelStart + index}>
+        <div className="flex flex-wrap" key={dateRange.labelStart + index}>
           <Controller
             name={getRegisterName(
               dateRange.nameStart,
@@ -52,7 +54,7 @@ export default function StepDateRange({
                 );
               }
               return (
-                <div className="my-5">
+                <div className="mr-8">
                   <InputDate
                     maxDate={addDays(new Date(), dateRange.maxStart)}
                     minDate={addDays(new Date(), dateRange.minStart)}
@@ -107,7 +109,7 @@ export default function StepDateRange({
               }
 
               return (
-                <div className="my-5">
+                <div className="mr-8">
                   <InputDate
                     maxDate={addDays(new Date(), dateRange.maxEnd)}
                     minDate={startDate ? addDays(new Date(startDate), 1) : null}

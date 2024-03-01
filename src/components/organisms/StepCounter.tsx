@@ -13,6 +13,7 @@ interface StepCounterPropsType {
   nestedParent?: string;
   travelerIndex?: number;
   disabled?: boolean;
+  valuesAsColumn?: boolean;
 }
 
 export function StepCounter({
@@ -21,16 +22,19 @@ export function StepCounter({
   errors,
   nestedParent,
   travelerIndex,
-  disabled
+  disabled,
+  valuesAsColumn
 }: StepCounterPropsType) {
   return (
-    <div>
+    <div
+      className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}
+    >
       {step.values.map((counter: CounterValue, index: number) => {
         const { ref, ...rest } = register(
           getRegisterName(counter.name, nestedParent, travelerIndex)
         );
         return (
-          <div className="my-5" key={counter.label + index}>
+          <div className="mr-8 w-[20%] min-w-fit" key={counter.label + index}>
             <InputCounter
               inputRef={ref}
               {...rest}

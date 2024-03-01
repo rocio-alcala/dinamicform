@@ -105,7 +105,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                 {row.fields.map((field, fieldIndex) => (
                   <div className="m-3" key={field.name + fieldIndex}>
                     {field.label ? (
-                      <legend className="text-xl font-bold text-[#333] leading-6 tracking-wide">
+                      <legend className="text-xl font-bold text-gray-900 leading-6 tracking-wide">
                         {field.label}
                       </legend>
                     ) : null}
@@ -151,7 +151,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                                   key={field.name + fieldIndex + travelerIndex}
                                 >
                                   {field.label ? (
-                                    <legend className="text-xl font-bold text-[#333] leading-6 tracking-wide">
+                                    <legend className="text-xl font-bold text-gray-900 leading-6 tracking-wide">
                                       {field.label}
                                     </legend>
                                   ) : null}
@@ -189,7 +189,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                               key={field.name + fieldIndex + travelerIndex}
                             >
                               {field.label ? (
-                                <legend className="text-xl font-bold text-[#333] leading-6 tracking-wide">
+                                <legend className="text-xl font-bold text-gray-900 leading-6 tracking-wide">
                                   {field.label}
                                 </legend>
                               ) : null}
@@ -248,7 +248,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                                   key={field.name + fieldIndex + travelerIndex}
                                 >
                                   {field.label ? (
-                                    <legend className="text-xl font-bold text-[#333] leading-6 tracking-wide">
+                                    <legend className="text-xl font-bold text-gray-900 leading-6 tracking-wide">
                                       {field.label}
                                     </legend>
                                   ) : null}
@@ -286,7 +286,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                               key={field.name + fieldIndex + travelerIndex}
                             >
                               {field.label ? (
-                                <legend className="text-xl font-bold text-[#333] leading-6 tracking-wide">
+                                <legend className="text-xl font-bold text-gray-900 leading-6 tracking-wide">
                                   {field.label}
                                 </legend>
                               ) : null}
@@ -345,7 +345,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                                   key={field.name + fieldIndex + travelerIndex}
                                 >
                                   {field.label ? (
-                                    <legend className="text-xl font-bold text-[#333] leading-6 tracking-wide">
+                                    <legend className="text-xl font-bold text-gray-900 leading-6 tracking-wide">
                                       {field.label}
                                     </legend>
                                   ) : null}

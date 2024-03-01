@@ -13,6 +13,7 @@ interface StepListPropsType {
   nestedParent?: string;
   travelerIndex?: number;
   disabled?: boolean;
+  valuesAsColumn?: boolean
 }
 
 export function StepList({
@@ -21,10 +22,11 @@ export function StepList({
   errors,
   nestedParent,
   travelerIndex,
-  disabled
+  disabled,
+  valuesAsColumn
 }: StepListPropsType) {
   return (
-    <div className="mb-5 mt-2 flex flex-auto flex-wrap">
+    <div className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}>
       {step.values.map((value: ListValue) => {
         const { ref, name, ...rest } = register(
           getRegisterName(value.name, nestedParent, travelerIndex)

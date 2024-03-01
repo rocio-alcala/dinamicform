@@ -13,7 +13,8 @@ interface StepCheckBoxPropsType {
   nestedParent?: string;
   travelerIndex?: number;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  disabled?: boolean
+  disabled?: boolean;
+  valuesAsColumn?: boolean;
 }
 
 export default function StepCheckBox({
@@ -23,16 +24,19 @@ export default function StepCheckBox({
   nestedParent,
   travelerIndex,
   onChange: customOnChange,
-  disabled
+  disabled,
+  valuesAsColumn
 }: StepCheckBoxPropsType) {
   return (
-    <div>
+    <div
+      className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}
+    >
       {step.values.map((check: any, index: number) => {
         const { ref, name, onChange, ...rest } = register(
           getRegisterName(check.name, nestedParent, travelerIndex)
         );
         return (
-          <div className="flex" key={check.label + index}>
+          <div className="mr-8 w-fit" key={check.label + index}>
             <InputCheckBox
               id={check.label}
               inputRef={ref}
