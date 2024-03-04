@@ -22,7 +22,7 @@ export default function QuoteCard({
 
   return (
     <div
-      className={`flex flex-col m-8 shadow border-1 ${
+      className={`flex flex-col m-8 shadow border-1 max-w-[400px] ${
         isSelectedQuote && "border-2 border-[#00005b]"
       }`}
     >

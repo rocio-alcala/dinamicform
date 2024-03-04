@@ -89,12 +89,15 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
   }
 
   return (
-    <div className="font-AXA">
-      <h1 className="text-4xl font-extrabold p-20 text-center text-slate-50 bg-gray-700 ">
+    <div className="font-AXA relative">
+      <h1
+        className="relative z-10 text-4xl w-full font-extrabold p-20 pb-36 text-center text-slate-50 bg-gray-700"
+        style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}
+      >
         {t("travelers.title")}
       </h1>
       <form
-        className="flex flex-col m-16 p-10 border-2 shadow-[1px_1px_3px_0px_rgba(0,0,0,0.3)] bg-[#f5f5f5]"
+        className="relative z-20 top-[-5rem] flex flex-col mx-16 p-32 border-2 shadow-2xl bg-[#f5f5f5]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="p-4 m-5">
@@ -136,8 +139,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                     className="p-4 m-5"
                   >
                     <legend className="text-3xl font-extrabold mb-10 text-[#00005b] leading-10 tracking-wide">
-                      {t(travelersTree.adultTree.label)}{" "}
-                      {travelerIndex + 1}
+                      {t(travelersTree.adultTree.label)} {travelerIndex + 1}
                     </legend>
                     {travelersTree.adultTree.rows.map((row, rowIndex) => {
                       if (row.label === "policyHolder") {
@@ -233,8 +235,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                     className="p-4 m-5"
                   >
                     <legend className="text-3xl font-extrabold mb-10 text-[#00005b] leading-10 tracking-wide">
-                      {t(travelersTree.childTree.label)}{" "}
-                      {travelerIndex + 1}
+                      {t(travelersTree.childTree.label)} {travelerIndex + 1}
                     </legend>
                     {travelersTree.childTree.rows.map((row, rowIndex) => {
                       if (row.label === "policyHolder") {
@@ -330,8 +331,7 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
                     className="p-4 m-5"
                   >
                     <legend className="text-3xl font-extrabold mb-10 text-[#00005b] leading-10 tracking-wide">
-                      {t(travelersTree.seniorTree.label)}{" "}
-                      {travelerIndex + 1}
+                      {t(travelersTree.seniorTree.label)} {travelerIndex + 1}
                     </legend>
                     {travelersTree.seniorTree.rows.map((row, rowIndex) => {
                       if (row.label === "policyHolder") {

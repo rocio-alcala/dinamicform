@@ -11,19 +11,19 @@ export default function SummaryTravelers() {
   return (
     <div className="flex-col">
       {travelers.policyHolder && (
-        <Traveler traveler={travelers.policyHolder} title="Datos del tomador" />
+        <Traveler traveler={travelers.policyHolder} title="travelers.policyHolder.title" />
       )}
       {travelers.adults &&
         travelers.adults.map((adult) => (
-          <Traveler key={adult.passport_number} traveler={adult} title="Datos del pasajero" />
+          <Traveler key={adult.passport_number} traveler={adult} title="travelers.adult.title" />
         ))}
       {travelers.children &&
         travelers.children.map((children) => (
-          <Traveler key={children.passport_number} traveler={children} title="Datos del pasajero" />
+          <Traveler key={children.passport_number} traveler={children} title="travelers.child.title" />
         ))}
       {travelers.seniors &&
         travelers.seniors.map((seniors) => (
-          <Traveler key={seniors.passport_number} traveler={seniors} title="Datos del pasajero" />
+          <Traveler key={seniors.passport_number} traveler={seniors} title="travelers.senior.title" />
         ))}
     </div>
   );

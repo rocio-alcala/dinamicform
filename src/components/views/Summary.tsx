@@ -3,33 +3,35 @@ import Button from "../bits/Button";
 import SummaryQuoteCriteria from "../organisms/SummaryQuoteCriteria";
 import SummaryTravelers from "../organisms/SummaryTravelers";
 import SummarySelectedQuote from "../organisms/SummarySelectedQuote";
+import { useTranslation } from "react-i18next";
 
 export default function Summary() {
+  const { t } = useTranslation("global");
 
   return (
-    <>
-      <h1 className="text-4xl font-extrabold p-20 text-center text-slate-50 bg-gray-700 ">
-        Resumen de tu seguro
+    <div className="font-AXA relative">
+      <h1 className="relative z-10 text-4xl w-full font-extrabold p-20 pb-36 text-center text-slate-50 bg-gray-700"     style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}>
+        {t("travel.summary.tripSummaryTitle")}
       </h1>
-      <div className="flex flex-col m-16 p-10 border-2 shadow-[1px_1px_3px_0px_rgba(0,0,0,0.3)] bg-[#f5f5f5]">
+      <div className="relative z-20 top-[-5rem] flex flex-col mx-16 p-24 border-2 shadow-2xl bg-[#f5f5f5]">
         <div className="p-10">
           <h1 className="text-gray-950 text-2xl font-bold">
-            Datos de tu viaje
+            {t("travel.checkout.tripSummaryTitle")}
           </h1>
-          <SummaryQuoteCriteria/>
+          <SummaryQuoteCriteria />
         </div>
         <div></div>
         <div className="p-10">
           <h1 className="text-gray-950 text-2xl font-bold">
-            Viajeros asegurados
+          {t("travel.checkout.subscribersSummaryTitle")}
           </h1>
-          <SummaryTravelers/>
+          <SummaryTravelers />
         </div>
         <div className="p-10">
           <h1 className="text-gray-950 text-2xl font-bold">
-            Seguro seleccionado
+            {t("travel.checkout.formulaSummaryTitle")}
           </h1>
-          <SummarySelectedQuote/>
+          <SummarySelectedQuote />
         </div>
         <div className="mx-10 mb-10 p-3 place-self-end flex-col">
           <Button>
@@ -37,6 +39,6 @@ export default function Summary() {
           </Button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
