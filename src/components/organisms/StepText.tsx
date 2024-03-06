@@ -3,18 +3,18 @@ import { Step } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import InputText from "../bits/InputText";
 import Errors from "../bits/Errors";
-import { getErrors, getRegisterName } from "../../utils/formsHelpers";
+import { getErrors, getRegisterName } from "../../utils/formsUtils";
 import { Field } from "../../models/subscribers";
 import { TravelersInputForm } from "./TravelersForm";
 
 interface StepTextPropsType {
   step: Step | Field;
-  register: UseFormRegister<InputForm| TravelersInputForm>
-  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>
+  register: UseFormRegister<InputForm | TravelersInputForm>;
+  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>;
   nestedParent?: string;
   travelerIndex?: number;
-  disabled?: boolean
-  valuesAsColumn?: boolean
+  disabled?: boolean;
+  valuesAsColumn?: boolean;
 }
 
 export default function StepText({
@@ -27,21 +27,32 @@ export default function StepText({
   valuesAsColumn
 }: StepTextPropsType) {
   return (
-    <div className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}>
+    <div
+      className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}
+    >
       {step.values.map((value: any, index: number) => {
         const { ref, ...rest } = register(
-          getRegisterName(value.name, nestedParent, travelerIndex)
+          getRegisterName({
+            inputName: value.name,
+            nestedParent,
+            travelerIndex
+          })
         );
         return (
           <div className="mr-8 w-[33%] min-w-fit" key={value.label + index}>
-            <InputText inputRef={ref} label={value.label} disabled={disabled} {...rest} />
+            <InputText
+              inputRef={ref}
+              label={value.label}
+              disabled={disabled}
+              {...rest}
+            />
             <Errors
-              message={getErrors(
+              message={getErrors({
                 errors,
-                value.name,
+                inputName: value.name,
                 nestedParent,
                 travelerIndex
-              )}
+              })}
             />
           </div>
         );

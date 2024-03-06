@@ -4,18 +4,18 @@ import { InputForm } from "./QuoteForm";
 import InputDate from "../bits/InputDate";
 import Errors from "../bits/Errors";
 import { addDays } from "date-fns";
-import { getErrors, getRegisterName } from "../../utils/formsHelpers";
+import { getErrors, getRegisterName } from "../../utils/formsUtils";
 import { Field } from "../../models/subscribers";
 import { TravelersInputForm } from "./TravelersForm";
 
 interface StepDatePropsType {
   step: Step | Field;
-  control: Control<InputForm |TravelersInputForm >
-  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>
+  control: Control<InputForm | TravelersInputForm>;
+  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>;
   nestedParent?: string;
   travelerIndex?: number;
-  disabled?: boolean
-  valuesAsColumn?: boolean
+  disabled?: boolean;
+  valuesAsColumn?: boolean;
 }
 
 export default function StepDate({
@@ -28,11 +28,17 @@ export default function StepDate({
   valuesAsColumn
 }: StepDatePropsType) {
   return (
-    <div className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}>
+    <div
+      className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}
+    >
       {step.values.map((date: DateValue, index: number) => (
         <div className="mr-8 w-fit" key={date.label + index}>
           <Controller
-            name={getRegisterName(date.name, nestedParent, travelerIndex)}
+            name={getRegisterName({
+              inputName: date.name,
+              nestedParent,
+              travelerIndex
+            })}
             control={control}
             render={({ field }) => {
               const { ref, value, ...rest } = field;
@@ -60,7 +66,12 @@ export default function StepDate({
                     disabled={disabled}
                   />
                   <Errors
-                    message={getErrors(errors, date.name, nestedParent)}
+                    message={getErrors({
+                      errors,
+                      inputName: date.name,
+                      nestedParent,
+                      travelerIndex
+                    })}
                   />
                 </div>
               );

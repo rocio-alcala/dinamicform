@@ -3,14 +3,14 @@ import { CounterValue, Step } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import InputCounter from "../bits/InputCounter";
 import Errors from "../bits/Errors";
-import { getErrors, getRegisterName } from "../../utils/formsHelpers";
+import { getErrors, getRegisterName } from "../../utils/formsUtils";
 import { Field } from "../../models/subscribers";
 import { TravelersInputForm } from "./TravelersForm";
 
 interface StepCounterPropsType {
   step: Step | Field;
-  register: UseFormRegister<InputForm| TravelersInputForm>
-  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>
+  register: UseFormRegister<InputForm | TravelersInputForm>;
+  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>;
   nestedParent?: string;
   travelerIndex?: number;
   disabled?: boolean;
@@ -32,7 +32,11 @@ export function StepCounter({
     >
       {step.values.map((counter: CounterValue, index: number) => {
         const { ref, ...rest } = register(
-          getRegisterName(counter.name, nestedParent, travelerIndex)
+          getRegisterName({
+            inputName: counter.name,
+            nestedParent,
+            travelerIndex
+          })
         );
         return (
           <div className="mr-8 w-[20%] min-w-fit" key={counter.label + index}>
@@ -45,7 +49,14 @@ export function StepCounter({
               max={counter.max}
               disabled={disabled}
             />
-            <Errors message={getErrors(errors, counter.name, nestedParent)} />
+            <Errors
+              message={getErrors({
+                errors,
+                inputName: counter.name,
+                nestedParent,
+                travelerIndex
+              })}
+            />
           </div>
         );
       })}

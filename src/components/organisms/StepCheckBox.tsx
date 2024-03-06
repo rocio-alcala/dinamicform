@@ -3,14 +3,14 @@ import { Step } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import Errors from "../bits/Errors";
 import InputCheckBox from "../bits/InputCheckBox";
-import { getErrors, getRegisterName } from "../../utils/formsHelpers";
+import { getErrors, getRegisterName } from "../../utils/formsUtils";
 import { Field } from "../../models/subscribers";
 import { TravelersInputForm } from "./TravelersForm";
 
 interface StepCheckBoxPropsType {
   step: Step | Field;
-  register: UseFormRegister<InputForm| TravelersInputForm>
-  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>
+  register: UseFormRegister<InputForm | TravelersInputForm>;
+  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>;
   nestedParent?: string;
   travelerIndex?: number;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
@@ -34,7 +34,11 @@ export default function StepCheckBox({
     >
       {step.values.map((check: any, index: number) => {
         const { ref, name, onChange, ...rest } = register(
-          getRegisterName(check.name, nestedParent, travelerIndex)
+          getRegisterName({
+            inputName: check.name,
+            nestedParent,
+            travelerIndex
+          })
         );
         return (
           <div className="mr-8 w-fit" key={check.label + index}>
@@ -50,7 +54,14 @@ export default function StepCheckBox({
           </div>
         );
       })}
-      <Errors message={getErrors(errors, step.values[0].name, nestedParent)} />
+      <Errors
+        message={getErrors({
+          errors,
+          inputName: step.values[0].name,
+          nestedParent,
+          travelerIndex
+        })}
+      />
     </div>
   );
 }

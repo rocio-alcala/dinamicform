@@ -6,11 +6,17 @@ import {
   TravelersInputForm
 } from "../components/organisms/TravelersForm";
 
-export function getRegisterName(
-  inputName: string,
-  nestedParent?: string,
-  travelerIndex?: number
-) {
+interface GetRegisterNameType {
+  inputName: string;
+  nestedParent?: string;
+  travelerIndex?: number;
+}
+
+export function getRegisterName({
+  inputName,
+  nestedParent,
+  travelerIndex
+}: GetRegisterNameType) {
   if (nestedParent) {
     if (travelerIndex || travelerIndex === 0) {
       return `${nestedParent}[${travelerIndex}].${inputName}`;
@@ -22,12 +28,19 @@ export function getRegisterName(
   }
 }
 
-export function getErrors( // to-do: implement named parameters (make parameters into object)
-  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>,
-  inputName: string,
-  nestedParent?: string,
-  travelerIndex?: number
-) {
+interface GetErrorsType {
+  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>;
+  inputName: string;
+  nestedParent?: string;
+  travelerIndex?: number;
+}
+
+export function getErrors({
+  errors,
+  inputName,
+  nestedParent,
+  travelerIndex
+}: GetErrorsType) {
   if (Object.keys(errors).length === 0) return undefined;
   if (errors[inputName]) {
     return errors[inputName]?.message;

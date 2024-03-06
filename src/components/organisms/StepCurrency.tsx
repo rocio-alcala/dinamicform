@@ -3,18 +3,18 @@ import { CurrencyValue, Step } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import InputCounter from "../bits/InputCounter";
 import Errors from "../bits/Errors";
-import { getErrors, getRegisterName } from "../../utils/formsHelpers";
+import { getErrors, getRegisterName } from "../../utils/formsUtils";
 import { Field } from "../../models/subscribers";
 import { TravelersInputForm } from "./TravelersForm";
 
 interface StepCurrencyPropsType {
   step: Step | Field;
-  register: UseFormRegister<InputForm| TravelersInputForm>
-  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>
+  register: UseFormRegister<InputForm | TravelersInputForm>;
+  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>;
   nestedParent?: string;
   travelerIndex?: number;
-  disabled?: boolean
-  valuesAsColumn?: boolean
+  disabled?: boolean;
+  valuesAsColumn?: boolean;
 }
 
 export default function StepCurrency({
@@ -27,10 +27,16 @@ export default function StepCurrency({
   valuesAsColumn
 }: StepCurrencyPropsType) {
   return (
-    <div className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}>
+    <div
+      className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}
+    >
       {step.values.map((value: CurrencyValue, index: number) => {
         const { ref, ...rest } = register(
-          getRegisterName(value.name, nestedParent, travelerIndex)
+          getRegisterName({
+            inputName: value.name,
+            nestedParent,
+            travelerIndex
+          })
         );
         return (
           <div className="mr-8 w-[20%] min-w-fit" key={value.name + index}>
@@ -44,7 +50,14 @@ export default function StepCurrency({
               id={value.name}
               disabled={disabled}
             ></InputCounter>
-            <Errors message={getErrors(errors, value.name, nestedParent)} />
+            <Errors
+              message={getErrors({
+                errors,
+                inputName: value.name,
+                nestedParent,
+                travelerIndex
+              })}
+            />
           </div>
         );
       })}

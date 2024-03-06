@@ -10,7 +10,7 @@ import Button from "../bits/Button";
 import { useNavigate } from "react-router-dom";
 import { GrFormNextLink } from "react-icons/gr";
 import { useTranslation } from "react-i18next";
-import { toSerializableData } from "../../utils/formsHelpers";
+import { toSerializableData } from "../../utils/formsUtils";
 
 export type TravelersInputForm = {
   [index: string]: TravelerType | TravelerType[] | undefined;

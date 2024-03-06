@@ -5,14 +5,14 @@ import InputDate from "../bits/InputDate";
 import Errors from "../bits/Errors";
 import { addDays } from "date-fns";
 import { useState } from "react";
-import { getErrors, getRegisterName } from "../../utils/formsHelpers";
+import { getErrors, getRegisterName } from "../../utils/formsUtils";
 import { Field } from "../../models/subscribers";
 import { TravelersInputForm } from "./TravelersForm";
 
 interface StepDateRangePropsType {
   step: Step | Field;
-  control: Control<InputForm | TravelersInputForm> 
-  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>
+  control: Control<InputForm | TravelersInputForm>;
+  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>;
   nestedParent?: string;
   travelerIndex?: number;
   disabled?: boolean;
@@ -25,21 +25,23 @@ export default function StepDateRange({
   errors,
   nestedParent,
   travelerIndex,
-  disabled, 
+  disabled,
   valuesAsColumn
 }: StepDateRangePropsType) {
   const [startDate, setStartDate] = useState<InputFormValue>();
 
   return (
-    <div className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}>
+    <div
+      className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}
+    >
       {step.values.map((dateRange: DateRangeValue, index: number) => (
         <div className="flex flex-wrap" key={dateRange.labelStart + index}>
           <Controller
-            name={getRegisterName(
-              dateRange.nameStart,
+            name={getRegisterName({
+              inputName: dateRange.nameStart,
               nestedParent,
               travelerIndex
-            )}
+            })}
             control={control}
             render={({ field }) => {
               const { ref, value, ...rest } = field;
@@ -72,22 +74,22 @@ export default function StepDateRange({
                     disabled={disabled}
                   />
                   <Errors
-                    message={getErrors(
+                    message={getErrors({
                       errors,
-                      dateRange.nameStart,
+                      inputName: dateRange.nameStart,
                       nestedParent
-                    )}
+                    })}
                   />
                 </div>
               );
             }}
           />
           <Controller
-            name={getRegisterName(
-              dateRange.nameEnd,
+            name={getRegisterName({
+              inputName: dateRange.nameEnd,
               nestedParent,
               travelerIndex
-            )}
+            })}
             control={control}
             render={({ field }) => {
               const { ref, value, ...rest } = field;
@@ -123,7 +125,12 @@ export default function StepDateRange({
                     showIcon={true}
                   />
                   <Errors
-                    message={getErrors(errors, dateRange.nameEnd, nestedParent)}
+                    message={getErrors({
+                      errors,
+                      inputName: dateRange.nameEnd,
+                      nestedParent,
+                      travelerIndex
+                    })}
                   />
                 </div>
               );
