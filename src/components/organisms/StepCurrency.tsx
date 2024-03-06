@@ -5,11 +5,12 @@ import InputCounter from "../bits/InputCounter";
 import Errors from "../bits/Errors";
 import { getErrors, getRegisterName } from "../../utils/formsHelpers";
 import { Field } from "../../models/subscribers";
+import { TravelersInputForm } from "./TravelersForm";
 
 interface StepCurrencyPropsType {
   step: Step | Field;
-  register: UseFormRegister<InputForm>;
-  errors: FieldErrors<InputForm>;
+  register: UseFormRegister<InputForm| TravelersInputForm>
+  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>
   nestedParent?: string;
   travelerIndex?: number;
   disabled?: boolean

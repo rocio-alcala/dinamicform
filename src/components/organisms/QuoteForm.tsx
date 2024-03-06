@@ -24,6 +24,7 @@ import Button from "../bits/Button";
 import { submitQuote } from "../../store/quoteSlice";
 import { GrFormNextLink } from "react-icons/gr";
 import { useTranslation } from "react-i18next";
+import { TravelersInputForm } from "./TravelersForm";
 
 export type InputFormValue =
   | string
@@ -32,10 +33,14 @@ export type InputFormValue =
   | Date
   | null
   | boolean;
-export type InputForm = Record<
+/* export type InputForm = Record<
   string,
   InputFormValue | Record<string, InputFormValue>
 >;
+ */
+export interface InputForm {
+  [index: string]: InputFormValue | { [index: string]: InputFormValue };
+}
 
 function getPreselectedProduct(products: Product[]) {
   return products.find((product) => product.isPreselected === true);
@@ -257,7 +262,7 @@ function QuoteForm() {
     control,
     formState: { errors },
     reset
-  } = useForm<InputForm>({
+  } = useForm<InputForm | TravelersInputForm>({
     values: getDefaultValues(selectedSubProduct), //adding default values once a Sub Product is selected,
     //so numeric inputs won't initialize to ""
     shouldFocusError: false, // otherwise throws when focusing date input
@@ -273,10 +278,9 @@ function QuoteForm() {
 
     await basicHandleSubmit((basicFormData) => {
       quote = { ...quote, ...basicFormData };
-      
 
       handleSubmit((formData) => {
-        const serializableFormData = toSerializableData(formData);
+        const serializableFormData = toSerializableData(formData) as InputForm;
         quote = { ...quote, ...serializableFormData };
         dispatch(submitQuoteCriteria(quote));
         // POST A API Y MANEJAR LA RESPUESTA GUARDANDO EN STORE CON UN DISPATCH
@@ -294,7 +298,10 @@ function QuoteForm() {
 
   return (
     <div className="font-AXA relative">
-      <h1 className="relative z-10 text-4xl w-full font-extrabold p-20 pb-36 text-center text-slate-50 bg-gray-700"     style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}>
+      <h1
+        className="relative z-10 text-4xl w-full font-extrabold p-20 pb-36 text-center text-slate-50 bg-gray-700"
+        style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}
+      >
         {t("travel.title")}
       </h1>
       <form

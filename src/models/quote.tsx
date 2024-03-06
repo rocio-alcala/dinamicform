@@ -2,17 +2,17 @@ export interface Quote {
     context: Record<string, string>;
     quote_expire_at: string;
     products: QuoteProduct[];
-    addons: any; //TO-DO: tipear addons
-    payment_modes: { type: string; provider: { id: string; label: string } }[];
-    risks: any;
-    is_pre_contract_required: boolean;
+    addons?: any; //TO-DO: tipear addons
+    payment_modes?: { type: string; provider: { id: string; label: string } }[];
+    risks?: any;
+    is_pre_contract_required?: boolean;
   }
   
   export interface QuoteProduct {
     quote_code: string;
     name: string;
-    is_default_product: boolean;
-    prices: {
+    is_default_product?: boolean;
+    prices?: {
       formula: string;
       total_taxes: number;
       country_taxes: any;
@@ -24,15 +24,15 @@ export interface Quote {
       percentage_discount: number;
       total_discount: number;
     };
-    attachments: any;
-    consents: any;
-    payment_difference_types: any;
-    disclaimers: any;
+    attachments?: any;
+    consents?: any;
+    payment_difference_types?: any;
+    disclaimers?: any;
     guarantees: Guarante[];
-    addon_codes: any;
-    risks: any;
-    travelers_breakdown: any;
-    product_code: string;
+    addon_codes?: any;
+    risks?: any;
+    travelers_breakdown?: any;
+    product_code?: string;
   }
   
   export interface Guarante {

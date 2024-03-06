@@ -2,7 +2,7 @@ import { useAppSelector } from "../../store/typedHooks";
 
 export default function SummarySelectedQuote() {
   const selectedQuote = useAppSelector((state) => state.selectedQuote);
-  if (Object.values(selectedQuote).length === 0) {
+  if (!selectedQuote.name) {
     return <p>No hay quote seleccionada</p>;
   }
 
@@ -12,7 +12,7 @@ export default function SummarySelectedQuote() {
         {selectedQuote.name}
       </p>
       <p className="font-bold text-3xl text-red-800 p-4">
-        {selectedQuote.prices.price_after_discount_incl_tax}€
+        {selectedQuote.prices?.price_after_discount_incl_tax}€
       </p>
     </div>
   );

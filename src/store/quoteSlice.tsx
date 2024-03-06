@@ -1,8 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Quote } from "../models/quote";
 
-
-const initialState: Quote  = {};
+const initialState: Quote = { quote_expire_at: "", products: [], context: {} };
 
 export const quoteSlice = createSlice({
   name: "quote",

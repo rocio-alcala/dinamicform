@@ -1,13 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { InputForm } from "../components/organisms/QuoteForm";
+import { TravelersInputForm } from "../components/organisms/TravelersForm";
 
-const initialState: InputForm = {};
+const initialState: TravelersInputForm = { policyHolder: {}};
 
 export const travelersSlice = createSlice({
   name: "travelers",
   initialState,
   reducers: {
-    submitTravelers: (_, action: PayloadAction<InputForm>) => {
+    submitTravelers: (_, action: PayloadAction<TravelersInputForm>) => {
       return action.payload;
     },
     clearTravelers: () => {

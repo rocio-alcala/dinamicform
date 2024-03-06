@@ -5,11 +5,12 @@ import Errors from "../bits/Errors";
 import InputCheckBox from "../bits/InputCheckBox";
 import { getErrors, getRegisterName } from "../../utils/formsHelpers";
 import { Field } from "../../models/subscribers";
+import { TravelersInputForm } from "./TravelersForm";
 
 interface StepCheckBoxPropsType {
   step: Step | Field;
-  register: UseFormRegister<InputForm>;
-  errors: FieldErrors<InputForm>;
+  register: UseFormRegister<InputForm| TravelersInputForm>
+  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>
   nestedParent?: string;
   travelerIndex?: number;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;

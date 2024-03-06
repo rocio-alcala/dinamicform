@@ -3,12 +3,12 @@ import TravelersForm from "../organisms/TravelersForm";
 
 export default function Travelers() {
   const quoteCriteria = useAppSelector((state) => state.quoteCriteria);
-  const travelers = quoteCriteria.travelers;
+  const storeTravelersCount = quoteCriteria.travelers;
 
   return (
     <>
-      {travelers ? (
-        <TravelersForm travelers={travelers as Record<string, number>} />
+      {storeTravelersCount ? (
+        <TravelersForm travelersCount={storeTravelersCount as Record<string, number>} />
       ) : (
         <p>No existen travelers</p>
       )}

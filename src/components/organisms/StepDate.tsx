@@ -6,11 +6,12 @@ import Errors from "../bits/Errors";
 import { addDays } from "date-fns";
 import { getErrors, getRegisterName } from "../../utils/formsHelpers";
 import { Field } from "../../models/subscribers";
+import { TravelersInputForm } from "./TravelersForm";
 
 interface StepDatePropsType {
   step: Step | Field;
-  control: Control<InputForm>;
-  errors: FieldErrors<InputForm>;
+  control: Control<InputForm |TravelersInputForm >
+  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>
   nestedParent?: string;
   travelerIndex?: number;
   disabled?: boolean

@@ -1,7 +1,8 @@
+import { InputFormValue } from "./QuoteForm";
 
 interface SummaryItemPropsType {
   label: string;
-  info: string;
+  info: InputFormValue;
 }
 
 export default function SummaryItem({ label, info }: SummaryItemPropsType) {
@@ -10,7 +11,9 @@ export default function SummaryItem({ label, info }: SummaryItemPropsType) {
       <p className="text-start text-gray-500 font-medium min-w-[40%]">
         {label}
       </p>
-      <p className="text-start text-gray-950 font-bold min-w-[40%]">{info}</p>
+      <p className="text-start text-gray-950 font-bold min-w-[40%]">
+        {info instanceof Date ? info.toLocaleDateString() : info}
+      </p>
     </div>
   );
 }

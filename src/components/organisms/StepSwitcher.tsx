@@ -10,12 +10,13 @@ import StepDate from "./StepDate";
 import StepDateRange from "./StepDateRange";
 import StepCheckBox from "./StepCheckBox";
 import { Field } from "../../models/subscribers";
+import { TravelersInputForm } from "./TravelersForm";
 
 interface StepSwitcherProps {
   step: Step | Field;
-  register: UseFormRegister<InputForm>;
-  control: Control<InputForm>;
-  errors: FieldErrors<InputForm>;
+  register: UseFormRegister<InputForm | TravelersInputForm>
+  control: Control<InputForm | TravelersInputForm> 
+  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>
   nestedParent?: string;
   travelerIndex?: number;
   disabled?: boolean

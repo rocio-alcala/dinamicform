@@ -3,7 +3,7 @@ import { InputFormValue } from "./QuoteForm";
 import SummaryItem from "./SummaryItem";
 
 interface TravelerPropsType {
-  traveler: Record<string, InputForm>;
+  traveler: Record<string, InputFormValue>;
   title: string;
 }
 
@@ -27,7 +27,9 @@ export default function Traveler({ traveler, title }: TravelerPropsType) {
         {traveler.birth_date && (
           <SummaryItem
             label="Fecha de nacimiento"
-            info={traveler.birth_date.toLocaleDateString()}
+            info={new Date(
+              traveler.birth_date as Date
+            )}
           ></SummaryItem>
         )}
         {traveler.passport_number && (

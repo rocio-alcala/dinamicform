@@ -1,31 +1,32 @@
 import { useAppSelector } from "../../store/typedHooks";
+import { InputFormValue } from "./QuoteForm";
 import SummaryItem from "./SummaryItem";
 
 export default function SummaryQuoteCriteria() {
   const quoteCriteria = useAppSelector((state) => state.quoteCriteria);
-  console.log("quote critera redux", quoteCriteria);
   if (Object.values(quoteCriteria).length === 0) {
     return <p>No hay quote criteria guardada</p>;
   }
 
   return (
+    //casteo
     <div className="border-2 shadow-[1px_1px_3px_0px_rgba(0,0,0,0.3)] my-4">
         {quoteCriteria.product && (
           <SummaryItem
             label="Tu producto"
-            info={quoteCriteria.product}
+            info={quoteCriteria.product as InputFormValue}
           ></SummaryItem>
         )}
         {quoteCriteria.subproduct && (
           <SummaryItem
             label="Sub producto"
-            info={quoteCriteria.subproduct}
+            info={quoteCriteria.subproduct as InputFormValue}
           ></SummaryItem>
         )}
         {quoteCriteria.destination_area && (
           <SummaryItem
             label="Destino"
-            info={quoteCriteria.destination_area}
+            info={quoteCriteria.destination_area as InputFormValue}
           ></SummaryItem>
         )}
         {quoteCriteria.travelers && (
@@ -41,19 +42,19 @@ export default function SummaryQuoteCriteria() {
             label="Salida"
             info={new Date(
               quoteCriteria.start_date as Date
-            ).toLocaleDateString()}
+            )}
           ></SummaryItem>
         )}
         {quoteCriteria.end_date && (
           <SummaryItem
             label="Regreso"
-            info={new Date(quoteCriteria.end_date as Date).toLocaleDateString()}
+            info={new Date(quoteCriteria.end_date as Date)}
           ></SummaryItem>
         )}
         {quoteCriteria.cost ? (
           <SummaryItem
             label="Coste total"
-            info={quoteCriteria.cost}
+            info={quoteCriteria.cost as InputFormValue}
           ></SummaryItem>
         ) : null}
     </div>
