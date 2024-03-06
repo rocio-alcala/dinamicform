@@ -19,12 +19,14 @@ import { useAppDispatch } from "../../store/typedHooks";
 import { submitQuoteCriteria } from "../../store/quoteCriteriaSlice";
 import { useNavigate } from "react-router-dom";
 import InputList from "../bits/InputList";
-import { toSerializableData } from "../../utils/formsHelpers";
+import { toSerializableData } from "../../utils/formsUtils";
 import Button from "../bits/Button";
 import { submitQuote } from "../../store/quoteSlice";
 import { GrFormNextLink } from "react-icons/gr";
 import { useTranslation } from "react-i18next";
 import { TravelersInputForm } from "./TravelersForm";
+import { Quote } from "../../models/quote";
+import { useState } from "react";
 
 export type InputFormValue =
   | string
@@ -229,6 +231,7 @@ function QuoteForm() {
     preSelectedSubProduct || sampleProduct.subProductGroups[0];
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register: basicRegister,
@@ -283,9 +286,17 @@ function QuoteForm() {
         const serializableFormData = toSerializableData(formData) as InputForm;
         quote = { ...quote, ...serializableFormData };
         dispatch(submitQuoteCriteria(quote));
-        // POST A API Y MANEJAR LA RESPUESTA GUARDANDO EN STORE CON UN DISPATCH
-        dispatch(submitQuote(mockQuote));
-        navigate("/quotes");
+        new Promise((resolver) => {
+          // SIMULA POST A API
+          setIsLoading(true);
+          setTimeout(() => resolver(mockQuote), 2000);
+        })
+          .then((mockQuote) => {
+            console.log("mock", mockQuote);
+            dispatch(submitQuote(mockQuote as Quote));
+            navigate("/quotes");
+          })
+          .finally(() => setIsLoading(false));
       })(event);
     })(event);
   }
@@ -378,7 +389,7 @@ function QuoteForm() {
             : null}
         </div>
         <div className="mx-10 mb-10 p-3 place-self-end">
-          <Button type="submit">
+          <Button type="submit" disabled={isLoading} isLoading={isLoading}>
             VER PRESUPUESTO <GrFormNextLink className="text-2xl" />
           </Button>
         </div>
