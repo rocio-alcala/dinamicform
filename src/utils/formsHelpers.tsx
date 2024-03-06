@@ -1,6 +1,10 @@
 // to-do: rename file to formUtils.ts
 import { FieldErrors } from "react-hook-form";
-import { InputForm } from "../components/organisms/QuoteForm";
+import { InputForm, InputFormValue } from "../components/organisms/QuoteForm";
+import {
+  TravelerType,
+  TravelersInputForm
+} from "../components/organisms/TravelersForm";
 
 export function getRegisterName(
   inputName: string,
@@ -19,7 +23,7 @@ export function getRegisterName(
 }
 
 export function getErrors( // to-do: implement named parameters (make parameters into object)
-  errors: FieldErrors<InputForm>,
+  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>,
   inputName: string,
   nestedParent?: string,
   travelerIndex?: number
@@ -38,13 +42,29 @@ export function getErrors( // to-do: implement named parameters (make parameters
   }
 }
 
-export function toSerializableData(objectData: InputForm) {
-const serializableObjectData = {...objectData}
-
-  for (const key in serializableObjectData) {
-    if (serializableObjectData[key] instanceof Date) {
-      serializableObjectData[key] = serializableObjectData[key]?.toString();
+export function toSerializableData(objectData: InputForm | TravelersInputForm) {
+  const serializableObjectData = { ...objectData };
+  function serializableObject(
+    object:
+      | InputForm
+      | TravelersInputForm
+      | { [index: string]: InputFormValue }
+      | TravelerType
+  ) {
+    for (const key in object) {
+      if (object[key] instanceof Date) {
+        object[key] = object[key]?.toString();
+      }
+      if (object[key] instanceof Object) {
+        serializableObject(object[key]);
+      }
+      if (object[key] instanceof Array) {
+        object[key].forEach((object: TravelerType) =>
+          serializableObject(object)
+        );
+      }
     }
   }
-  return serializableObjectData
+  serializableObject(serializableObjectData);
+  return serializableObjectData;
 }

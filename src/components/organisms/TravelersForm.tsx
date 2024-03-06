@@ -3,21 +3,37 @@ import StepCheckBox from "./StepCheckBox";
 import { useForm } from "react-hook-form";
 import { travelersConfig } from "../../../mock/travelersConfig";
 import { Subscribers, TravelersTree } from "../../models/subscribers";
-import { InputForm } from "./QuoteForm";
-import { useAppDispatch } from "../../store/typedHooks";
+import { InputForm, InputFormValue } from "./QuoteForm";
+import { useAppDispatch, useAppSelector } from "../../store/typedHooks";
 import { submitTravelers } from "../../store/travelersSlice";
 import Button from "../bits/Button";
 import { useNavigate } from "react-router-dom";
 import { GrFormNextLink } from "react-icons/gr";
 import { useTranslation } from "react-i18next";
+import { toSerializableData } from "../../utils/formsHelpers";
 
-type TravelersFormPropsType = { travelers: Record<string, number> };
+export type TravelersInputForm = {
+  [index: string]: TravelerType | TravelerType[] | undefined;
+  policyHolder: TravelerType;
+  adults?: TravelerType[];
+  children?: TravelerType[];
+  seniors?: TravelerType[];
+};
 
-export default function TravelersForm({ travelers }: TravelersFormPropsType) {
+export interface TravelerType {
+  [index: string]: InputFormValue;
+}
+
+type TravelersFormPropsType = { travelersCount: Record<string, number> };
+
+export default function TravelersForm({
+  travelersCount
+}: TravelersFormPropsType) {
   const travelersTree: Subscribers = travelersConfig;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation("global");
+  const storeTravelers = useAppSelector((state) => state.travelers);
 
   const {
     register,
@@ -27,11 +43,13 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
     setValue,
     resetField,
     formState: { errors }
-  } = useForm<InputForm>();
+  } = useForm<TravelersInputForm | InputForm>({
+    defaultValues: storeTravelers
+  });
 
-  function onSubmit(dataForm: InputForm) {
-    // TO-DO: serializar data
-    dispatch(submitTravelers(dataForm));
+  function onSubmit(dataForm: TravelersInputForm | InputForm) {
+    const serializableData = toSerializableData(dataForm);
+    dispatch(submitTravelers(serializableData as TravelersInputForm));
     navigate("/summary");
   }
 
@@ -47,25 +65,25 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
         case "adults":
           setValue(`${travelersTreeName}[${travelerIndex}]`, policyHolder);
           setValue(`adults[${travelerIndex}].isPolicyHolder`, true);
-          if (travelers.children)
+          if (travelersCount.children)
             setValue(`children[${travelerIndex}].isPolicyHolder`, false);
-          if (travelers.seniors)
+          if (travelersCount.seniors)
             setValue(`seniors[${travelerIndex}].isPolicyHolder`, false);
           break;
         case "children":
           setValue(`${travelersTreeName}[${travelerIndex}]`, policyHolder);
           setValue(`children[${travelerIndex}].isPolicyHolder`, true);
-          if (travelers.adults)
+          if (travelersCount.adults)
             setValue(`adults[${travelerIndex}].isPolicyHolder`, false);
-          if (travelers.seniors)
+          if (travelersCount.seniors)
             setValue(`seniors[${travelerIndex}].isPolicyHolder`, false);
           break;
         case "seniors":
           setValue(`${travelersTreeName}[${travelerIndex}]`, policyHolder);
           setValue(`seniors[${travelerIndex}].isPolicyHolder`, true);
-          if (travelers.children)
+          if (travelersCount.children)
             setValue(`children[${travelerIndex}].isPolicyHolder`, false);
-          if (travelers.adults)
+          if (travelersCount.adults)
             setValue(`adults[${travelerIndex}].isPolicyHolder`, false);
           break;
       }
@@ -128,9 +146,9 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
           })}
         </div>
 
-        {travelers.adults ? (
+        {travelersCount.adults ? (
           <>
-            {Array(travelers.adults)
+            {Array(travelersCount.adults)
               .fill(0)
               .map((_, travelerIndex) => {
                 return (
@@ -224,9 +242,9 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
               })}
           </>
         ) : null}
-        {travelers.children ? (
+        {travelersCount.children ? (
           <>
-            {Array(travelers.children)
+            {Array(travelersCount.children)
               .fill(0)
               .map((_, travelerIndex) => {
                 return (
@@ -320,9 +338,9 @@ export default function TravelersForm({ travelers }: TravelersFormPropsType) {
               })}
           </>
         ) : null}
-        {travelers.seniors ? (
+        {travelersCount.seniors ? (
           <>
-            {Array(travelers.seniors)
+            {Array(travelersCount.seniors)
               .fill(0)
               .map((_, travelerIndex) => {
                 return (
