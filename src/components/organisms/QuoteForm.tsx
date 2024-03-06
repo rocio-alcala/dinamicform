@@ -15,7 +15,7 @@ import StepSwitcher from "./StepSwitcher";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Errors from "../bits/Errors";
-import { useAppDispatch } from "../../store/typedHooks";
+import { useAppDispatch, useAppSelector } from "../../store/typedHooks";
 import { submitQuoteCriteria } from "../../store/quoteCriteriaSlice";
 import { useNavigate } from "react-router-dom";
 import InputList from "../bits/InputList";
@@ -62,7 +62,10 @@ function getSelectedSubProduct(
   return products.find((product) => product.value === selectedSubProductValue);
 }
 
-function getBasicDefaultValues(products: Product[]) {
+function getBasicDefaultValues(products: Product[], storeCriteria: InputForm) {
+  if (storeCriteria) {
+    return { ...storeCriteria }
+  }
   const preSelectedProduct = getPreselectedProduct(products);
   const preSelectedSubProduct =
     preSelectedProduct &&
@@ -78,8 +81,11 @@ function getBasicDefaultValues(products: Product[]) {
   };
 }
 
-function getDefaultValues(selectedSubProduct: SubProduct | undefined) {
+function getDefaultValues(selectedSubProduct: SubProduct | undefined, storeCriteria: InputForm) {
   let defaultValues: InputForm = {};
+    if (storeCriteria) {
+    return { ...storeCriteria }
+  }
   if (selectedSubProduct) {
     selectedSubProduct.steps.forEach((step: Step) => {
       switch (step.type) {
@@ -141,7 +147,7 @@ function getInitialValidationSchema(
           if (step.isRequired) {
             initialSchemaObject = {
               ...initialSchemaObject,
-              [step.name]: yup.string().required()
+              [step.values[0].name]: yup.string().required()
             };
           }
           break;
@@ -232,6 +238,7 @@ function QuoteForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const storeCriteria = useAppSelector(state=> state.quoteCriteria)
 
   const {
     register: basicRegister,
@@ -241,7 +248,7 @@ function QuoteForm() {
     setValue,
     reset: basicFormReset
   } = useForm<InputForm>({
-    defaultValues: getBasicDefaultValues(products),
+    defaultValues: getBasicDefaultValues(products, storeCriteria),
     resolver: yupResolver(
       yup
         .object()
@@ -266,7 +273,7 @@ function QuoteForm() {
     formState: { errors },
     reset
   } = useForm<InputForm | TravelersInputForm>({
-    values: getDefaultValues(selectedSubProduct), //adding default values once a Sub Product is selected,
+    values: getDefaultValues(selectedSubProduct, storeCriteria), //adding default values once a Sub Product is selected,
     //so numeric inputs won't initialize to ""
     shouldFocusError: false, // otherwise throws when focusing date input
     // TO-DO: fix on focus problem
@@ -287,7 +294,7 @@ function QuoteForm() {
         quote = { ...quote, ...serializableFormData };
         dispatch(submitQuoteCriteria(quote));
         new Promise((resolver) => {
-          // SIMULA POST A API
+          // MOCK API POST
           setIsLoading(true);
           setTimeout(() => resolver(mockQuote), 2000);
         })

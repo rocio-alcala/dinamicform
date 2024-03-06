@@ -5,7 +5,7 @@ export const mockConfig = {
   additional_questions: [],
   criterias: [
     {
-      isPreselected: true,
+      isPreselected: false,
       isRequired: true,
       label: "travel.insurance.product1.label",
       name: "product",
@@ -169,7 +169,7 @@ export const mockConfig = {
           summaryLabel: "travel.product.travel.summaryLabel",
           steps: [
             {
-              isRequired: false,
+              isRequired: true,
               label: "travel.product1.travel1.step1.label",
               quickLabel: "travel.product1.travel1.step1.quickLabel",
               summaryLabel: "travel.product1.travel1.step1.summaryLabel",
@@ -290,7 +290,6 @@ export const mockConfig = {
               ]
             },
             {
-              isRequired: true,
               label: "travel.product1.travel1.step6.label",
               quickLabel: "travel.product1.travel1.step6.quickLabel",
               summaryLabel: "travel.product1.travel1.step6.summaryLabel",
@@ -379,7 +378,7 @@ export const mockConfig = {
                   summaryLabel:
                     "travel.product1.travel1.step2.value3.subQuoting.value1.summaryLabel",
                   desc: "travel.product1.travel1.step2.value3.subQuoting.value1.desc",
-                  min: 0,
+                  min: 1,
                   max: 10
                 },
                 {
@@ -450,7 +449,7 @@ export const mockConfig = {
               ]
             },
             {
-              isRequired: true,
+              type: StepType.CURRENCY,
               label: "travel.product1.travel1.step6.label",
               quickLabel: "travel.product1.travel1.step6.quickLabel",
               summaryLabel: "travel.product1.travel1.step6.summaryLabel",

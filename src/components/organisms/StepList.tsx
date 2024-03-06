@@ -27,30 +27,34 @@ export function StepList({
   valuesAsColumn
 }: StepListPropsType) {
   return (
-    <div
-      className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}
-    >
-      {step.values.map((value: ListValue) => {
-        const { ref, name, ...rest } = register(
-          getRegisterName({
-            inputName: value.name,
-            nestedParent,
-            travelerIndex
-          })
-        );
-        return (
-          <InputList
-            asButton={value.asButton}
-            key={value.label}
-            groupName={name}
-            inputRef={ref}
-            label={value.label}
-            {...rest}
-            disabled={disabled}
-            value={value.value}
-          ></InputList>
-        );
-      })}
+    <>
+      <div
+        className={`mb-5 mt-2 ${
+          valuesAsColumn ? "flex-col" : "flex flex-wrap"
+        }`}
+      >
+        {step.values.map((value: ListValue) => {
+          const { ref, name, ...rest } = register(
+            getRegisterName({
+              inputName: value.name,
+              nestedParent,
+              travelerIndex
+            })
+          );
+          return (
+            <InputList
+              asButton={value.asButton}
+              key={value.label}
+              groupName={name}
+              inputRef={ref}
+              label={value.label}
+              {...rest}
+              disabled={disabled}
+              value={value.value}
+            ></InputList>
+          );
+        })}
+      </div>
       <Errors
         message={getErrors({
           errors,
@@ -59,6 +63,6 @@ export function StepList({
           travelerIndex
         })}
       />
-    </div>
+    </>
   );
 }
