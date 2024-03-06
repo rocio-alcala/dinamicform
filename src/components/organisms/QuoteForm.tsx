@@ -63,7 +63,7 @@ function getSelectedSubProduct(
 }
 
 function getBasicDefaultValues(products: Product[], storeCriteria: InputForm) {
-  if (storeCriteria) {
+  if (Object.values(storeCriteria).length !== 0) {
     return { ...storeCriteria }
   }
   const preSelectedProduct = getPreselectedProduct(products);
@@ -83,7 +83,7 @@ function getBasicDefaultValues(products: Product[], storeCriteria: InputForm) {
 
 function getDefaultValues(selectedSubProduct: SubProduct | undefined, storeCriteria: InputForm) {
   let defaultValues: InputForm = {};
-    if (storeCriteria) {
+    if (Object.values(storeCriteria).length !== 0) {
     return { ...storeCriteria }
   }
   if (selectedSubProduct) {

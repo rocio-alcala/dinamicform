@@ -1,6 +1,7 @@
 // to-do: rename file to formUtils.ts
 import { FieldErrors } from "react-hook-form";
-import { InputForm, InputFormValue } from "../components/organisms/QuoteForm";
+import { InputForm } from "../components/organisms/QuoteForm";
+import _ from 'lodash';
 import {
   TravelerType,
   TravelersInputForm
@@ -56,22 +57,16 @@ export function getErrors({
 }
 
 export function toSerializableData(objectData: InputForm | TravelersInputForm) {
-  const serializableObjectData = { ...objectData };
-  function serializableObject(
-    object:
-      | InputForm
-      | TravelersInputForm
-      | { [index: string]: InputFormValue }
-      | TravelerType
-  ) {
+  const serializableObjectData = _.cloneDeep(objectData)
+  function serializableObject(object: any) {
     for (const key in object) {
       if (object[key] instanceof Date) {
-        object[key] = object[key]?.toString();
+        object[key] = object[key].toString();
       }
       if (object[key] instanceof Object) {
         serializableObject(object[key]);
       }
-      if (object[key] instanceof Array) {
+      if (Array.isArray(object[key])) {
         object[key].forEach((object: TravelerType) =>
           serializableObject(object)
         );
