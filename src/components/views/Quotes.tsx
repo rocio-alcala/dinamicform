@@ -6,13 +6,17 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { submitSelectedQuote } from "../../store/selectedQuoteSlice";
 import { GrFormNextLink } from "react-icons/gr";
-import { Quote, QuoteProduct } from "../../models/quote";
+import { QuoteProduct } from "../../models/quote";
 import { useTranslation } from "react-i18next";
 
 export default function Quotes() {
-  const quote: Quote = useAppSelector((state) => state.quote);
+  const quote = useAppSelector((state) => state.quote);
+  const storeSelectedQuote = useAppSelector((state) => state.selectedQuote);
   const quoteProducts = quote.products;
-  const [selectedQuote, setSelectedQuote] = useState<QuoteProduct>();
+  const [selectedQuote, setSelectedQuote] = useState<QuoteProduct | undefined>(
+    storeSelectedQuote.name ? storeSelectedQuote : undefined
+  );
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation("global");
