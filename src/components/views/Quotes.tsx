@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAppSelector } from "../../store/typedHooks";
 import QuoteCard from "../organisms/QuoteCard";
 import Button from "../bits/Button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { submitSelectedQuote } from "../../store/selectedQuoteSlice";
 import { GrFormNextLink } from "react-icons/gr";
@@ -16,7 +16,7 @@ export default function Quotes() {
   const [selectedQuote, setSelectedQuote] = useState<QuoteProduct | undefined>(
     storeSelectedQuote.name ? storeSelectedQuote : undefined
   );
-  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation("global");
@@ -53,15 +53,23 @@ export default function Quotes() {
             )}
           </div>
         </div>
-        <div className="mx-10 mb-10 p-3 place-self-end flex-col">
-          <Button onClick={handleClick} disabled={selectedQuote ? false : true}>
-            CONTINUAR <GrFormNextLink className="text-2xl" />
-          </Button>
-          {selectedQuote ? null : (
-            <p className="mt-5 font-bold text-gray-900">
-              No hay seguro seleccionado
-            </p>
-          )}
+        <div className="mx-10 mb-10 p-3 flex justify-between">
+          <Link to={"/"}>
+            <Button color="bg-red-500  hover:bg-red-700">ATRAS</Button>
+          </Link>
+          <div className="place-self-end flex-col">
+            <Button
+              onClick={handleClick}
+              disabled={selectedQuote ? false : true}
+            >
+              CONTINUAR <GrFormNextLink className="text-2xl" />
+            </Button>
+            {selectedQuote ? null : (
+              <p className="mt-5 font-bold text-gray-900">
+                No hay seguro seleccionado
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ import { InputForm, InputFormValue } from "./QuoteForm";
 import { useAppDispatch, useAppSelector } from "../../store/typedHooks";
 import { submitTravelers } from "../../store/travelersSlice";
 import Button from "../bits/Button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GrFormNextLink } from "react-icons/gr";
 import { useTranslation } from "react-i18next";
 import { toSerializableData } from "../../utils/formsUtils";
@@ -434,9 +434,12 @@ export default function TravelersForm({
               })}
           </>
         ) : null}
-        <div className="mx-10 mb-10 p-3 place-self-end">
-          <Button type="submit">
-            <p>CONTINUAR</p> <GrFormNextLink className="text-2xl" />
+        <div className="mx-10 mb-10 p-3 flex justify-between">
+          <Link to={"/quotes"}>
+            <Button color="bg-red-500  hover:bg-red-700">ATRAS</Button>
+          </Link>
+          <Button>
+            CONTINUAR <GrFormNextLink className="text-2xl" />
           </Button>
         </div>
       </form>
