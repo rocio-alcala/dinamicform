@@ -1,16 +1,17 @@
 import { Control, Controller, FieldErrors } from "react-hook-form";
-import { DateRangeValue, Step } from "../../models/types";
-import { InputForm, InputFormValue } from "./QuoteForm";
+import { InputForm } from "./QuoteForm";
 import InputDate from "../bits/InputDate";
 import Errors from "../bits/Errors";
 import { addDays } from "date-fns";
 import { useState } from "react";
 import { getErrors, getRegisterName } from "../../utils/formsUtils";
-import { Field } from "../../models/subscribers";
 import { TravelersInputForm } from "./TravelersForm";
+import { useTranslation } from "react-i18next";
+import { Field, InputFieldValue } from "../../models/types";
+
 
 interface StepDateRangePropsType {
-  step: Step | Field;
+  step: Field
   control: Control<InputForm | TravelersInputForm>;
   errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>;
   nestedParent?: string;
@@ -28,17 +29,21 @@ export default function StepDateRange({
   disabled,
   valuesAsColumn
 }: StepDateRangePropsType) {
-  const [startDate, setStartDate] = useState<InputFormValue>();
-
-  return (
-    <div
-      className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}
-    >
-      {step.values.map((dateRange: DateRangeValue, index: number) => (
-        <div className="flex flex-wrap" key={dateRange.labelStart + index}>
+  const [startDate, setStartDate] = useState<InputFieldValue>();
+  const { t } = useTranslation("global");
+  if (step.nameEnd && step.nameStart)
+   {return (
+    <div className="flex-col">
+      <legend className="text-xl font-bold text-gray-900 tracking-wide leading-6">{t(step.label)}</legend>
+      <div
+        className={`mb-5 mt-2 ${
+          valuesAsColumn ? "flex-col" : "flex flex-wrap"
+        }`}
+      >
+        <div className="flex flex-wrap">
           <Controller
             name={getRegisterName({
-              inputName: dateRange.nameStart,
+              inputName: step.nameStart,
               nestedParent,
               travelerIndex
             })}
@@ -59,9 +64,9 @@ export default function StepDateRange({
               return (
                 <div className="mr-8">
                   <InputDate
-                    maxDate={addDays(new Date(), dateRange.maxStart)}
-                    minDate={addDays(new Date(), dateRange.minStart)}
-                    label={dateRange.labelStart}
+                    maxDate={addDays(new Date(), step.options.maxStart)}
+                    minDate={addDays(new Date(), step.options.minStart)}
+                    label={step.labelStart}
                     selectsStart
                     value={value instanceof Date ? value.toDateString() : value}
                     inputRef={ref}
@@ -76,7 +81,7 @@ export default function StepDateRange({
                   <Errors
                     message={getErrors({
                       errors,
-                      inputName: dateRange.nameStart,
+                      inputName: step.nameStart,
                       nestedParent
                     })}
                   />
@@ -86,7 +91,7 @@ export default function StepDateRange({
           />
           <Controller
             name={getRegisterName({
-              inputName: dateRange.nameEnd,
+              inputName: step.nameEnd,
               nestedParent,
               travelerIndex
             })}
@@ -114,10 +119,10 @@ export default function StepDateRange({
               return (
                 <div className="mr-8">
                   <InputDate
-                    maxDate={addDays(new Date(), dateRange.maxEnd)}
+                    maxDate={addDays(new Date(), step.options.maxEnd)}
                     minDate={startDate ? addDays(new Date(startDate), 1) : null}
                     disabled={!startDate}
-                    label={dateRange.labelEnd}
+                    label={step.labelEnd}
                     selectsEnd
                     value={value instanceof Date ? value.toDateString() : value}
                     inputRef={ref}
@@ -127,7 +132,7 @@ export default function StepDateRange({
                   <Errors
                     message={getErrors({
                       errors,
-                      inputName: dateRange.nameEnd,
+                      inputName: step.nameEnd,
                       nestedParent,
                       travelerIndex
                     })}
@@ -137,7 +142,7 @@ export default function StepDateRange({
             }}
           />
         </div>
-      ))}
+      </div>
     </div>
-  );
+  );}
 }

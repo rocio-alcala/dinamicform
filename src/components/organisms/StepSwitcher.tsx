@@ -1,6 +1,6 @@
 import "react-datepicker/dist/react-datepicker.css";
 import { Control, FieldErrors, UseFormRegister } from "react-hook-form";
-import { Step, StepType } from "../../models/types";
+import { FieldType } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import { StepList } from "./StepList";
 import { StepCounter } from "./StepCounter";
@@ -9,17 +9,16 @@ import StepCurrency from "./StepCurrency";
 import StepDate from "./StepDate";
 import StepDateRange from "./StepDateRange";
 import StepCheckBox from "./StepCheckBox";
-import { Field } from "../../models/subscribers";
 import { TravelersInputForm } from "./TravelersForm";
 
 interface StepSwitcherProps {
-  step: Step | Field;
-  register: UseFormRegister<InputForm | TravelersInputForm>
-  control: Control<InputForm | TravelersInputForm> 
-  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>
+  step: any;
+  register: UseFormRegister<InputForm | TravelersInputForm>;
+  control: Control<InputForm | TravelersInputForm>;
+  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>;
   nestedParent?: string;
   travelerIndex?: number;
-  disabled?: boolean
+  disabled?: boolean;
 }
 
 export default function StepSwitcher({
@@ -31,11 +30,12 @@ export default function StepSwitcher({
   nestedParent,
   travelerIndex
 }: StepSwitcherProps) {
+
   switch (step.type) {
-    case StepType.LIST:
+    case FieldType.LIST:
       return (
         <StepList
-        disabled={disabled}
+          disabled={disabled}
           travelerIndex={travelerIndex}
           nestedParent={nestedParent}
           step={step}
@@ -43,10 +43,10 @@ export default function StepSwitcher({
           errors={errors}
         />
       );
-    case StepType.COUNTER:
+    case FieldType.COUNTER:
       return (
         <StepCounter
-        disabled={disabled}
+          disabled={disabled}
           travelerIndex={travelerIndex}
           nestedParent={nestedParent}
           step={step}
@@ -54,10 +54,10 @@ export default function StepSwitcher({
           errors={errors}
         />
       );
-    case StepType.DATE_RANGE:
+    case FieldType.DATE_RANGE:
       return (
         <StepDateRange
-        disabled={disabled}
+          disabled={disabled}
           travelerIndex={travelerIndex}
           nestedParent={nestedParent}
           step={step}
@@ -65,10 +65,10 @@ export default function StepSwitcher({
           errors={errors}
         />
       );
-    case StepType.DATE:
+    case FieldType.DATE:
       return (
         <StepDate
-        disabled={disabled}
+          disabled={disabled}
           travelerIndex={travelerIndex}
           nestedParent={nestedParent}
           step={step}
@@ -76,10 +76,10 @@ export default function StepSwitcher({
           errors={errors}
         />
       );
-    case StepType.CURRENCY:
+    case FieldType.CURRENCY:
       return (
         <StepCurrency
-        disabled={disabled}
+          disabled={disabled}
           travelerIndex={travelerIndex}
           nestedParent={nestedParent}
           step={step}
@@ -87,10 +87,10 @@ export default function StepSwitcher({
           errors={errors}
         />
       );
-    case StepType.CHECKBOX:
+    case FieldType.CHECKBOX:
       return (
         <StepCheckBox
-        disabled={disabled}
+          disabled={disabled}
           travelerIndex={travelerIndex}
           nestedParent={nestedParent}
           step={step}
@@ -98,11 +98,11 @@ export default function StepSwitcher({
           errors={errors}
         />
       );
-    case StepType.TEXT:
+    case FieldType.TEXT:
     default:
       return (
         <StepText
-        disabled={disabled}
+          disabled={disabled}
           travelerIndex={travelerIndex}
           nestedParent={nestedParent}
           step={step}

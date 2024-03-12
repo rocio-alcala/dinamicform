@@ -1,14 +1,14 @@
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { ListValue, Step } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import InputList from "../bits/InputList";
 import Errors from "../bits/Errors";
 import { getErrors, getRegisterName } from "../../utils/formsUtils";
-import { Field } from "../../models/subscribers";
 import { TravelersInputForm } from "./TravelersForm";
+import { useTranslation } from "react-i18next";
+import { Field } from "../../models/types";
 
 interface StepListPropsType {
-  step: Step | Field;
+  step: Field
   register: UseFormRegister<InputForm | TravelersInputForm>;
   errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>;
   nestedParent?: string;
@@ -26,31 +26,35 @@ export function StepList({
   disabled,
   valuesAsColumn
 }: StepListPropsType) {
+  const { t } = useTranslation("global");
   return (
-    <>
+    <div className="flex-col">
+      <legend className="text-xl font-bold text-gray-900 tracking-wide leading-6">
+        {t(step.label)}
+      </legend>
       <div
         className={`mb-5 mt-2 ${
           valuesAsColumn ? "flex-col" : "flex flex-wrap"
         }`}
       >
-        {step.values.map((value: ListValue) => {
+        {step.items?.map((item) => {
           const { ref, name, ...rest } = register(
             getRegisterName({
-              inputName: value.name,
+              inputName: step.name,
               nestedParent,
               travelerIndex
             })
           );
           return (
             <InputList
-              asButton={value.asButton}
-              key={value.label}
+              asButton={item.asButton}
+              key={item.label}
               groupName={name}
               inputRef={ref}
-              label={value.label}
+              label={item.label}
               {...rest}
               disabled={disabled}
-              value={value.value}
+              value={item.value}
             ></InputList>
           );
         })}
@@ -58,11 +62,11 @@ export function StepList({
       <Errors
         message={getErrors({
           errors,
-          inputName: step.values[0].name,
+          inputName: step.name,
           nestedParent,
           travelerIndex
         })}
       />
-    </>
+    </div>
   );
 }

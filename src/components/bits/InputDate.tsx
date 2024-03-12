@@ -14,7 +14,6 @@ export default function InputDate({
   value,
   inputRef,
   showIcon,
-  minDate,
   label,
   name,
   ...restProps
@@ -38,7 +37,6 @@ export default function InputDate({
           calendarIconClassname="mt-[10px] ml-[10px] text-xl"
           ref={inputRef}
           selected={value ? new Date(value) : null}
-          minDate={minDate}
           {...restProps}
           id={label + name}
         />

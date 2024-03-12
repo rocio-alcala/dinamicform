@@ -1,16 +1,12 @@
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { Step } from "../../models/types";
-import { InputForm } from "./QuoteForm";
 import InputText from "../bits/InputText";
 import Errors from "../bits/Errors";
 import { getErrors, getRegisterName } from "../../utils/formsUtils";
-import { Field } from "../../models/subscribers";
-import { TravelersInputForm } from "./TravelersForm";
+import { Field } from "../../models/types";
 
 interface StepTextPropsType {
-  step: Step | Field;
-  register: UseFormRegister<InputForm | TravelersInputForm>;
-  errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>;
+  step: Field;
+  register: any;
+  errors: any;
   nestedParent?: string;
   travelerIndex?: number;
   disabled?: boolean;
@@ -30,33 +26,27 @@ export default function StepText({
     <div
       className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}
     >
-      {step.values.map((value: any, index: number) => {
-        const { ref, ...rest } = register(
-          getRegisterName({
-            inputName: value.name,
+      <div className="mr-8 w-[33%] min-w-fit">
+        <InputText
+          label={step.label}
+          disabled={disabled}
+          {...register(
+            getRegisterName({
+              inputName: step.name,
+              nestedParent,
+              travelerIndex
+            })
+          )}
+        />
+        <Errors
+          message={getErrors({
+            errors,
+            inputName: step.name,
             nestedParent,
             travelerIndex
-          })
-        );
-        return (
-          <div className="mr-8 w-[33%] min-w-fit" key={value.label + index}>
-            <InputText
-              inputRef={ref}
-              label={value.label}
-              disabled={disabled}
-              {...rest}
-            />
-            <Errors
-              message={getErrors({
-                errors,
-                inputName: value.name,
-                nestedParent,
-                travelerIndex
-              })}
-            />
-          </div>
-        );
-      })}
+          })}
+        />
+      </div>
     </div>
   );
 }

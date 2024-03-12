@@ -1,14 +1,13 @@
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { Step } from "../../models/types";
 import { InputForm } from "./QuoteForm";
 import Errors from "../bits/Errors";
 import InputCheckBox from "../bits/InputCheckBox";
 import { getErrors, getRegisterName } from "../../utils/formsUtils";
-import { Field } from "../../models/subscribers";
 import { TravelersInputForm } from "./TravelersForm";
+import { Field } from "../../models/types";
 
 interface StepCheckBoxPropsType {
-  step: Step | Field;
+  step: Field;
   register: UseFormRegister<InputForm | TravelersInputForm>;
   errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>;
   nestedParent?: string;
@@ -28,36 +27,32 @@ export default function StepCheckBox({
   disabled,
   valuesAsColumn
 }: StepCheckBoxPropsType) {
+  const { ref, name, onChange, ...rest } = register(getRegisterName({
+    inputName: step.name,
+    nestedParent,
+    travelerIndex
+  }));
+
   return (
     <div
       className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}
     >
-      {step.values.map((check: any, index: number) => {
-        const { ref, name, onChange, ...rest } = register(
-          getRegisterName({
-            inputName: check.name,
-            nestedParent,
-            travelerIndex
-          })
-        );
-        return (
-          <div className="mr-8 w-fit" key={check.label + index}>
+          <div className="mr-8 w-fit">
             <InputCheckBox
-              id={check.label}
+              id={step.label}
               inputRef={ref}
-              label={check.label}
+              label={step.label}
               groupName={name}
               onChange={customOnChange || onChange}
               disabled={disabled}
               {...rest}
             />
           </div>
-        );
-      })}
+   
       <Errors
         message={getErrors({
           errors,
-          inputName: step.values[0].name,
+          inputName: step.name,
           nestedParent,
           travelerIndex
         })}
