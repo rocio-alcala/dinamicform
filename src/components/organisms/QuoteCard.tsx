@@ -30,7 +30,7 @@ export default function QuoteCard({
         {quoteProduct.name}
       </h1>
       <span className="text-6xl font-bold p-3 text-center text-[#00005b]">
-        {quoteProduct.prices.price_after_discount_incl_tax}€
+        {quoteProduct.prices?.price_after_discount_incl_tax}€
       </span>
       <ul className="p-5 ">
         {quoteProduct.guarantees.map((guarante) => {
