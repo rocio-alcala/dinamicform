@@ -1,5 +1,5 @@
-import StepSwitcher from "./StepSwitcher";
-import StepCheckBox from "./StepCheckBox";
+import FieldSwitcher from "./FieldSwitcher";
+import FieldCheckBox from "./FieldCheckBox";
 import { useForm } from "react-hook-form";
 import { travelersConfig } from "../../../mock/travelersConfig";
 import { Subscribers, TravelersTree } from "../../models/subscribers";
@@ -11,6 +11,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { GrFormNextLink } from "react-icons/gr";
 import { useTranslation } from "react-i18next";
 import { toSerializableData } from "../../utils/formsUtils";
+import { policyHolderFormFields } from "../../../mock/policyHolderFormFields";
+import { adultTravelerFormFields } from "../../../mock/adultTravelerFormFields";
+import Form from "./Form";
 
 export type TravelersInputForm = {
   [index: string]: TravelerType | TravelerType[] | undefined;
@@ -33,6 +36,7 @@ export default function TravelersForm({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation("global");
+  console.log("travelers count", travelersCount);
   const storeTravelers = useAppSelector((state) => state.travelers);
 
   const {
@@ -48,7 +52,9 @@ export default function TravelersForm({
   });
 
   function onSubmit(dataForm: TravelersInputForm | InputForm) {
+    console.log("travelers forms", dataForm);
     const serializableData = toSerializableData(dataForm);
+    console.log("serializado travelers forms", serializableData);
     dispatch(submitTravelers(serializableData as TravelersInputForm));
     navigate("/summary");
   }
@@ -122,65 +128,87 @@ export default function TravelersForm({
           <legend className="text-3xl font-extrabold mb-10 text-[#00005b] leading-10 tracking-wide">
             {t("travelers.policyHolder.title")}
           </legend>
-          {travelersTree.policyHolderTree.rows.map((row, rowIndex) => {
-            return (
-              <div key={row.label + rowIndex} className="flex flex-wrap">
-                {row.fields.map((field, fieldIndex) => (
-                  <div className="m-3" key={field.name + fieldIndex}>
-                    {field.label ? (
-                      <legend className="text-xl font-bold text-gray-900 leading-6 tracking-wide">
-                        {t(field.label)}
-                      </legend>
-                    ) : null}
-                    <StepSwitcher
-                      nestedParent={travelersTree.policyHolderTree.name}
-                      step={field}
-                      control={control}
-                      register={register}
-                      errors={errors}
-                    />
-                  </div>
-                ))}
-              </div>
-            );
-          })}
+          <Form
+            formFields={policyHolderFormFields}
+            register={register}
+            control={control}
+            errors={errors}
+            watch={watch}
+          ></Form>
         </div>
-
         {travelersCount.adults ? (
           <>
-            {Array(travelersCount.adults)
+            {Array(Number(travelersCount.adults))
               .fill(0)
               .map((_, travelerIndex) => {
                 return (
                   <div
-                    key={travelersTree.adultTree.label + travelerIndex}
+                    key={"nombre de traveler" + travelerIndex} //hardcodeado
                     className="p-4 m-5"
                   >
                     <legend className="text-3xl font-extrabold mb-10 text-[#00005b] leading-10 tracking-wide">
-                      {t(travelersTree.adultTree.label)} {travelerIndex + 1}
+                      {`titulo de traveler de donde lo saco ${
+                        travelerIndex + 1
+                      }`}
                     </legend>
-                    {travelersTree.adultTree.rows.map((row, rowIndex) => {
-                      if (row.label === "policyHolder") {
-                        if (travelerIndex === 0) {
+                    {adultTravelerFormFields.map((row, rowIndex) => {
+                      return row.map((field) => {
+                        if (
+                          field.label ===
+                          "travelers.fields.isPolicyHolder.label"
+                        ) {
+                          if (travelerIndex === 0) {
+                            return (
+                              <FieldCheckBox
+                                travelerIndex={travelerIndex}
+                                nestedParent={travelersTree.adultTree.name}
+                                field={field}
+                                register={register}
+                                errors={errors}
+                                onChange={(e) =>
+                                  handleCheckBoxChange(
+                                    e,
+                                    travelersTree.adultTree.name,
+                                    travelerIndex
+                                  )
+                                }
+                              />
+                            );
+                          } else {
+                            null;
+                          }
+                        } else {
                           return (
-                            <div
-                              key={row.label + rowIndex + travelerIndex}
-                              className="flex flex-row  flex-wrap"
-                            >
-                              {row.fields.map((field, fieldIndex) => (
-                                <div
-                                  className="m-3"
-                                  key={field.name + fieldIndex + travelerIndex}
-                                >
-                                  {field.label ? (
-                                    <legend className="text-xl font-bold text-gray-900 leading-6 tracking-wide">
-                                      {t(field.label)}
-                                    </legend>
-                                  ) : null}
-                                  <StepCheckBox
+                            <FieldSwitcher
+                              disabled={
+                                travelerIndex === 0
+                                  ? watch(
+                                      `${travelersTree.adultTree.name}[${travelerIndex}].isPolicyHolder`
+                                    )
+                                    ? true
+                                    : false
+                                  : false
+                              }
+                              travelerIndex={travelerIndex}
+                              nestedParent={travelersTree.adultTree.name}
+                              field={field}
+                              control={control}
+                              register={register}
+                              errors={errors}
+                            />
+                          );
+                        }
+                      });
+                    })}
+                  </div>
+                );
+              })}
+          </>
+        ) : null}
+        {/*                                   <FieldCheckBox
                                     travelerIndex={travelerIndex}
                                     nestedParent={travelersTree.adultTree.name}
-                                    step={field}
+                                    field={field}
                                     register={register}
                                     errors={errors}
                                     onChange={(e) =>
@@ -188,34 +216,8 @@ export default function TravelersForm({
                                         e,
                                         travelersTree.adultTree.name,
                                         travelerIndex
-                                      )
-                                    }
-                                  />
-                                </div>
-                              ))}
-                            </div>
-                          );
-                        } else {
-                          return null;
-                        }
-                      }
-
-                      return (
-                        <div
-                          key={row.label + rowIndex + travelerIndex}
-                          className="flex flex-row flex-wrap"
-                        >
-                          {row.fields.map((field, fieldIndex) => (
-                            <div
-                              className="m-3"
-                              key={field.name + fieldIndex + travelerIndex}
-                            >
-                              {field.label ? (
-                                <legend className="text-xl font-bold text-gray-900 leading-6 tracking-wide">
-                                  {t(field.label)}
-                                </legend>
-                              ) : null}
-                              <StepSwitcher
+                                      )}/> */
+        /*                               <FieldSwitcher
                                 disabled={
                                   travelerIndex === 0
                                     ? watch(
@@ -227,22 +229,13 @@ export default function TravelersForm({
                                 }
                                 travelerIndex={travelerIndex}
                                 nestedParent={travelersTree.adultTree.name}
-                                step={field}
+                                field={field}
                                 control={control}
                                 register={register}
                                 errors={errors}
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      );
-                    })}
-                  </div>
-                );
-              })}
-          </>
-        ) : null}
-        {travelersCount.children ? (
+                              /> */}
+
+        {/*         {travelersCount.children ? (
           <>
             {Array(travelersCount.children)
               .fill(0)
@@ -273,10 +266,10 @@ export default function TravelersForm({
                                       {t(field.label)}
                                     </legend>
                                   ) : null}
-                                  <StepCheckBox
+                                  <FieldCheckBox
                                     travelerIndex={travelerIndex}
                                     nestedParent={travelersTree.childTree.name}
-                                    step={field}
+                                    field={field}
                                     register={register}
                                     errors={errors}
                                     onChange={(e) =>
@@ -311,7 +304,7 @@ export default function TravelersForm({
                                   {t(field.label)}
                                 </legend>
                               ) : null}
-                              <StepSwitcher
+                              <FieldSwitcher
                                 disabled={
                                   travelerIndex === 0
                                     ? watch(
@@ -323,7 +316,7 @@ export default function TravelersForm({
                                 }
                                 travelerIndex={travelerIndex}
                                 nestedParent={travelersTree.childTree.name}
-                                step={field}
+                                field={field}
                                 control={control}
                                 register={register}
                                 errors={errors}
@@ -369,10 +362,10 @@ export default function TravelersForm({
                                       {t(field.label)}
                                     </legend>
                                   ) : null}
-                                  <StepCheckBox
+                                  <FieldCheckBox
                                     travelerIndex={travelerIndex}
                                     nestedParent={travelersTree.seniorTree.name}
-                                    step={field}
+                                    field={field}
                                     register={register}
                                     errors={errors}
                                     onChange={(e) =>
@@ -407,7 +400,7 @@ export default function TravelersForm({
                                   {t(field.label)}
                                 </legend>
                               ) : null}
-                              <StepSwitcher
+                              <FieldSwitcher
                                 disabled={
                                   travelerIndex === 0
                                     ? watch(
@@ -419,7 +412,7 @@ export default function TravelersForm({
                                 }
                                 travelerIndex={travelerIndex}
                                 nestedParent={travelersTree.seniorTree.name}
-                                step={field}
+                                field={field}
                                 control={control}
                                 register={register}
                                 errors={errors}
@@ -433,7 +426,7 @@ export default function TravelersForm({
                 );
               })}
           </>
-        ) : null}
+        ) : null} */}
         <div className="mx-10 mb-10 p-3 flex justify-between">
           <Link to={"/quotes"}>
             <Button color="bg-red-500  hover:bg-red-700">ATRAS</Button>
