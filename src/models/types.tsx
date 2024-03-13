@@ -1,3 +1,19 @@
+export interface Product {
+  isPreselected: boolean;
+  label: string;
+  value: string;
+  description: string;
+  sub_products: SubProduct[];
+}
+
+export interface SubProduct {
+  isPreselected: boolean;
+  label: string;
+  value: string;
+  description: string;
+  criterias: Row[];
+}
+
 export enum FieldType {
   TEXT = "text",
   LIST = "list",
@@ -7,7 +23,7 @@ export enum FieldType {
   CURRENCY = "currency",
   CHECKBOX = "checkbox"
 }
-export type FormFields = Row[];
+/* export type FormFields = Row[]; */
 
 export type Row = Field[];
 
@@ -30,7 +46,7 @@ export interface Field {
     maxEnd?: number;
     minEnd?: number;
     minStart?: number;
-    validations?: string[]
+    validations?: string[];
   };
   items?: {
     value: string;
@@ -42,4 +58,10 @@ export interface Field {
   conditional_field?: { field: string; value: string[] | number[] };
 }
 
-export type InputFieldValue = string | number | undefined | Date | null | boolean;
+export type InputFieldValue =
+  | string
+  | number
+  | undefined
+  | Date
+  | null
+  | boolean;
