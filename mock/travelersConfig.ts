@@ -1,4 +1,4 @@
-import { StepType } from "../src/models/types";
+import { FieldType } from "../src/models/types";
 
 export const travelersConfig = {
   policyHolderTree: {
@@ -11,7 +11,7 @@ export const travelersConfig = {
           {
             label: "travelers.fields.title.label",
             summaryLabel: "travelers.fields.title.summaryLabel",
-            type: StepType.LIST,
+            type: FieldType.LIST,
             modifier: "inline",
             columns: 3,
             name: "title",
@@ -71,7 +71,7 @@ export const travelersConfig = {
         label: "key3",
         fields: [
           {
-            type: StepType.DATE,
+            type: FieldType.DATE,
             subType: ["adult", "child", "senior"],
             name: "birth_date",
             values: [
@@ -81,7 +81,7 @@ export const travelersConfig = {
                 isRequired: true,
                 name: "birth_date",
                 validations: ["dateOfBirth"],
-                type: StepType.DATE
+                type: FieldType.DATE
               }
             ]
           }
@@ -135,10 +135,10 @@ export const travelersConfig = {
         fields: [
           {
             name: "isPolicyHolder",
-            type: StepType.CHECKBOX,
+            type: FieldType.CHECKBOX,
             values: [
               {
-                type: StepType.CHECKBOX,
+                type: FieldType.CHECKBOX,
                 label: "travelers.fields.isPolicyHolder.label",
                 name: "isPolicyHolder",
                 value: true
@@ -153,7 +153,7 @@ export const travelersConfig = {
           {
             label: "travelers.fields.title.label",
             summaryLabel: "travelers.fields.title.summaryLabel",
-            type: StepType.LIST,
+            type: FieldType.LIST,
             modifier: "inline",
             columns: 3,
             name: "title",
@@ -208,7 +208,7 @@ export const travelersConfig = {
             ]
           },
           {
-            type: StepType.DATE,
+            type: FieldType.DATE,
             subType: ["adult"],
             name: "birth_date",
             values: [
@@ -218,7 +218,7 @@ export const travelersConfig = {
                 isRequired: true,
                 name: "birth_date",
                 validations: ["dateOfBirth"],
-                type: StepType.DATE
+                type: FieldType.DATE
               }
             ]
           },
@@ -249,10 +249,10 @@ export const travelersConfig = {
         fields: [
           {
             name: "isPolicyHolder",
-            type: StepType.CHECKBOX,
+            type: FieldType.CHECKBOX,
             values: [
               {
-                type: StepType.CHECKBOX,
+                type: FieldType.CHECKBOX,
                 label: "travelers.fields.isPolicyHolder.label",
                 name: "isPolicyHolder",
                 value: true
@@ -267,7 +267,7 @@ export const travelersConfig = {
           {
             label: "travelers.fields.title.label",
             summaryLabel: "travelers.fields.title.summaryLabel",
-            type: StepType.LIST,
+            type: FieldType.LIST,
             modifier: "inline",
             columns: 3,
             name: "title",
@@ -322,7 +322,7 @@ export const travelersConfig = {
             ]
           },
           {
-            type: StepType.DATE,
+            type: FieldType.DATE,
             subType: ["child"],
             name: "birth_date",
             values: [
@@ -332,7 +332,7 @@ export const travelersConfig = {
                 isRequired: true,
                 name: "birth_date",
                 validations: ["dateOfBirth"],
-                type: StepType.DATE
+                type: FieldType.DATE
               }
             ]
           },
@@ -363,10 +363,10 @@ export const travelersConfig = {
         fields: [
           {
             name: "isPolicyHolder",
-            type: StepType.CHECKBOX,
+            type: FieldType.CHECKBOX,
             values: [
               {
-                type: StepType.CHECKBOX,
+                type: FieldType.CHECKBOX,
                 label: "travelers.fields.isPolicyHolder.label",
                 name: "isPolicyHolder",
                 value: true
@@ -381,7 +381,7 @@ export const travelersConfig = {
           {
             label: "travelers.fields.title.label",
             summaryLabel: "travelers.fields.title.summaryLabel",
-            type: StepType.LIST,
+            type: FieldType.LIST,
             modifier: "inline",
             columns: 3,
             name: "title",
@@ -436,7 +436,7 @@ export const travelersConfig = {
             ]
           },
           {
-            type: StepType.DATE,
+            type: FieldType.DATE,
             subType: ["senior"],
             name: "birth_date",
             values: [
@@ -446,7 +446,7 @@ export const travelersConfig = {
                 isRequired: true,
                 name: "birth_date",
                 validations: ["dateOfBirth"],
-                type: StepType.DATE
+                type: FieldType.DATE
               }
             ]
           },
