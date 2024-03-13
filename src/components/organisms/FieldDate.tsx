@@ -8,8 +8,8 @@ import { TravelersInputForm } from "./TravelersForm";
 import { Field } from "../../models/types";
 import { useTranslation } from "react-i18next";
 
-interface StepDatePropsType {
-  step: Field;
+interface FieldDatePropsType {
+  field: Field;
   control: any;
   errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>;
   nestedParent?: string;
@@ -18,15 +18,15 @@ interface StepDatePropsType {
   valuesAsColumn?: boolean;
 }
 
-export default function StepDate({
-  step,
+export default function FieldDate({
+  field: formField,
   control,
   errors,
   nestedParent,
   travelerIndex,
   disabled,
   valuesAsColumn
-}: StepDatePropsType) {
+}: FieldDatePropsType) {
   const { t } = useTranslation("global");
 
   return (
@@ -36,7 +36,7 @@ export default function StepDate({
       <div className="mr-8 w-fit">
         <Controller
           name={getRegisterName({
-            inputName: step.name,
+            inputName: formField.name,
             nestedParent,
             travelerIndex
           })}
@@ -50,16 +50,24 @@ export default function StepDate({
               !(value instanceof Date)
             ) {
               throw new Error(
-                `Value for step of type date is not valid: ${value}`
+                `Value for field of type date is not valid: ${value}`
               );
             }
             return (
               <div>
                 <InputDate
                   value={value instanceof Date ? value.toDateString() : value}
-                  label={t(step.label)}
-                  maxDate={step.options?.max ? addDays(new Date(), step.options.max) : undefined}
-                  minDate={step.options?.min ? addDays(new Date(), step.options?.min): undefined}
+                  label={t(formField.label)}
+                  maxDate={
+                    formField.options?.max
+                      ? addDays(new Date(), formField.options.max)
+                      : undefined
+                  }
+                  minDate={
+                    formField.options?.min
+                      ? addDays(new Date(), formField.options?.min)
+                      : undefined
+                  }
                   {...rest}
                   showIcon={true}
                   disabled={disabled}
@@ -67,7 +75,7 @@ export default function StepDate({
                 <Errors
                   message={getErrors({
                     errors,
-                    inputName: step.name,
+                    inputName: field.name,
                     nestedParent,
                     travelerIndex
                   })}

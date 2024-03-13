@@ -7,8 +7,8 @@ import { TravelersInputForm } from "./TravelersForm";
 import { Field } from "../../models/types";
 import { useTranslation } from "react-i18next";
 
-interface StepCounterPropsType {
-  step: Field;
+interface FieldCurrencyPropsType {
+  field: Field;
   register: UseFormRegister<InputForm | TravelersInputForm>;
   errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>;
   nestedParent?: string;
@@ -17,15 +17,15 @@ interface StepCounterPropsType {
   valuesAsColumn?: boolean;
 }
 
-export function StepCounter({
-  step,
+export default function FieldCurrency({
+  field,
   register,
   errors,
   nestedParent,
   travelerIndex,
   disabled,
   valuesAsColumn
-}: StepCounterPropsType) {
+}: FieldCurrencyPropsType) {
   const { t } = useTranslation("global");
 
   return (
@@ -34,23 +34,24 @@ export function StepCounter({
     >
       <div className="mr-8 w-[20%] min-w-fit">
         <InputCounter
-          label={t(step.label)}
-          id={t(step.label)}
-          min={step.options?.min}
-          max={step.options?.max}
+          min={field.options?.min}
+          max={field.options?.max}
+          placeholder={field.placeholder}
+          label={t(field.label)}
+          id={field.name}
           disabled={disabled}
           {...register(
             getRegisterName({
-              inputName: step.name,
+              inputName: field.name,
               nestedParent,
               travelerIndex
             })
           )}
-        />
+        ></InputCounter>
         <Errors
           message={getErrors({
             errors,
-            inputName: step.name,
+            inputName: field.name,
             nestedParent,
             travelerIndex
           })}

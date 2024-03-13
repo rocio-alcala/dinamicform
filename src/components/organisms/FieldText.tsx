@@ -4,8 +4,8 @@ import { getErrors, getRegisterName } from "../../utils/formsUtils";
 import { Field } from "../../models/types";
 import { useTranslation } from "react-i18next";
 
-interface StepTextPropsType {
-  step: Field;
+interface FieldTextPropsType {
+  field: Field;
   register: any;
   errors: any;
   nestedParent?: string;
@@ -14,15 +14,15 @@ interface StepTextPropsType {
   valuesAsColumn?: boolean;
 }
 
-export default function StepText({
-  step,
+export default function FieldText({
+  field,
   register,
   errors,
   nestedParent,
   travelerIndex,
   disabled,
   valuesAsColumn
-}: StepTextPropsType) {
+}: FieldTextPropsType) {
   const { t } = useTranslation("global");
   return (
     <div
@@ -30,11 +30,11 @@ export default function StepText({
     >
       <div className="mr-8 w-[33%] min-w-fit">
         <InputText
-          label={t(step.label)}
+          label={t(field.label)}
           disabled={disabled}
           {...register(
             getRegisterName({
-              inputName: step.name,
+              inputName: field.name,
               nestedParent,
               travelerIndex
             })
@@ -43,7 +43,7 @@ export default function StepText({
         <Errors
           message={getErrors({
             errors,
-            inputName: step.name,
+            inputName: field.name,
             nestedParent,
             travelerIndex
           })}
