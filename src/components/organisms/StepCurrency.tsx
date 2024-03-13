@@ -5,6 +5,7 @@ import Errors from "../bits/Errors";
 import { getErrors, getRegisterName } from "../../utils/formsUtils";
 import { TravelersInputForm } from "./TravelersForm";
 import { Field } from "../../models/types";
+import { useTranslation } from "react-i18next";
 
 interface StepCurrencyPropsType {
   step: Field;
@@ -25,13 +26,7 @@ export default function StepCurrency({
   disabled,
   valuesAsColumn
 }: StepCurrencyPropsType) {
-  const { ref, ...rest } = register(
-    getRegisterName({
-      inputName: step.name,
-      nestedParent,
-      travelerIndex
-    })
-  );
+  const { t } = useTranslation("global");
 
   return (
     <div
@@ -39,14 +34,19 @@ export default function StepCurrency({
     >
       <div className="mr-8 w-[20%] min-w-fit">
         <InputCounter
-          inputRef={ref}
-          {...rest}
           min={step.options?.min}
           max={step.options?.max}
           placeholder={step.placeholder}
-          label={step.label}
+          label={t(step.label)}
           id={step.name}
           disabled={disabled}
+          {...register(
+            getRegisterName({
+              inputName: step.name,
+              nestedParent,
+              travelerIndex
+            })
+          )}
         ></InputCounter>
         <Errors
           message={getErrors({

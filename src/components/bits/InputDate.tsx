@@ -1,8 +1,11 @@
+import {
+  ComponentPropsWithoutRef,
+  forwardRef
+} from "react";
 import DatePicker, {
   ReactDatePicker,
   ReactDatePickerProps
 } from "react-datepicker";
-import { useTranslation } from "react-i18next";
 
 interface InputDateSpecificProps {
   inputRef?: React.LegacyRef<ReactDatePicker>;
@@ -10,21 +13,18 @@ interface InputDateSpecificProps {
   value?: string | undefined | Date;
 }
 
-export default function InputDate({
-  value,
-  inputRef,
-  showIcon,
-  label,
-  name,
-  ...restProps
-}: ReactDatePickerProps & InputDateSpecificProps) {
-  const { t } = useTranslation("global");
+const InputDate = forwardRef<
+ReactDatePicker,
+  ComponentPropsWithoutRef<"input"> &
+    InputDateSpecificProps &
+    ReactDatePickerProps
+>(({ value, showIcon, label, name, ...restProps }, ref) => {
   return (
     <>
       <label htmlFor={label + name}>
         {label ? (
           <span className="mb-1 block text-xl font-bold text-gray-900 tracking-wide leading-6">
-            {t(label)}
+            {label}
           </span>
         ) : null}
       </label>
@@ -35,7 +35,7 @@ export default function InputDate({
           customInput={<input className="h-14 text-xl text-center px-12" />}
           showIcon={showIcon}
           calendarIconClassname="mt-[10px] ml-[10px] text-xl"
-          ref={inputRef}
+          ref={ref}
           selected={value ? new Date(value) : null}
           {...restProps}
           id={label + name}
@@ -43,4 +43,6 @@ export default function InputDate({
       </div>
     </>
   );
-}
+});
+
+export default InputDate;

@@ -49,7 +49,7 @@ export default function StepDateRange({
             })}
             control={control}
             render={({ field }) => {
-              const { ref, value, ...rest } = field;
+              const { value, ...rest } = field;
 
               // check value
               if (
@@ -66,10 +66,9 @@ export default function StepDateRange({
                   <InputDate
                     maxDate={addDays(new Date(), step.options.maxStart)}
                     minDate={addDays(new Date(), step.options.minStart)}
-                    label={step.labelStart}
+                    label={t(step.labelStart)}
                     selectsStart
                     value={value instanceof Date ? value.toDateString() : value}
-                    inputRef={ref}
                     {...rest}
                     onChange={(date) => {
                       setStartDate(date);
@@ -97,7 +96,7 @@ export default function StepDateRange({
             })}
             control={control}
             render={({ field }) => {
-              const { ref, value, ...rest } = field;
+              const { value, ...rest } = field;
 
               // check value
               if (
@@ -122,10 +121,9 @@ export default function StepDateRange({
                     maxDate={addDays(new Date(), step.options.maxEnd)}
                     minDate={startDate ? addDays(new Date(startDate), 1) : null}
                     disabled={!startDate}
-                    label={step.labelEnd}
+                    label={t(step.labelEnd)}
                     selectsEnd
                     value={value instanceof Date ? value.toDateString() : value}
-                    inputRef={ref}
                     {...rest}
                     showIcon={true}
                   />

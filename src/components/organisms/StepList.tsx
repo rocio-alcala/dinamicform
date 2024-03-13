@@ -38,21 +38,20 @@ export function StepList({
         }`}
       >
         {step.items?.map((item) => {
-          const { ref, name, ...rest } = register(
-            getRegisterName({
-              inputName: step.name,
-              nestedParent,
-              travelerIndex
-            })
-          );
+
           return (
             <InputList
               asButton={item.asButton}
               key={item.label}
-              groupName={name}
-              inputRef={ref}
-              label={item.label}
-              {...rest}
+              groupName={step.name}
+              label={t(item.label)}
+              {...register(
+                getRegisterName({
+                  inputName: step.name,
+                  nestedParent,
+                  travelerIndex
+                })
+              )}
               disabled={disabled}
               value={item.value}
             ></InputList>

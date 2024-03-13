@@ -5,6 +5,7 @@ import Errors from "../bits/Errors";
 import { getErrors, getRegisterName } from "../../utils/formsUtils";
 import { TravelersInputForm } from "./TravelersForm";
 import { Field } from "../../models/types";
+import { useTranslation } from "react-i18next";
 
 interface StepCounterPropsType {
   step: Field;
@@ -25,11 +26,7 @@ export function StepCounter({
   disabled,
   valuesAsColumn
 }: StepCounterPropsType) {
-  const { ref, ...rest } = register(getRegisterName({
-    inputName: step.name,
-    nestedParent,
-    travelerIndex
-  }));
+  const { t } = useTranslation("global");
 
   return (
     <div
@@ -37,13 +34,18 @@ export function StepCounter({
     >
       <div className="mr-8 w-[20%] min-w-fit">
         <InputCounter
-          inputRef={ref}
-          {...rest}
-          label={step.label}
-          id={step.label}
+          label={t(step.label)}
+          id={t(step.label)}
           min={step.options?.min}
           max={step.options?.max}
           disabled={disabled}
+          {...register(
+            getRegisterName({
+              inputName: step.name,
+              nestedParent,
+              travelerIndex
+            })
+          )}
         />
         <Errors
           message={getErrors({

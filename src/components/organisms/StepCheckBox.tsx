@@ -5,6 +5,7 @@ import InputCheckBox from "../bits/InputCheckBox";
 import { getErrors, getRegisterName } from "../../utils/formsUtils";
 import { TravelersInputForm } from "./TravelersForm";
 import { Field } from "../../models/types";
+import { useTranslation } from "react-i18next";
 
 interface StepCheckBoxPropsType {
   step: Field;
@@ -27,11 +28,12 @@ export default function StepCheckBox({
   disabled,
   valuesAsColumn
 }: StepCheckBoxPropsType) {
-  const { ref, name, onChange, ...rest } = register(getRegisterName({
+  const { onChange, ...rest } = register(getRegisterName({
     inputName: step.name,
     nestedParent,
     travelerIndex
   }));
+  const { t } = useTranslation("global");
 
   return (
     <div
@@ -39,10 +41,9 @@ export default function StepCheckBox({
     >
           <div className="mr-8 w-fit">
             <InputCheckBox
-              id={step.label}
-              inputRef={ref}
-              label={step.label}
-              groupName={name}
+              id={t(step.label)}
+              label={t(step.label)}
+              groupName={step.name}
               onChange={customOnChange || onChange}
               disabled={disabled}
               {...rest}

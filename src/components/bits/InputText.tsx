@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, forwardRef } from "react";
-import { useTranslation } from "react-i18next";
+
 
 interface InputTextSpecificProps {
   label?: string;
@@ -9,12 +9,11 @@ const InputText = forwardRef<
   HTMLInputElement,
   ComponentPropsWithoutRef<"input"> & InputTextSpecificProps
 >(({ label, ...props }, ref) => {
-  const { t } = useTranslation("global");
   return (
     <label>
       {label ? (
         <span className="mb-1 block text-xl font-bold text-gray-900 tracking-wide leading-6">
-          {t(label)}
+          {label}
         </span>
       ) : null}
       <input

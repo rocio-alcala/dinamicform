@@ -1,36 +1,26 @@
-import { useTranslation } from "react-i18next";
+import { ComponentPropsWithoutRef, forwardRef } from "react";
 
 interface InputCounterSpecificProps {
   inputRef?: React.LegacyRef<HTMLInputElement>;
   label?: string;
 }
 
-export default function InputCounter({
-  inputRef,
-  name,
-  id,
-  label,
-  defaultValue,
-  placeholder,
-  ...restProps
-}: React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
-> &
-  InputCounterSpecificProps) {
-    const { t } = useTranslation("global");
+const InputCounter = forwardRef<
+  HTMLInputElement,
+  ComponentPropsWithoutRef<"input"> & InputCounterSpecificProps
+>(({ name, id, label, defaultValue, placeholder, ...restProps }, ref) => {
   return (
     <div className="mb-5">
       <label className="block text-base font-semibold text-gray-600">
         {label ? (
           <span className="mb-1 block text-xl font-bold text-gray-900 tracking-wide leading-6">
-            {t(label)}
+            {label}
           </span>
         ) : null}
         <input
           placeholder={placeholder}
           name={name}
-          ref={inputRef}
+          ref={ref}
           id={id}
           defaultValue={defaultValue}
           type="number"
@@ -41,4 +31,6 @@ export default function InputCounter({
       </label>
     </div>
   );
-}
+});
+
+export default InputCounter;

@@ -6,6 +6,7 @@ import { addDays } from "date-fns";
 import { getErrors, getRegisterName } from "../../utils/formsUtils";
 import { TravelersInputForm } from "./TravelersForm";
 import { Field } from "../../models/types";
+import { useTranslation } from "react-i18next";
 
 interface StepDatePropsType {
   step: Field;
@@ -26,6 +27,7 @@ export default function StepDate({
   disabled,
   valuesAsColumn
 }: StepDatePropsType) {
+  const { t } = useTranslation("global");
 
   return (
     <div
@@ -40,7 +42,7 @@ export default function StepDate({
           })}
           control={control}
           render={({ field }) => {
-            const { ref, value, ...rest } = field;
+            const { value, ...rest } = field;
             // check value
             if (
               typeof value !== "undefined" &&
@@ -55,10 +57,9 @@ export default function StepDate({
               <div>
                 <InputDate
                   value={value instanceof Date ? value.toDateString() : value}
-                  label={step.label}
+                  label={t(step.label)}
                   maxDate={step.options?.max ? addDays(new Date(), step.options.max) : undefined}
                   minDate={step.options?.min ? addDays(new Date(), step.options?.min): undefined}
-                  inputRef={ref}
                   {...rest}
                   showIcon={true}
                   disabled={disabled}

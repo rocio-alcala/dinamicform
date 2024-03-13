@@ -2,6 +2,7 @@ import InputText from "../bits/InputText";
 import Errors from "../bits/Errors";
 import { getErrors, getRegisterName } from "../../utils/formsUtils";
 import { Field } from "../../models/types";
+import { useTranslation } from "react-i18next";
 
 interface StepTextPropsType {
   step: Field;
@@ -22,13 +23,14 @@ export default function StepText({
   disabled,
   valuesAsColumn
 }: StepTextPropsType) {
+  const { t } = useTranslation("global");
   return (
     <div
       className={`mb-5 mt-2 ${valuesAsColumn ? "flex-col" : "flex flex-wrap"}`}
     >
       <div className="mr-8 w-[33%] min-w-fit">
         <InputText
-          label={step.label}
+          label={t(step.label)}
           disabled={disabled}
           {...register(
             getRegisterName({
