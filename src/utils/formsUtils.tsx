@@ -1,4 +1,3 @@
-// to-do: rename file to formUtils.ts
 import { FieldErrors } from "react-hook-form";
 import { InputForm } from "../components/organisms/QuoteForm";
 import _ from 'lodash';
