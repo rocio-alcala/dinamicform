@@ -76,6 +76,81 @@ function QuoteCriteria() {
     return basicValidationSchema;
   }
 
+  function getValidationSchemaObject(
+    selectedSubProduct: SubProduct | undefined
+  ) {
+    const validationSchema = {};
+    if (selectedSubProduct) {
+      selectedSubProduct.criterias.map((row) =>
+        row.map((field: Field) => {
+          if (field.name.includes(".")) {
+            set(
+              validationSchema,
+              field.name.split(".")[0],
+              yup
+                .object()
+                .shape(
+                  set(
+                    {},
+                    field.name.split(".")[1],
+                    getValidationForField(field)
+                  )
+                )
+            );
+          }
+          set(validationSchema, field.name, getValidationForField(field));
+        })
+      );
+    }
+    return validationSchema;
+  }
+
+  function getValidationForField(field: Field) {
+    let fieldValidationSchema;
+    switch (field.type) {
+      case FieldType.TEXT:
+        fieldValidationSchema = yup.string();
+        if (field.options?.validations?.includes("email")) {
+          fieldValidationSchema = fieldValidationSchema.email();
+        }
+        break;
+      case FieldType.COUNTER:
+        fieldValidationSchema = yup.number();
+        if (field.options?.min) {
+          fieldValidationSchema = fieldValidationSchema.min(field.options.min);
+        }
+        if (field.options?.max) {
+          fieldValidationSchema = fieldValidationSchema.min(field.options.max);
+        }
+    }
+    //TO-TO: do the rest of the cases
+    if (field.required) {
+      fieldValidationSchema = fieldValidationSchema
+        ? fieldValidationSchema.required()
+        : yup.string().required();
+    }
+    return fieldValidationSchema;
+  }
+
+  function getDefaultValues(
+    selectedSubProduct: SubProduct | undefined,
+    storeCriteria: InputForm
+  ) {
+    const defaultValues = {};
+    if (Object.values(storeCriteria).length !== 0) {
+      return { ...storeCriteria };
+    }
+    if (selectedSubProduct)
+      selectedSubProduct.criterias.map((row: Row) =>
+        row.map((field: Field) => {
+          if (field.default_value || field.default_value === 0)
+            set(defaultValues, field.name, field.default_value);
+        })
+      );
+      console.log("se calcula default values",defaultValues)
+    return defaultValues;
+  }
+
   const { t } = useTranslation("global");
   const products: Product[] = quoteCriteriaFormFields.products;
   const dispatch = useAppDispatch();
@@ -112,7 +187,15 @@ function QuoteCriteria() {
     handleSubmit,
     watch,
     reset
-  } = useForm<InputForm>();
+  } = useForm<TravelersInputForm | InputForm>({
+    values: getDefaultValues(selectedSubProduct, storeCriteria), //adding default values once a Sub Product is selected,
+    //so numeric inputs won't initialize to ""
+    shouldFocusError: false // otherwise throws when focusing date input
+    // TO-DO: fix on focus problem
+    /*     resolver: yupResolver(
+      yup.object().shape(getValidationSchemaObject(selectedSubProduct))
+    ) */
+  });
 
   async function masterSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

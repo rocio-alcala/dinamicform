@@ -37,11 +37,12 @@ export const quoteCriteriaFormFields = {
                     value: "area3"
                   }
                 ],
-                default_value: "area1",
+                default_value: "area1"
               }
             ],
             [
-              { //TO-DO: agregar title a uno para ser mas descriptivo
+              {
+                //TO-DO: agregar title a uno para ser mas descriptivo
                 name: "travelers.adults",
                 label:
                   "travel.product1.travel1.step2.value3.subQuoting.value1.label",
@@ -57,6 +58,7 @@ export const quoteCriteriaFormFields = {
                   field: "destination_area",
                   value: ["area1"]
                 },
+                required: true,
                 default_value: 0
               },
               {
@@ -71,6 +73,7 @@ export const quoteCriteriaFormFields = {
                   max: 1000,
                   step: 1
                 },
+                required: true,
                 default_value: 0
               },
               {
@@ -85,8 +88,18 @@ export const quoteCriteriaFormFields = {
                   max: 1000,
                   step: 1
                 },
-
+                required: true,
                 default_value: 0
+              }
+            ],
+            [
+              {
+                label: "travelers.fields.email.label",
+                summaryLabel: "travelers.fields.email.summaryLabel",
+                name: "email",
+                type:FieldType.TEXT,
+                required: true,
+                options: { validations: ["email"] }
               }
             ],
             [
@@ -134,7 +147,7 @@ export const quoteCriteriaFormFields = {
                   maxEnd: 365,
                   minEnd: 1,
                   minStart: 0
-                },
+                }
               }
             ]
           ]
@@ -170,7 +183,7 @@ export const quoteCriteriaFormFields = {
                     asButton: true
                   }
                 ],
-                default_value: "area1",
+                default_value: "area1"
               }
             ],
             [
@@ -243,7 +256,7 @@ export const quoteCriteriaFormFields = {
                   max: 1000,
                   step: 5
                 },
-                default_value: 0,
+                default_value: 0
               }
             ],
             [
@@ -262,7 +275,7 @@ export const quoteCriteriaFormFields = {
                   maxEnd: 365,
                   minEnd: 1,
                   minStart: 0
-                },
+                }
               }
             ]
           ]
@@ -306,7 +319,6 @@ export const quoteCriteriaFormFields = {
                     asButton: true
                   }
                 ],
-                default_value: "area1",
               }
             ],
             [
@@ -363,7 +375,7 @@ export const quoteCriteriaFormFields = {
                 options: {
                   max: 0,
                   min: -182
-                },
+                }
               }
             ],
             [
@@ -379,7 +391,7 @@ export const quoteCriteriaFormFields = {
                   max: 1000,
                   step: 5
                 },
-                default_value: 0,
+                default_value: 0
               }
             ],
             [
@@ -409,7 +421,6 @@ export const quoteCriteriaFormFields = {
           value: "iberia_2_world",
           description: "travel.insurance.iberia_2.iberia_2_world.description",
           criterias: [
-            
             [
               {
                 name: "destination_area",
@@ -435,7 +446,6 @@ export const quoteCriteriaFormFields = {
                     asButton: true
                   }
                 ],
-                default_value: "area1",
               }
             ],
             [
@@ -492,7 +502,7 @@ export const quoteCriteriaFormFields = {
                 options: {
                   max: 0,
                   min: -182
-                },
+                }
               }
             ],
             [
@@ -508,7 +518,7 @@ export const quoteCriteriaFormFields = {
                   max: 1000,
                   step: 5
                 },
-                default_value: 0,
+                default_value: 0
               }
             ],
             [
