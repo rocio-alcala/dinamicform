@@ -39,6 +39,7 @@ export interface Field {
   nameStart?: string;
   placeholder?: string;
   options?: {
+    asButton?: boolean;
     min?: number;
     max?: number;
     step?: number;
@@ -52,7 +53,6 @@ export interface Field {
     value: string;
     label: string;
     description?: string;
-    asButton?: boolean;
   }[];
   default_value?: string | number;
   conditional_field?: { field: string; value: string[] | number[] };

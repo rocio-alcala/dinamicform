@@ -1,14 +1,15 @@
 import { ComponentPropsWithoutRef, forwardRef } from "react";
+import Errors from "./Errors";
 
 interface InputCounterSpecificProps {
-  inputRef?: React.LegacyRef<HTMLInputElement>;
+  errors?: string;
   label?: string;
 }
 
 const InputCounter = forwardRef<
   HTMLInputElement,
   ComponentPropsWithoutRef<"input"> & InputCounterSpecificProps
->(({ name, id, label, defaultValue, placeholder, ...restProps }, ref) => {
+>(({ name, id, label, placeholder, errors, ...restProps }, ref) => {
   return (
     <div className="mb-5">
       <label className="block text-base font-semibold text-gray-600">
@@ -22,13 +23,16 @@ const InputCounter = forwardRef<
           name={name}
           ref={ref}
           id={id}
-          defaultValue={defaultValue}
           type="number"
           className="cursor-pointer w-full mt-1 px-6 py-3 text-xl border rounded-md focus:outline-none focus:border-blue-500 focus:ring"
           aria-label={label}
           {...restProps}
         ></input>
       </label>
+      <Errors
+            message={
+              errors}
+          />
     </div>
   );
 });

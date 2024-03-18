@@ -1,10 +1,6 @@
 interface ButtonSpecificPropsType {
   isLoading?: boolean;
   color?: string
-
-
-
-
 }
 
 export default function Button({

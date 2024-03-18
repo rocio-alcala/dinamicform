@@ -1,24 +1,23 @@
-import {
-  ComponentPropsWithoutRef,
-  forwardRef
-} from "react";
+import { ComponentPropsWithoutRef, forwardRef } from "react";
 import DatePicker, {
   ReactDatePicker,
   ReactDatePickerProps
 } from "react-datepicker";
+import Errors from "./Errors";
 
 interface InputDateSpecificProps {
   inputRef?: React.LegacyRef<ReactDatePicker>;
   label: string;
   value?: string | undefined | Date;
+  errors?: string
 }
 
 const InputDate = forwardRef<
-ReactDatePicker,
+  ReactDatePicker,
   ComponentPropsWithoutRef<"input"> &
     InputDateSpecificProps &
     ReactDatePickerProps
->(({ value, showIcon, label, name, ...restProps }, ref) => {
+>(({ value, showIcon, errors, label, name, ...restProps }, ref) => {
   return (
     <>
       <label htmlFor={label + name}>
@@ -41,6 +40,7 @@ ReactDatePicker,
           id={label + name}
         />
       </div>
+      <Errors message={errors} />
     </>
   );
 });

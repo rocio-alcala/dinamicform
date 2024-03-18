@@ -22,6 +22,7 @@ export const quoteCriteriaFormFields = {
                 label: "travel.product1.travel1.step1.label",
                 type: FieldType.LIST,
                 required: true,
+                options: {asButton: true},
                 description: "Select the destination area.",
                 items: [
                   {
@@ -36,8 +37,7 @@ export const quoteCriteriaFormFields = {
                     label: "travel.product1.travel1.step1.value3.label",
                     value: "area3"
                   }
-                ],
-                default_value: "area1"
+                ]
               }
             ],
             [
@@ -97,7 +97,7 @@ export const quoteCriteriaFormFields = {
                 label: "travelers.fields.email.label",
                 summaryLabel: "travelers.fields.email.summaryLabel",
                 name: "email",
-                type:FieldType.TEXT,
+                type: FieldType.TEXT,
                 required: true,
                 options: { validations: ["email"] }
               }
@@ -182,8 +182,7 @@ export const quoteCriteriaFormFields = {
                     value: "area3",
                     asButton: true
                   }
-                ],
-                default_value: "area1"
+                ]
               }
             ],
             [
@@ -266,8 +265,8 @@ export const quoteCriteriaFormFields = {
                 type: FieldType.DATE_RANGE,
                 required: true,
                 description: "travel.product1.travel1.step3.desc",
-                labelEnd: "travel.product1.travel1.step3.value.labelEnd",
-                labelStart: "travel.product1.travel1.step3.value.labelStart",
+                labelEnd: "travel.product1.travel1.step3.value.labelEnd", //TO-DO: cambiar a snake case
+                labelStart: "travel.product1.travel1.step3.value.labelStart", //TO-DO: cambiar adentro de options
                 nameEnd: "end_date",
                 nameStart: "start_date",
                 options: {
@@ -319,6 +318,7 @@ export const quoteCriteriaFormFields = {
                     asButton: true
                   }
                 ],
+                default_value: "area3"
               }
             ],
             [
@@ -445,7 +445,7 @@ export const quoteCriteriaFormFields = {
                     value: "area3",
                     asButton: true
                   }
-                ],
+                ]
               }
             ],
             [
@@ -461,7 +461,7 @@ export const quoteCriteriaFormFields = {
                   max: 1000,
                   step: 1
                 },
-                default_value: 0
+                default_value: 10
               },
               {
                 name: "travelers.children",
