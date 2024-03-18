@@ -1,5 +1,3 @@
-import Errors from "../bits/Errors";
-import InputList from "../bits/InputList";
 import { quoteCriteriaFormFields } from "../../../mock/quoteCriteriaFormFields";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
@@ -11,12 +9,26 @@ import Button from "../bits/Button";
 import { GrFormNextLink } from "react-icons/gr";
 import FieldSwitcher from "../organisms/FieldSwitcher";
 import * as yup from "yup";
-import { toSerializableData } from "../../utils/formsUtils";
+import {
+  getErrors,
+  getRegisterName,
+  toSerializableData
+} from "../../utils/formsUtils";
 import { submitQuoteCriteria } from "../../store/quoteCriteriaSlice";
 import { submitQuote } from "../../store/quoteSlice";
 import { Quote } from "../../models/quote";
 import { mockQuote } from "../../../mock/quotes";
-import { InputFieldValue, Product, SubProduct } from "../../models/types";
+import {
+  Field,
+  FieldType,
+  InputFieldValue,
+  Product,
+  Row,
+  SubProduct
+} from "../../models/types";
+import { TravelersInputForm } from "../organisms/TravelersForm";
+import set from "lodash/set";
+import FieldsetRadio from "../bits/FieldSetRadio";
 
 export interface InputForm {
   [index: string]: InputFieldValue | { [index: string]: InputFieldValue };
@@ -83,7 +95,7 @@ function QuoteCriteria() {
     if (selectedSubProduct) {
       selectedSubProduct.criterias.map((row) =>
         row.map((field: Field) => {
-          if (field.name.includes(".")) {
+          /* if (field.name.includes(".")) {
             set(
               validationSchema,
               field.name.split(".")[0],
@@ -97,7 +109,7 @@ function QuoteCriteria() {
                   )
                 )
             );
-          }
+          } */
           set(validationSchema, field.name, getValidationForField(field));
         })
       );
@@ -147,7 +159,6 @@ function QuoteCriteria() {
             set(defaultValues, field.name, field.default_value);
         })
       );
-      console.log("se calcula default values",defaultValues)
     return defaultValues;
   }
 
@@ -192,7 +203,7 @@ function QuoteCriteria() {
     //so numeric inputs won't initialize to ""
     shouldFocusError: false // otherwise throws when focusing date input
     // TO-DO: fix on focus problem
-    /*     resolver: yupResolver(
+    /*         resolver: yupResolver(
       yup.object().shape(getValidationSchemaObject(selectedSubProduct))
     ) */
   });
@@ -231,6 +242,8 @@ function QuoteCriteria() {
     setValue("product", e.target.value);
   }
 
+  console.log(errors);
+
   return (
     <>
       <div className="font-AXA relative">
@@ -250,21 +263,17 @@ function QuoteCriteria() {
               {t("travel.insurance.title")}
             </legend>
             <div className="mt-2 flex grow flex-wrap">
-              {products.map((product) => {
-                return (
-                  <InputList
-                    asButton={true}
-                    key={product.value}
-                    value={product.value}
-                    groupName={"product"}
-                    label={product.label}
-                    {...basicRegister("product")}
-                    onChange={handleProductChange}
-                  ></InputList>
-                );
-              })}
+              <FieldsetRadio
+                asButton={true}
+                items={products}
+                errors={getErrors({
+                  errors: basicErrors,
+                  inputName: "product"
+                })}
+                {...basicRegister("product")}
+                onChange={handleProductChange}
+              ></FieldsetRadio>
             </div>
-            <Errors message={basicErrors["product"]?.message} />
           </div>
           {selectedProduct ? (
             <div className="flex flex-col mb-7">
@@ -272,20 +281,16 @@ function QuoteCriteria() {
                 Subproducto
               </legend>
               <div className="mt-2 flex flex-auto flex-wrap">
-                {selectedProduct.sub_products.map((subProduct) => {
-                  return (
-                    <InputList
-                      asButton={true}
-                      key={subProduct.value}
-                      value={subProduct.value}
-                      {...basicRegister("subproduct")}
-                      label={subProduct.label}
-                      groupName={"subproduct"}
-                    ></InputList>
-                  );
-                })}
+                <FieldsetRadio
+                  asButton={true}
+                  items={selectedProduct.sub_products}
+                  errors={getErrors({
+                    errors: basicErrors,
+                    inputName: "subproduct"
+                  })}
+                  {...basicRegister("subproduct")}
+                ></FieldsetRadio>
               </div>
-              <Errors message={basicErrors["subproduct"]?.message} />
             </div>
           ) : null}
 
@@ -309,8 +314,10 @@ function QuoteCriteria() {
                         <FieldSwitcher //TO-DO: recibo directamente el register desestructarado
                           key={field.name}
                           field={field}
-                          register={register}
-                          errors={errors}
+                          {...register(
+                            getRegisterName({ inputName: field.name })
+                          )}
+                          errors={getErrors({ errors, inputName: field.name })}
                           control={control}
                         ></FieldSwitcher>
                       );
