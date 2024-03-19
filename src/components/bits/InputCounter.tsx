@@ -2,6 +2,7 @@ import { ComponentPropsWithoutRef, forwardRef } from "react";
 import Errors from "./Errors";
 
 interface InputCounterSpecificProps {
+  name: string;
   errors?: string;
   label?: string;
 }
@@ -9,7 +10,7 @@ interface InputCounterSpecificProps {
 const InputCounter = forwardRef<
   HTMLInputElement,
   ComponentPropsWithoutRef<"input"> & InputCounterSpecificProps
->(({ name, id, label, placeholder, errors, ...restProps }, ref) => {
+>(({ label, errors, ...restProps }, ref) => {
   return (
     <div className="mb-5">
       <label className="block text-base font-semibold text-gray-600">
@@ -19,10 +20,7 @@ const InputCounter = forwardRef<
           </span>
         ) : null}
         <input
-          placeholder={placeholder}
-          name={name}
           ref={ref}
-          id={id}
           type="number"
           className="cursor-pointer w-full mt-1 px-6 py-3 text-xl border rounded-md focus:outline-none focus:border-blue-500 focus:ring"
           aria-label={label}

@@ -2,10 +2,13 @@ import { useTranslation } from "react-i18next";
 import Errors from "../bits/Errors";
 import { ComponentPropsWithoutRef, forwardRef } from "react";
 import clsx from "clsx/lite";
-import { Item } from "../../models/types";
+
 
 interface FieldsetRadioPropsType {
-  items: Item[]
+  items: {
+    value: string;
+    label: string;
+  }[];
   label?: string;
   errors?: string;
   asButton?: boolean;
@@ -31,7 +34,6 @@ const FieldsetRadio = forwardRef<
         )}
       >
         {items.map((item, index) => {
-          //TO-DO: usar libreria para cambiar clases
           return (
             <div
               key={item.label + index}

@@ -1,25 +1,21 @@
 import "react-datepicker/dist/react-datepicker.css";
-import {
-  Control,
-  Controller,
-} from "react-hook-form";
-import { FieldType } from "../../models/types";
+import { Control, Controller } from "react-hook-form";
+import { Field, FieldType } from "../../models/types";
 import { InputForm } from "./QuoteForm";
-
 import { TravelersInputForm } from "./TravelersForm";
-import { forwardRef } from "react";
-import FieldsetRadio from "../bits/FieldSetRadio";
+import { ChangeEvent, forwardRef } from "react";
 import InputCounter from "../bits/InputCounter";
 import { useTranslation } from "react-i18next";
 import InputText from "../bits/InputText";
 import InputCheckBox from "../bits/InputCheckBox";
 import InputDate from "../bits/InputDate";
 import { addDays } from "date-fns";
+import FieldsetRadio from "../bits/FieldSetRadio";
 
 interface FieldSwitcherProps {
-  field: any;
-  onChange: any;
-  onBlur: any;
+  field: Field;
+  onChange: (e: ChangeEvent<HTMLInputElement>)=> void;
+  onBlur: (e: ChangeEvent<HTMLInputElement>)=> void;
   name: string;
   control: Control<InputForm | TravelersInputForm>;
   errors: string;
@@ -29,37 +25,31 @@ interface FieldSwitcherProps {
 }
 
 const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
-  ({ field, onChange, onBlur, name, control, errors, disabled }, ref) => {
+  ({ field, control, errors, name, ...restProps }, ref) => {
     const { t } = useTranslation("global");
 
     switch (field.type) {
       case FieldType.LIST:
         return (
           <FieldsetRadio
-            disabled={disabled}
-            items={field.items}
+            items={field.items!}
+            name={name}
             asButton={field.options?.asButton}
-            onChange={onChange}
-            onBlur={onBlur}
             label={t(field.label)}
             ref={ref}
-            name={name}
-            errors={errors}
+            {...restProps}
           />
         );
       case FieldType.COUNTER:
         return (
           <InputCounter
-            disabled={disabled}
-            onChange={onChange}
-            onBlur={onBlur}
-            id={t(field.label)}
             min={field.options?.min}
             max={field.options?.max}
+            step={field.options?.step}
             label={t(field.label)}
             ref={ref}
             name={name}
-            errors={errors}
+            {...restProps}
           />
         );
       /*       case FieldType.DATE_RANGE:
@@ -96,17 +86,16 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
                     value={value instanceof Date ? value.toDateString() : value}
                     label={t(field.label)}
                     maxDate={
-                      field.options?.max
+                      field.options?.max || field.options?.max === 0
                         ? addDays(new Date(), field.options.max)
                         : undefined
                     }
                     minDate={
-                      field.options?.min
+                      field.options?.min || field.options?.min === 0
                         ? addDays(new Date(), field.options?.min)
                         : undefined
                     }
                     showIcon={true}
-                    disabled={disabled}
                     errors={errors}
                     {...rest}
                   />
@@ -118,42 +107,36 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
       case FieldType.CURRENCY:
         return (
           <InputCounter
-            disabled={disabled}
-            onChange={onChange}
-            onBlur={onBlur}
-            id={t(field.label)}
             placeholder={field.placeholder}
             min={field.options?.min}
             max={field.options?.max}
+            step={field.options?.step}
             label={t(field.label)}
             ref={ref}
             name={name}
             errors={errors}
+            {...restProps}
           />
         );
       case FieldType.CHECKBOX:
         return (
           <InputCheckBox
-            disabled={disabled}
             label={t(field.label)}
-            onChange={onChange}
-            onBlur={onBlur}
             ref={ref}
             name={name}
             errors={errors}
+            {...restProps}
           />
         );
       case FieldType.TEXT:
       default:
         return (
           <InputText
-            disabled={disabled}
             label={t(field.label)}
-            onChange={onChange}
-            onBlur={onBlur}
             ref={ref}
             name={name}
             errors={errors}
+            {...restProps}
           />
         );
     }
@@ -161,100 +144,3 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
 );
 
 export default FieldSwitcher;
-
-/* export default function FieldSwitcher({
-  field,
-  onChange,
-  onBlur,
-  ref,
-  name,
-  control,
-  errors,
-  disabled,
-  nestedParent,
-  travelerIndex
-}: FieldSwitcherProps) {
-  switch (field.type) {
-        case FieldType.LIST:
-      return (
-        <FieldList
-          disabled={disabled}
-          travelerIndex={travelerIndex}
-          nestedParent={nestedParent}
-          field={field}
-          register={register}
-          errors={errors}
-        />
-      );
-        case FieldType.COUNTER:
-      return (
-        <FieldCounter
-          disabled={disabled}
-          travelerIndex={travelerIndex}
-          nestedParent={nestedParent}
-          field={field}
-          register={register}
-          errors={errors}
-        />
-      );
-    case FieldType.DATE_RANGE:
-      return (
-        <FieldDateRange
-          disabled={disabled}
-          travelerIndex={travelerIndex}
-          nestedParent={nestedParent}
-          field={field}
-          control={control}
-          errors={errors}
-        />
-      );
-    case FieldType.DATE:
-      return (
-        <FieldDate
-          disabled={disabled}
-          travelerIndex={travelerIndex}
-          nestedParent={nestedParent}
-          field={field}
-          control={control}
-          errors={errors}
-        />
-      );
-    case FieldType.CURRENCY:
-      return (
-        <FieldCurrency
-          disabled={disabled}
-          travelerIndex={travelerIndex}
-          nestedParent={nestedParent}
-          field={field}
-          register={register}
-          errors={errors}
-        />
-      );
-    case FieldType.CHECKBOX:
-      return (
-        <FieldCheckBox
-          disabled={disabled}
-          travelerIndex={travelerIndex}
-          nestedParent={nestedParent}
-          field={field}
-          register={register}
-          errors={errors}
-        />
-      );
-    case FieldType.TEXT:
-    default:
-      return (
-        <FieldText
-          disabled={disabled}
-          travelerIndex={travelerIndex}
-          nestedParent={nestedParent}
-          field={field}
-          onChange={onChange}
-          onBlur={onBlur}
-          ref={ref}
-          name={name}
-          errors={errors}
-        />
-      );
-  }
-} */

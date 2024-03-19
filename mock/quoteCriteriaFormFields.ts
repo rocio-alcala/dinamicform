@@ -22,7 +22,7 @@ export const quoteCriteriaFormFields = {
                 label: "travel.product1.travel1.step1.label",
                 type: FieldType.LIST,
                 required: true,
-                options: {asButton: true},
+                options: { asButton: true },
                 description: "Select the destination area.",
                 items: [
                   {
@@ -111,7 +111,7 @@ export const quoteCriteriaFormFields = {
                 description: "Select the shipping date",
                 options: {
                   max: 0,
-                  min: -182
+                  min: 0
                 }
               }
             ],
@@ -238,7 +238,7 @@ export const quoteCriteriaFormFields = {
                 description: "Select the shipping date",
                 options: {
                   max: 0,
-                  min: -182
+                  min: -30
                 }
               }
             ],

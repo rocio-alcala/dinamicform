@@ -18,6 +18,7 @@ const InputDate = forwardRef<
     InputDateSpecificProps &
     ReactDatePickerProps
 >(({ value, showIcon, errors, label, name, ...restProps }, ref) => {
+
   return (
     <>
       <label htmlFor={label + name}>

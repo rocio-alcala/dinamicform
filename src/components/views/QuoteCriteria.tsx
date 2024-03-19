@@ -214,9 +214,7 @@ function QuoteCriteria() {
 
     await basicHandleSubmit((basicFormData) => {
       quote = { ...quote, ...basicFormData };
-      console.log(basicFormData);
       handleSubmit((formData) => {
-        console.log(formData);
         const serializableFormData = toSerializableData(formData) as InputForm;
         quote = { ...quote, ...serializableFormData };
         console.log(quote);
@@ -227,7 +225,6 @@ function QuoteCriteria() {
           setTimeout(() => resolver(mockQuote), 2000);
         })
           .then((mockQuote) => {
-            console.log("mock", mockQuote);
             dispatch(submitQuote(mockQuote as Quote));
             navigate("/quotes");
           })
@@ -241,8 +238,6 @@ function QuoteCriteria() {
     reset();
     setValue("product", e.target.value);
   }
-
-  console.log(errors);
 
   return (
     <>
@@ -282,7 +277,7 @@ function QuoteCriteria() {
               </legend>
               <div className="mt-2 flex flex-auto flex-wrap">
                 <FieldsetRadio
-                  asButton={true}
+                  asButton={false}
                   items={selectedProduct.sub_products}
                   errors={getErrors({
                     errors: basicErrors,
@@ -299,7 +294,6 @@ function QuoteCriteria() {
               {selectedSubProduct.criterias.map((row, rowIndex) => {
                 return (
                   <div className="flex" key={rowIndex}>
-                    {" "}
                     {/* TO-DO: poner otra key */}
                     {row.map((field) => {
                       if (field.conditional_field) {
@@ -316,7 +310,7 @@ function QuoteCriteria() {
                           field={field}
                           {...register(
                             getRegisterName({ inputName: field.name })
-                          )}
+                          )}                    
                           errors={getErrors({ errors, inputName: field.name })}
                           control={control}
                         ></FieldSwitcher>

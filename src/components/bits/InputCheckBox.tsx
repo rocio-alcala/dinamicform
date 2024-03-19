@@ -3,9 +3,7 @@ import Errors from "./Errors";
 
 interface InputCheckBokSpecificProps {
   label?: string;
-  groupName?: string;
-  onChange: any;
-  errors: string;
+  errors?: string;
 }
 
 const InputCheckBox = forwardRef<

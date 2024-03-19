@@ -50,7 +50,7 @@ export const adultTravelerFormFields = [
       required: true,
       name: "birth_date",
       type: FieldType.DATE,
-      options: { max: 10, min: 10 }
+      options: { max: 1, min: -1810 }
     },
     {
       label: "travelers.fields.DNI/NIE.label",
