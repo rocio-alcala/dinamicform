@@ -6,8 +6,9 @@ import DatePicker, {
 import Errors from "./Errors";
 
 interface InputDateSpecificProps {
-  inputRef?: React.LegacyRef<ReactDatePicker>;
-  label: string;
+  id: string | number ;
+ description?: string ;
+  label?: string;
   value?: string | undefined | Date;
   errors?: string
 }
@@ -17,16 +18,17 @@ const InputDate = forwardRef<
   ComponentPropsWithoutRef<"input"> &
     InputDateSpecificProps &
     ReactDatePickerProps
->(({ value, showIcon, errors, label, name, ...restProps }, ref) => {
+>(({ value, showIcon, errors, label, id, required, description,  ...restProps }, ref) => {
 
   return (
     <>
-      <label htmlFor={label + name}>
-        {label ? (
-          <span className="mb-1 block text-xl font-bold text-gray-900 tracking-wide leading-6">
+      <label htmlFor={id}>
+      {label && (
+          <legend className="mb-1 block text-xl font-bold text-gray-900 tracking-wide leading-6">
             {label}
-          </span>
-        ) : null}
+            {required && <span className="text-red-500">*</span>}
+          </legend>
+        )}
       </label>
       <div className="mt-2 mb-5">
         <DatePicker
@@ -37,11 +39,16 @@ const InputDate = forwardRef<
           calendarIconClassname="mt-[10px] ml-[10px] text-xl"
           ref={ref}
           selected={value ? new Date(value) : null}
+          id={id}
           {...restProps}
-          id={label + name}
         />
       </div>
       <Errors message={errors} />
+      {description && (
+        <div className="text-xs  text-gray-400 tracking-wide leading-6">
+          {description}
+        </div>
+      )}
     </>
   );
 });

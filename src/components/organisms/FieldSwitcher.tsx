@@ -14,8 +14,8 @@ import FieldsetRadio from "../bits/FieldSetRadio";
 
 interface FieldSwitcherProps {
   field: Field;
-  onChange: (e: ChangeEvent<HTMLInputElement>)=> void;
-  onBlur: (e: ChangeEvent<HTMLInputElement>)=> void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
   name: string;
   control: Control<InputForm | TravelersInputForm>;
   errors: string;
@@ -32,11 +32,14 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
       case FieldType.LIST:
         return (
           <FieldsetRadio
-            items={field.items!}
+            items={field.items!} //TO-DO: mapear item para pasar label ya transcripto
             name={name}
+            id={name}
             asButton={field.options?.asButton}
             label={t(field.label)}
             ref={ref}
+            required={field.required}
+            description={field.description && t(field.description)}
             {...restProps}
           />
         );
@@ -49,6 +52,9 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
             label={t(field.label)}
             ref={ref}
             name={name}
+            required={field.required}
+            id={name}
+            description={field.description && t(field.description)}
             {...restProps}
           />
         );
@@ -85,6 +91,8 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
                   <InputDate
                     value={value instanceof Date ? value.toDateString() : value}
                     label={t(field.label)}
+                    required={field.required}
+                    id={name}
                     maxDate={
                       field.options?.max || field.options?.max === 0
                         ? addDays(new Date(), field.options.max)
@@ -97,6 +105,7 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
                     }
                     showIcon={true}
                     errors={errors}
+                    description={field.description && t(field.description)}
                     {...rest}
                   />
                 </div>
@@ -115,16 +124,22 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
             ref={ref}
             name={name}
             errors={errors}
+            required={field.required}
+            id={name}
+            description={field.description && t(field.description)}
             {...restProps}
           />
         );
       case FieldType.CHECKBOX:
         return (
           <InputCheckBox
+            id={name}
             label={t(field.label)}
             ref={ref}
             name={name}
             errors={errors}
+            required={field.required}
+            description={field.description && t(field.description)}
             {...restProps}
           />
         );
@@ -136,6 +151,9 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
             ref={ref}
             name={name}
             errors={errors}
+            required={field.required}
+            id={name}
+            description={field.description && t(field.description)}
             {...restProps}
           />
         );
