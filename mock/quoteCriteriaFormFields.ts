@@ -105,7 +105,6 @@ export const quoteCriteriaFormFields = {
                 label: "travel.product1.travel1.step4.label",
                 type: FieldType.DATE,
                 required: true,
-                description: "Select the shipping date",
                 options: {
                   max: 0,
                   min: 0

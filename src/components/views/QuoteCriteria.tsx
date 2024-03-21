@@ -28,7 +28,7 @@ import {
 import set from "lodash/set";
 import FieldsetRadio from "../bits/FieldsetRadio";
 
-export type InputForm = Record<string,InputFieldValue> 
+export type InputForm = Record<string, InputFieldValue>;
 
 function QuoteCriteria() {
   function getPreselectedProduct(products: Product[]) {
@@ -252,7 +252,14 @@ function QuoteCriteria() {
               <FieldsetRadio
                 id="product"
                 asButton={true}
-                items={products} //TO-DO: mapeo para recibir solo lo que necesito
+                items={products.map((product) => {
+                  //send only necessary product data
+                  return {
+                    value: product.value,
+                    label: t(product.label),
+                    description: product.description
+                  };
+                })}
                 errors={basicErrors.product?.message}
                 {...basicRegister("product")}
                 onChange={handleProductChange}
@@ -268,7 +275,14 @@ function QuoteCriteria() {
                 <FieldsetRadio
                   id="subproduct"
                   asButton={true}
-                  items={selectedProduct.sub_products}
+                  items={selectedProduct.sub_products.map((subproduct) => {
+                    //send only necessary subproduct data
+                    return {
+                      value: subproduct.value,
+                      label: t(subproduct.label),
+                      description: subproduct.description
+                    };
+                  })}
                   errors={basicErrors.subproduct?.message}
                   {...basicRegister("subproduct")}
                 ></FieldsetRadio>

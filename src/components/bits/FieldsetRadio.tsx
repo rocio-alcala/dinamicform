@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import Errors from "../bits/Errors";
 import { ComponentPropsWithoutRef, forwardRef } from "react";
 import clsx from "clsx/lite";
@@ -35,8 +34,6 @@ const FieldsetRadio = forwardRef<
     },
     ref
   ) => {
-    const { t } = useTranslation("global"); //TO-DO: obtener label ya traducido
-
     return (
       <fieldset className="flex-col">
         {label && (
@@ -85,7 +82,7 @@ const FieldsetRadio = forwardRef<
                   )}
                 >
                   <span className="text-xl font-bold text-gray-900 tracking-wide leading-6">
-                    {item.label ? t(item.label) : item.value}
+                    {item.label ? item.label : item.value}
                   </span>
                 </label>
               </div>

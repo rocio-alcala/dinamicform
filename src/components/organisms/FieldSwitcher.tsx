@@ -17,12 +17,12 @@ interface FieldSwitcherProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
   name: string;
-  control: Control<InputForm>
+  control: Control<InputForm>; 
   errors?: string;
-  nestedParent?: string;
-  travelerIndex?: number;
   disabled?: boolean;
 }
+
+//control prop is only used in type DATE,
 
 const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
   ({ field, control, name, ...restProps }, ref) => {
@@ -32,7 +32,9 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
       case FieldType.LIST:
         return (
           <FieldsetRadio
-            items={field.items!} //TO-DO: mapear item para pasar label ya transcripto
+            items={field.items!.map((item) => { // items! bc items is a conditional property in Field but must always come in type LIST
+              return { ...item, label: t(item.label) }; // label transcription
+            })} 
             name={name}
             id={name}
             asButton={field.options?.asButton}
