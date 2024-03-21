@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { InputForm } from "../components/organisms/QuoteForm";
+import { InputForm } from "../components/views/QuoteCriteria";
+
 
 const initialState: InputForm = {};
 

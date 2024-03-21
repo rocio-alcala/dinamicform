@@ -54,10 +54,6 @@ export const quoteCriteriaFormFields = {
                   max: 1000,
                   step: 1
                 },
-                conditional_field: {
-                  field: "destination_area",
-                  value: ["area1"]
-                },
                 required: true,
                 default_value: 0
               },
@@ -99,6 +95,7 @@ export const quoteCriteriaFormFields = {
                 name: "email",
                 type: FieldType.TEXT,
                 required: true,
+                description: "esto es una descripcion de ejemplo",
                 options: { validations: ["email"] }
               }
             ],
@@ -131,7 +128,7 @@ export const quoteCriteriaFormFields = {
                 default_value: 0
               }
             ],
-            [
+/*             [
               {
                 name: "travel_date",
                 label: "travel.product1.travel1.step3.label",
@@ -149,7 +146,7 @@ export const quoteCriteriaFormFields = {
                   minStart: 0
                 }
               }
-            ]
+            ] */
           ]
         },
         {

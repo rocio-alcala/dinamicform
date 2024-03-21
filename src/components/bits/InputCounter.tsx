@@ -11,10 +11,10 @@ interface InputCounterSpecificProps {
 const InputCounter = forwardRef<
   HTMLInputElement,
   ComponentPropsWithoutRef<"input"> & InputCounterSpecificProps
->(({ label, errors, required,description, ...restProps }, ref) => {
+>(({ label, errors, required, description, ...restProps }, ref) => {
   return (
-    <div className="mb-5">
-      <label className="block text-base font-semibold text-gray-600">
+    <div>
+      <label className="mb-5 block text-base font-semibold text-gray-600">
         {label && (
           <legend className="mb-1 block text-xl font-bold text-gray-900 tracking-wide leading-6">
             {label}

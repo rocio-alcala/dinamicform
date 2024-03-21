@@ -1,8 +1,6 @@
 import "react-datepicker/dist/react-datepicker.css";
 import { Control, Controller } from "react-hook-form";
 import { Field, FieldType } from "../../models/types";
-import { InputForm } from "./QuoteForm";
-import { TravelersInputForm } from "./TravelersForm";
 import { ChangeEvent, forwardRef } from "react";
 import InputCounter from "../bits/InputCounter";
 import { useTranslation } from "react-i18next";
@@ -10,22 +8,24 @@ import InputText from "../bits/InputText";
 import InputCheckBox from "../bits/InputCheckBox";
 import InputDate from "../bits/InputDate";
 import { addDays } from "date-fns";
-import FieldsetRadio from "../bits/FieldSetRadio";
+import FieldsetRadio from "../bits/FieldsetRadio";
+import FieldDateRange from "./FieldDateRange";
+import { InputForm } from "../views/QuoteCriteria";
 
 interface FieldSwitcherProps {
   field: Field;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
   name: string;
-  control: Control<InputForm | TravelersInputForm>;
-  errors: string;
+  control: Control<InputForm>
+  errors?: string;
   nestedParent?: string;
   travelerIndex?: number;
   disabled?: boolean;
 }
 
 const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
-  ({ field, control, errors, name, ...restProps }, ref) => {
+  ({ field, control, name, ...restProps }, ref) => {
     const { t } = useTranslation("global");
 
     switch (field.type) {
@@ -58,17 +58,14 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
             {...restProps}
           />
         );
-      /*       case FieldType.DATE_RANGE:
+            case FieldType.DATE_RANGE:
         return (
           <FieldDateRange
-            disabled={disabled}
-            travelerIndex={travelerIndex}
-            nestedParent={nestedParent}
             field={field}
             control={control}
-            errors={errors}
+            {...restProps}
           />
-        ); */
+        );
       case FieldType.DATE:
         return (
           <Controller
@@ -104,8 +101,8 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
                         : undefined
                     }
                     showIcon={true}
-                    errors={errors}
                     description={field.description && t(field.description)}
+                    {...restProps}
                     {...rest}
                   />
                 </div>
@@ -123,7 +120,6 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
             label={t(field.label)}
             ref={ref}
             name={name}
-            errors={errors}
             required={field.required}
             id={name}
             description={field.description && t(field.description)}
@@ -137,7 +133,6 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
             label={t(field.label)}
             ref={ref}
             name={name}
-            errors={errors}
             required={field.required}
             description={field.description && t(field.description)}
             {...restProps}
@@ -150,7 +145,6 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
             label={t(field.label)}
             ref={ref}
             name={name}
-            errors={errors}
             required={field.required}
             id={name}
             description={field.description && t(field.description)}

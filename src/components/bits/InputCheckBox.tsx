@@ -30,7 +30,7 @@ const InputCheckBox = forwardRef<
         )}
       </label>
       <Errors message={errors} />
-      {description && (
+            {description && (
         <div className="text-xs  text-gray-400 tracking-wide leading-6">
           {description}
         </div>

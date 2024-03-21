@@ -49,13 +49,15 @@ export interface Field {
     minStart?: number;
     validations?: string[];
   };
-  items?: {
-    value: string;
-    label: string;
-    description?: string;
-  }[];
+  items?: Item[];
   default_value?: string | number;
   conditional_field?: { field: string; value: string[] | number[] };
+}
+
+export interface Item {
+  value: string;
+  label: string;
+  description?: string;
 }
 
 export type InputFieldValue =

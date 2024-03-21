@@ -10,7 +10,7 @@ import { GrFormNextLink } from "react-icons/gr";
 import FieldSwitcher from "../organisms/FieldSwitcher";
 import * as yup from "yup";
 import {
-  getErrors,
+  getNestedObjectForm,
   getRegisterName,
   toSerializableData
 } from "../../utils/formsUtils";
@@ -23,24 +23,20 @@ import {
   FieldType,
   InputFieldValue,
   Product,
-  Row,
   SubProduct
 } from "../../models/types";
-import { TravelersInputForm } from "../organisms/TravelersForm";
 import set from "lodash/set";
-import FieldsetRadio from "../bits/FieldSetRadio";
+import FieldsetRadio from "../bits/FieldsetRadio";
 
-export interface InputForm {
-  [index: string]: InputFieldValue | { [index: string]: InputFieldValue };
-}
+export type InputForm = Record<string,InputFieldValue> 
 
 function QuoteCriteria() {
   function getPreselectedProduct(products: Product[]) {
     return products.find((product) => product.isPreselected === true);
   }
 
-  function getPreselectedSubProduct(subPoducts: SubProduct[]) {
-    return subPoducts.find((subPoduct) => subPoduct.isPreselected === true);
+  function getPreselectedSubProduct(subProducts: SubProduct[]) {
+    return subProducts.find((subProduct) => subProduct.isPreselected === true);
   }
 
   function getSelectedProduct(
@@ -93,26 +89,20 @@ function QuoteCriteria() {
   ) {
     const validationSchema = {};
     if (selectedSubProduct) {
-      selectedSubProduct.criterias.map((row) =>
-        row.map((field: Field) => {
-          /* if (field.name.includes(".")) {
-            set(
-              validationSchema,
-              field.name.split(".")[0],
-              yup
-                .object()
-                .shape(
-                  set(
-                    {},
-                    field.name.split(".")[1],
-                    getValidationForField(field)
-                  )
-                )
-            );
-          } */
-          set(validationSchema, field.name, getValidationForField(field));
-        })
-      );
+      selectedSubProduct.criterias.flat().forEach((field: Field) => {
+        /*         if (field.type === FieldType.DATE_RANGE) {
+          set(
+            validationSchema,
+            field.name.replace(".", "-"),
+            getValidationForField(field)
+          );
+        } else { */
+        set(
+          validationSchema,
+          field.name.replace(".", "-"),
+          getValidationForField(field)
+        );
+      });
     }
     return validationSchema;
   }
@@ -132,7 +122,7 @@ function QuoteCriteria() {
           fieldValidationSchema = fieldValidationSchema.min(field.options.min);
         }
         if (field.options?.max) {
-          fieldValidationSchema = fieldValidationSchema.min(field.options.max);
+          fieldValidationSchema = fieldValidationSchema.max(field.options.max);
         }
     }
     //TO-TO: do the rest of the cases
@@ -153,12 +143,11 @@ function QuoteCriteria() {
       return { ...storeCriteria };
     }
     if (selectedSubProduct)
-      selectedSubProduct.criterias.map((row: Row) =>
-        row.map((field: Field) => {
-          if (field.default_value || field.default_value === 0)
-            set(defaultValues, field.name, field.default_value);
-        })
-      );
+      selectedSubProduct.criterias.flat().forEach((field: Field) => {
+        //for each
+        if (typeof field.default_value !== "undefined")
+          set(defaultValues, field.name.replace(".", "-"), field.default_value); //Object.forEntries
+      });
     return defaultValues;
   }
 
@@ -198,14 +187,14 @@ function QuoteCriteria() {
     handleSubmit,
     watch,
     reset
-  } = useForm<TravelersInputForm | InputForm>({
+  } = useForm<InputForm>({
     values: getDefaultValues(selectedSubProduct, storeCriteria), //adding default values once a Sub Product is selected,
     //so numeric inputs won't initialize to ""
-    shouldFocusError: false // otherwise throws when focusing date input
+    shouldFocusError: false, // otherwise throws when focusing date input
     // TO-DO: fix on focus problem
-    /*         resolver: yupResolver(
+    resolver: yupResolver(
       yup.object().shape(getValidationSchemaObject(selectedSubProduct))
-    ) */
+    )
   });
 
   async function masterSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -215,10 +204,12 @@ function QuoteCriteria() {
     await basicHandleSubmit((basicFormData) => {
       quote = { ...quote, ...basicFormData };
       handleSubmit((formData) => {
+        console.log("form plain", formData);
         const serializableFormData = toSerializableData(formData) as InputForm;
         quote = { ...quote, ...serializableFormData };
-        console.log(quote);
+        console.log("form serilizable", quote);
         dispatch(submitQuoteCriteria(quote));
+        console.log("nestedform", getNestedObjectForm(quote));
         new Promise((resolver) => {
           // MOCK API POST
           setIsLoading(true);
@@ -226,7 +217,7 @@ function QuoteCriteria() {
         })
           .then((mockQuote) => {
             dispatch(submitQuote(mockQuote as Quote));
-            navigate("/quotes");
+            /*   navigate("/quotes"); */
           })
           .finally(() => setIsLoading(false));
       })(event);
@@ -259,12 +250,10 @@ function QuoteCriteria() {
             </legend>
             <div className="mt-2 flex grow flex-wrap">
               <FieldsetRadio
+                id="product"
                 asButton={true}
-                items={products}
-                errors={getErrors({
-                  errors: basicErrors,
-                  inputName: "product"
-                })}
+                items={products} //TO-DO: mapeo para recibir solo lo que necesito
+                errors={basicErrors.product?.message}
                 {...basicRegister("product")}
                 onChange={handleProductChange}
               ></FieldsetRadio>
@@ -277,12 +266,10 @@ function QuoteCriteria() {
               </legend>
               <div className="mt-2 flex flex-auto flex-wrap">
                 <FieldsetRadio
-                  asButton={false}
+                  id="subproduct"
+                  asButton={true}
                   items={selectedProduct.sub_products}
-                  errors={getErrors({
-                    errors: basicErrors,
-                    inputName: "subproduct"
-                  })}
+                  errors={basicErrors.subproduct?.message}
                   {...basicRegister("subproduct")}
                 ></FieldsetRadio>
               </div>
@@ -304,14 +291,15 @@ function QuoteCriteria() {
                         )
                           return;
                       }
+                      const registerName = getRegisterName({
+                        inputName: field.name
+                      });
                       return (
-                        <FieldSwitcher //TO-DO: recibo directamente el register desestructarado
+                        <FieldSwitcher
                           key={field.name}
                           field={field}
-                          {...register(
-                            getRegisterName({ inputName: field.name })
-                          )}                    
-                          errors={getErrors({ errors, inputName: field.name })}
+                          {...register(registerName)}
+                          errors={errors[registerName]?.message}
                           control={control}
                         ></FieldSwitcher>
                       );

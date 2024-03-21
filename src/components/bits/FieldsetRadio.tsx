@@ -11,7 +11,7 @@ interface FieldsetRadioPropsType {
   }[];
   id: string | number;
   label?: string;
-  description?: string ;
+  description?: string;
   errors?: string;
   asButton?: boolean;
   valuesAsColumn?: boolean;
@@ -22,11 +22,21 @@ const FieldsetRadio = forwardRef<
   ComponentPropsWithoutRef<"input"> & FieldsetRadioPropsType
 >(
   (
-    { items, label, id, errors, valuesAsColumn, asButton, required, description, ...rest },
+    {
+      items,
+      label,
+      id,
+      errors,
+      valuesAsColumn,
+      asButton,
+      required,
+      description,
+      ...rest
+    },
     ref
   ) => {
     const { t } = useTranslation("global"); //TO-DO: obtener label ya traducido
-  
+
     return (
       <fieldset className="flex-col">
         {label && (
@@ -48,8 +58,7 @@ const FieldsetRadio = forwardRef<
                 key={item.value + index}
                 className={clsx(
                   "h-max",
-                  asButton &&
-                    "mr-4 mb-4 w-[30%] text-center min-w-[fit-content]",
+                  asButton && "mr-4 text-center min-w-[fit-content]",
                   !asButton && "mr-8 flex items-center"
                 )}
               >
@@ -85,10 +94,10 @@ const FieldsetRadio = forwardRef<
         </div>
         <Errors message={errors} />
         {description && (
-        <div className="text-xs  text-gray-400 tracking-wide leading-6">
-          {description}
-        </div>
-      )}
+          <div className="text-xs  text-gray-400 tracking-wide leading-6">
+            {description}
+          </div>
+        )}
       </fieldset>
     );
   }
