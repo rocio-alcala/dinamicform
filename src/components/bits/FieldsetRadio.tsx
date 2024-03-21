@@ -34,6 +34,28 @@ const FieldsetRadio = forwardRef<
     },
     ref
   ) => {
+    const itemsContainerClassName = clsx(
+      "mb-5 mt-2",
+      valuesAsColumn && "flex-col",
+      !valuesAsColumn && "flex flex-wrap"
+    );
+    const divContainerClassName = clsx(
+      "h-max",
+      asButton && "mr-4 text-center min-w-[fit-content]",
+      !asButton && "mr-8 flex items-center"
+    );
+    const inputClassName = clsx(
+      "peer",
+      asButton && "hidden",
+      !asButton && "h-5 w-5"
+    );
+    const labelClassName = clsx(
+      "my-2 p-5 block w-full ",
+      asButton &&
+        "border-2 rounded-md hover:border-blue-500 hover:ring cursor-pointer peer-checked:border-blue-500 bg-white peer-disabled:bg-[#f5f5f5]",
+      !asButton && "cursor-pointer peer-checked:text-blue-900"
+    );
+
     return (
       <fieldset className="flex-col">
         {label && (
@@ -42,45 +64,20 @@ const FieldsetRadio = forwardRef<
             {required && <span className="text-red-500">*</span>}
           </legend>
         )}
-        <div
-          className={clsx(
-            "mb-5 mt-2",
-            valuesAsColumn && "flex-col",
-            !valuesAsColumn && "flex flex-wrap"
-          )}
-        >
+        <div className={itemsContainerClassName}>
           {items.map((item, index) => {
             return (
-              <div
-                key={item.value + index}
-                className={clsx(
-                  "h-max",
-                  asButton && "mr-4 text-center min-w-[fit-content]",
-                  !asButton && "mr-8 flex items-center"
-                )}
-              >
+              <div key={item.value + index} className={divContainerClassName}>
                 <input
                   id={item.value + id}
                   ref={ref}
-                  className={clsx(
-                    "peer",
-                    asButton && "hidden",
-                    !asButton && "h-5 w-5"
-                  )}
+                  className={inputClassName}
                   type="radio"
                   value={item.value}
                   aria-label={item.label}
                   {...rest}
                 ></input>
-                <label
-                  htmlFor={item.value + id}
-                  className={clsx(
-                    "my-2 p-5 block w-full ",
-                    asButton &&
-                      "border-2 rounded-md hover:border-blue-500 hover:ring cursor-pointer peer-checked:border-blue-500 bg-white peer-disabled:bg-[#f5f5f5]",
-                    !asButton && "cursor-pointer peer-checked:text-blue-900"
-                  )}
-                >
+                <label htmlFor={item.value + id} className={labelClassName}>
                   <span className="text-xl font-bold text-gray-900 tracking-wide leading-6">
                     {item.label ? item.label : item.value}
                   </span>
