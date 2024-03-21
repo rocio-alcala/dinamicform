@@ -1,37 +1,42 @@
-import { useTranslation } from "react-i18next";
+import { ComponentPropsWithoutRef, forwardRef } from "react";
+import Errors from "./Errors";
 
 interface InputCheckBokSpecificProps {
-  inputRef?: React.LegacyRef<HTMLInputElement>;
+  id: string | number ;
+  description?: string ;
   label?: string;
-  groupName?: string;
+  errors?: string;
 }
 
-export default function InputCheckBox({
-  inputRef,
-  groupName,
-  label,
-  ...restProps
-}: React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
-> &
-  InputCheckBokSpecificProps) {
-    const { t } = useTranslation("global");
+const InputCheckBox = forwardRef<
+  HTMLInputElement,
+  ComponentPropsWithoutRef<"input"> & InputCheckBokSpecificProps
+>(({ label, errors, required, description, ...restProps }, ref) => {
   return (
-    <label className="flex items-center">
-      <input
-        className="h-5 w-5 text-indigo-600"
-        name={groupName}
-        ref={inputRef}
-        type="checkbox"
-        aria-label={label}
-        {...restProps}
-      ></input>
-      {label ? (
-        <span className="inline pl-3 text-xl font-bold text-gray-900">
-          {t(label)}
-        </span>
-      ) : null}
-    </label>
+    <>
+      <label className="flex items-center">
+        <input
+          className="h-5 w-5 text-indigo-600"
+          ref={ref}
+          type="checkbox"
+          aria-label={label}
+          {...restProps}
+        ></input>
+        {label && (
+          <legend className="mb-1 block text-xl font-bold text-gray-900 tracking-wide leading-6">
+            {label}
+            {required && <span className="text-red-500">*</span>}
+          </legend>
+        )}
+      </label>
+      <Errors message={errors} />
+            {description && (
+        <div className="text-xs  text-gray-400 tracking-wide leading-6">
+          {description}
+        </div>
+      )}
+    </>
   );
-}
+});
+
+export default InputCheckBox;

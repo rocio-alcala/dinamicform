@@ -1,7 +1,6 @@
-// to-do: rename file to formUtils.ts
 import { FieldErrors } from "react-hook-form";
 import { InputForm } from "../components/organisms/QuoteForm";
-import _ from 'lodash';
+import _, { set } from "lodash";
 import {
   TravelerType,
   TravelersInputForm
@@ -20,16 +19,24 @@ export function getRegisterName({
 }: GetRegisterNameType) {
   if (nestedParent) {
     if (travelerIndex || travelerIndex === 0) {
-      return `${nestedParent}[${travelerIndex}].${inputName}`;
+      return `${nestedParent}.${travelerIndex}.${inputName}`.replace(".", "-");
     } else {
-      return `${nestedParent}.${inputName}`;
+      return `${nestedParent}.${inputName}`.replace(".", "-");
     }
   } else {
-    return inputName;
+    return inputName.replace(".", "-");
   }
 }
 
-interface GetErrorsType {
+export function getNestedObjectForm(flatForm: InputForm) {
+  const nestedForm = {};
+  for (const formKey in flatForm) {
+    set(nestedForm, formKey.replace("-","."), flatForm[formKey]);
+  }
+  return nestedForm
+}
+
+/* interface GetErrorsType {
   errors: FieldErrors<InputForm> | FieldErrors<TravelersInputForm>;
   inputName: string;
   nestedParent?: string;
@@ -54,10 +61,10 @@ export function getErrors({
       }
     }
   }
-}
+} */
 
 export function toSerializableData(objectData: InputForm | TravelersInputForm) {
-  const serializableObjectData = _.cloneDeep(objectData)
+  const serializableObjectData = _.cloneDeep(objectData);
   function serializableObject(object: any) {
     for (const key in object) {
       if (object[key] instanceof Date) {

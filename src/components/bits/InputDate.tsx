@@ -1,33 +1,34 @@
+import { ComponentPropsWithoutRef, forwardRef } from "react";
 import DatePicker, {
   ReactDatePicker,
   ReactDatePickerProps
 } from "react-datepicker";
-import { useTranslation } from "react-i18next";
+import Errors from "./Errors";
 
 interface InputDateSpecificProps {
-  inputRef?: React.LegacyRef<ReactDatePicker>;
-  label: string;
-  value?: string | undefined | Date;
+  id: string | number ;
+ description?: string ;
+  label?: string;
+  selectedValue?: Date | null | undefined
+  errors?: string
 }
 
-export default function InputDate({
-  value,
-  inputRef,
-  showIcon,
-  minDate,
-  label,
-  name,
-  ...restProps
-}: ReactDatePickerProps & InputDateSpecificProps) {
-  const { t } = useTranslation("global");
+const InputDate = forwardRef<
+  ReactDatePicker,
+  ComponentPropsWithoutRef<"input"> &
+    InputDateSpecificProps &
+    ReactDatePickerProps
+>(({ selectedValue, showIcon, errors, label, id, required, description,  ...restProps }, ref) => {
+
   return (
     <>
-      <label htmlFor={label + name}>
-        {label ? (
-          <span className="mb-1 block text-xl font-bold text-gray-900 tracking-wide leading-6">
-            {t(label)}
-          </span>
-        ) : null}
+      <label htmlFor={id}>
+      {label && (
+          <legend className="mb-1 block text-xl font-bold text-gray-900 tracking-wide leading-6">
+            {label}
+            {required && <span className="text-red-500">*</span>}
+          </legend>
+        )}
       </label>
       <div className="mt-2 mb-5">
         <DatePicker
@@ -36,13 +37,20 @@ export default function InputDate({
           customInput={<input className="h-14 text-xl text-center px-12" />}
           showIcon={showIcon}
           calendarIconClassname="mt-[10px] ml-[10px] text-xl"
-          ref={inputRef}
-          selected={value ? new Date(value) : null}
-          minDate={minDate}
+          ref={ref}
+          selected={selectedValue}
+          id={id}
           {...restProps}
-          id={label + name}
         />
       </div>
+      <Errors message={errors} />
+      {description && (
+        <div className="text-xs  text-gray-400 tracking-wide leading-6">
+          {description}
+        </div>
+      )}
     </>
   );
-}
+});
+
+export default InputDate;

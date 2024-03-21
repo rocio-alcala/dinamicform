@@ -1,90 +1,69 @@
 export interface Product {
   isPreselected: boolean;
-  isRequired: boolean;
   label: string;
-  summaryLabel: string;
-  name: string;
   value: string;
-  valueSummaryLabel: string;
-  subProductGroups: SubProduct[];
+  description: string;
+  sub_products: SubProduct[];
 }
 
-export interface SubProduct extends Omit<Product, "subProductGroups"> {
-  steps: Step[];
+export interface SubProduct {
+  isPreselected: boolean;
+  label: string;
+  value: string;
+  description: string;
+  criterias: Row[];
 }
 
-export enum StepType {
+export enum FieldType {
   TEXT = "text",
   LIST = "list",
-  COUNTER = "counter",
+  COUNTER = "number",
   DATE_RANGE = "date-range",
   DATE = "date",
   CURRENCY = "currency",
   CHECKBOX = "checkbox"
 }
+/* export type FormFields = Row[]; */
 
-export interface Step {
-  isRequired?: boolean;
+export type Row = Field[];
+
+export interface Field {
+  name: string;
   label: string;
-  name?: string;
-  quickLabel?: string;
-  summaryLabel: string;
-  desc?: string;
-  type?: StepType;
-  // values: ListValue[] | CounterValue[] | CurrencyValue[] | DateValue[] | DateRangeValue[];
-  values: any[];
+  description?: string;
+  type?: FieldType;
+  required?: boolean;
+  labelEnd?: string;
+  labelStart?: string;
+  nameEnd?: string;
+  nameStart?: string;
+  placeholder?: string;
+  options?: {
+    asButton?: boolean;
+    min?: number;
+    max?: number;
+    step?: number;
+    maxStart?: number;
+    maxEnd?: number;
+    minEnd?: number;
+    minStart?: number;
+    validations?: string[];
+  };
+  items?: Item[];
+  default_value?: string | number;
+  conditional_field?: { field: string; value: InputFieldValue };
 }
 
-export interface ListValue {
-  asButton: boolean;
-  name: string;
-  desc: string;
-  label: string;
-  summaryLabel: string;
+export interface Item {
   value: string;
-}
-
-export interface CounterValue {
-  name: string;
   label: string;
-  summaryLabel: string;
-  desc: string;
-  isRequired: boolean;
-  min: number;
-  max: number;
+  description?: string;
 }
 
-export interface DateValue {
-  isRequired: boolean;
-  label: string;
-  summaryLabel: string;
-  max: number;
-  min: number;
-  nameStart: string;
-  name: string;
-  type: string;
-}
-
-export interface DateRangeValue {
-  isRequired: boolean;
-  labelEnd: string;
-  summaryLabelEnd: string;
-  labelStart: string;
-  summaryLabelStart: string;
-  maxStart: number;
-  maxEnd: number;
-  minEnd: number;
-  minStart: number;
-  nameEnd: string;
-  nameStart: string;
-}
-
-export interface CurrencyValue {
-  currency: string;
-  desc: string;
-  max: number;
-  min: number;
-  name: string;
-  type: string;
-  label: string
-}
+export type InputFieldValue =
+  | string
+  | number
+  | undefined
+  | Date
+  | null
+  | boolean;
