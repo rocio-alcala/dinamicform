@@ -60,13 +60,9 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
             {...restProps}
           />
         );
-            case FieldType.DATE_RANGE:
+      case FieldType.DATE_RANGE:
         return (
-          <FieldDateRange
-            field={field}
-            control={control}
-            {...restProps}
-          />
+          <FieldDateRange field={field} control={control} {...restProps} />
         );
       case FieldType.DATE:
         return (
@@ -74,12 +70,11 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
             name={name}
             control={control}
             render={({ field: renderField }) => {
-              const { value, ...rest } = renderField;
-              // check value
+              const { value , ...rest } = renderField;
+              // check value type number or boolean not assignable to InputDate
               if (
-                typeof value !== "undefined" &&
-                typeof value !== "string" &&
-                !(value instanceof Date)
+                typeof value === "number" ||
+                typeof value === "boolean" 
               ) {
                 throw new Error(
                   `Value for field of type date is not valid: ${value}`
@@ -88,17 +83,17 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
               return (
                 <div>
                   <InputDate
-                    value={value instanceof Date ? value.toDateString() : value}
+                    selectedValue={typeof value === "string" ? new Date(value) : value} //check and transform value type string
                     label={t(field.label)}
                     required={field.required}
                     id={name}
                     maxDate={
-                      field.options?.max || field.options?.max === 0
+                     typeof field.options?.max === "number"
                         ? addDays(new Date(), field.options.max)
                         : undefined
                     }
                     minDate={
-                      field.options?.min || field.options?.min === 0
+                      typeof field.options?.min === "number"
                         ? addDays(new Date(), field.options?.min)
                         : undefined
                     }

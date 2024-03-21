@@ -9,7 +9,7 @@ interface InputDateSpecificProps {
   id: string | number ;
  description?: string ;
   label?: string;
-  value?: string | undefined | Date;
+  selectedValue?: Date | null | undefined
   errors?: string
 }
 
@@ -18,7 +18,7 @@ const InputDate = forwardRef<
   ComponentPropsWithoutRef<"input"> &
     InputDateSpecificProps &
     ReactDatePickerProps
->(({ value, showIcon, errors, label, id, required, description,  ...restProps }, ref) => {
+>(({ selectedValue, showIcon, errors, label, id, required, description,  ...restProps }, ref) => {
 
   return (
     <>
@@ -38,7 +38,7 @@ const InputDate = forwardRef<
           showIcon={showIcon}
           calendarIconClassname="mt-[10px] ml-[10px] text-xl"
           ref={ref}
-          selected={value ? new Date(value) : null}
+          selected={selectedValue}
           id={id}
           {...restProps}
         />
