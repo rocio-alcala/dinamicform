@@ -57,7 +57,7 @@ const FieldsetRadio = forwardRef<
     );
 
     return (
-      <fieldset className="flex-col">
+      <fieldset>
         {label && (
           <legend className="text-xl font-bold text-gray-900 tracking-wide leading-6">
             {label}

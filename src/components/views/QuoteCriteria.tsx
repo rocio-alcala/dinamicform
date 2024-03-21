@@ -90,18 +90,24 @@ function QuoteCriteria() {
     const validationSchema = {};
     if (selectedSubProduct) {
       selectedSubProduct.criterias.flat().forEach((field: Field) => {
-        /*         if (field.type === FieldType.DATE_RANGE) {
+        if (field.type === FieldType.DATE_RANGE) { //TO-DO: implementar flatmap
+          set(
+            validationSchema,
+            field.nameStart!.replace(".", "-"),
+            getValidationForField(field)
+          );
+          set(
+            validationSchema,
+            field.nameEnd!.replace(".", "-"),
+            getValidationForField(field)
+          );
+        } else {
           set(
             validationSchema,
             field.name.replace(".", "-"),
             getValidationForField(field)
           );
-        } else { */
-        set(
-          validationSchema,
-          field.name.replace(".", "-"),
-          getValidationForField(field)
-        );
+        }
       });
     }
     return validationSchema;
@@ -113,23 +119,23 @@ function QuoteCriteria() {
       case FieldType.TEXT:
         fieldValidationSchema = yup.string();
         if (field.options?.validations?.includes("email")) {
-          fieldValidationSchema = fieldValidationSchema.email();
+          fieldValidationSchema = fieldValidationSchema.email(`${t(field.label)} needs to be type email`);
         }
         break;
       case FieldType.COUNTER:
         fieldValidationSchema = yup.number();
         if (field.options?.min) {
-          fieldValidationSchema = fieldValidationSchema.min(field.options.min);
+          fieldValidationSchema = fieldValidationSchema.min(field.options.min,`${t(field.label)} minimo es ${field.options.min}`);
         }
         if (field.options?.max) {
-          fieldValidationSchema = fieldValidationSchema.max(field.options.max);
+          fieldValidationSchema = fieldValidationSchema.max(field.options.max, `${t(field.label)} maximo es ${field.options.max}`);
         }
     }
     //TO-TO: do the rest of the cases
     if (field.required) {
       fieldValidationSchema = fieldValidationSchema
-        ? fieldValidationSchema.required()
-        : yup.string().required();
+        ? fieldValidationSchema.required(`${t(field.label)} is required`)
+        : yup.string().required(`${t(field.label)} is required`);
     }
     return fieldValidationSchema;
   }
@@ -144,7 +150,6 @@ function QuoteCriteria() {
     }
     if (selectedSubProduct)
       selectedSubProduct.criterias.flat().forEach((field: Field) => {
-        //for each
         if (typeof field.default_value !== "undefined")
           set(defaultValues, field.name.replace(".", "-"), field.default_value); //Object.forEntries
       });
@@ -179,6 +184,8 @@ function QuoteCriteria() {
       selectedProduct.sub_products,
       selectedSubProductValue
     );
+
+  console.log("validarion schema",getValidationSchemaObject(selectedSubProduct));
 
   const {
     register,
@@ -294,14 +301,16 @@ function QuoteCriteria() {
             <>
               {selectedSubProduct.criterias.map((row, rowIndex) => {
                 return (
-                  <div className="flex" key={rowIndex}>
+                  <div
+                    className="flex"
+                    key={rowIndex + selectedSubProduct.value}
+                  >
                     {/* TO-DO: poner otra key */}
                     {row.map((field) => {
                       if (field.conditional_field) {
                         if (
-                          !field.conditional_field.value.includes(
-                            watch(field.conditional_field.field)
-                          )
+                          field.conditional_field.value !==
+                          watch(field.conditional_field.field.replace(".", "-"))
                         )
                           return;
                       }
@@ -313,7 +322,7 @@ function QuoteCriteria() {
                           key={field.name}
                           field={field}
                           {...register(registerName)}
-                          errors={errors[registerName]?.message}
+                          errors={errors}
                           control={control}
                         ></FieldSwitcher>
                       );

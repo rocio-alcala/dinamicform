@@ -51,7 +51,7 @@ export interface Field {
   };
   items?: Item[];
   default_value?: string | number;
-  conditional_field?: { field: string; value: string[] | number[] };
+  conditional_field?: { field: string; value: InputFieldValue };
 }
 
 export interface Item {

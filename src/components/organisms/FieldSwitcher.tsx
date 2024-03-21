@@ -1,5 +1,5 @@
 import "react-datepicker/dist/react-datepicker.css";
-import { Control, Controller } from "react-hook-form";
+import { Control, Controller, FieldErrors } from "react-hook-form";
 import { Field, FieldType } from "../../models/types";
 import { ChangeEvent, forwardRef } from "react";
 import InputCounter from "../bits/InputCounter";
@@ -17,30 +17,32 @@ interface FieldSwitcherProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
   name: string;
-  control: Control<InputForm>; 
-  errors?: string;
+  control: Control<InputForm>;
+  errors: FieldErrors<InputForm>;
   disabled?: boolean;
 }
 
 //control prop is only used in type DATE,
 
 const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
-  ({ field, control, name, ...restProps }, ref) => {
+  ({ field, errors, control, name, ...restProps }, ref) => {
     const { t } = useTranslation("global");
 
     switch (field.type) {
       case FieldType.LIST:
         return (
           <FieldsetRadio
-            items={field.items!.map((item) => { // items! bc items is a conditional property in Field but must always come in type LIST
+            items={field.items!.map((item) => {
+              // items! bc items is a conditional property in Field but must always come in type LIST
               return { ...item, label: t(item.label) }; // label transcription
-            })} 
+            })}
             name={name}
             id={name}
             asButton={field.options?.asButton}
             label={t(field.label)}
             ref={ref}
             required={field.required}
+            errors={errors[name]?.message}
             description={field.description && t(field.description)}
             {...restProps}
           />
@@ -56,13 +58,20 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
             name={name}
             required={field.required}
             id={name}
+            errors={errors[name]?.message}
+            placeholder={field.placeholder && t(field.placeholder)}
             description={field.description && t(field.description)}
             {...restProps}
           />
         );
       case FieldType.DATE_RANGE:
         return (
-          <FieldDateRange field={field} control={control} {...restProps} />
+          <FieldDateRange
+            field={field}
+            control={control}
+            errors={errors}
+            {...restProps}
+          />
         );
       case FieldType.DATE:
         return (
@@ -70,12 +79,9 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
             name={name}
             control={control}
             render={({ field: renderField }) => {
-              const { value , ...rest } = renderField;
+              const { value, ...rest } = renderField;
               // check value type number or boolean not assignable to InputDate
-              if (
-                typeof value === "number" ||
-                typeof value === "boolean" 
-              ) {
+              if (typeof value === "number" || typeof value === "boolean") {
                 throw new Error(
                   `Value for field of type date is not valid: ${value}`
                 );
@@ -83,12 +89,14 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
               return (
                 <div>
                   <InputDate
-                    selectedValue={typeof value === "string" ? new Date(value) : value} //check and transform value type string
+                    selectedValue={
+                      typeof value === "string" ? new Date(value) : value
+                    } //check and transform value type string
                     label={t(field.label)}
                     required={field.required}
                     id={name}
                     maxDate={
-                     typeof field.options?.max === "number"
+                      typeof field.options?.max === "number"
                         ? addDays(new Date(), field.options.max)
                         : undefined
                     }
@@ -99,6 +107,7 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
                     }
                     showIcon={true}
                     description={field.description && t(field.description)}
+                    errors={errors[name]?.message}
                     {...restProps}
                     {...rest}
                   />
@@ -110,7 +119,6 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
       case FieldType.CURRENCY:
         return (
           <InputCounter
-            placeholder={field.placeholder}
             min={field.options?.min}
             max={field.options?.max}
             step={field.options?.step}
@@ -119,7 +127,9 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
             name={name}
             required={field.required}
             id={name}
+            placeholder={field.placeholder && t(field.placeholder)}
             description={field.description && t(field.description)}
+            errors={errors[name]?.message}
             {...restProps}
           />
         );
@@ -132,6 +142,7 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
             name={name}
             required={field.required}
             description={field.description && t(field.description)}
+            errors={errors[name]?.message}
             {...restProps}
           />
         );
@@ -145,6 +156,8 @@ const FieldSwitcher = forwardRef<HTMLInputElement, FieldSwitcherProps>(
             required={field.required}
             id={name}
             description={field.description && t(field.description)}
+            placeholder={field.placeholder && t(field.placeholder)}
+            errors={errors[name]?.message}
             {...restProps}
           />
         );
